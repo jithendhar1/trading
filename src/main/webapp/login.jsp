@@ -32,7 +32,7 @@
                         <h3 class="account-title"> Login</h3>
                         <!-- Account Form -->
                         <!-- <form method="post" action="./CustomerLoginSrv"> -->
-                         <form method="post" action="./LoginSrv"> 
+                         <form method="post" action="./EmpLoginSrv"> 
                             <div class="form-group">
                                 <label>User name</label>
                                 <input class="form-control" id="phno"  name="phno" required type="text">
