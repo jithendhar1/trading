@@ -1,10 +1,10 @@
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import="Imp.DepositServiceImpl" %>
-<%@ page import="beans.DepositBean" %>
+<%@ page import="Imp.ROIServiceImpl" %>
+<%@ page import="beans.ROIBean" %>
 <%@ page import="java.util.List" %>
-<%@page import="DAO.DepositDAO"%>
+<%@page import="DAO.ROIDAO"%>
 <%
     // Getting the username from the session
     String username = (String)session.getAttribute("customername");
@@ -105,14 +105,14 @@ if (newRecordsPerPageParam != null) {
 							<div id="welcomeMessage" style="text-align: center; margin-top: 20px; font-size: 24px;">
                                 Welcome  <%= username%>!
                               </div>
-								<h3 class="page-title">Deposit</h3>
+								<h3 class="page-title">ROI</h3>
 								<!-- <ul class="breadcrumb">
 									<li class="breadcrumb-item"><a href="index.jsp">Dashboard</a></li>
 									<li class="breadcrumb-item active">Tasks</li>
 								</ul> -->
 							</div>
 							<div class="col-auto float-right ml-auto">
-							<a href="#" class="btn add-btn" data-toggle="modal" data-target="#adddeposit"><i class="fa fa-plus"></i> Add Deposit</a>
+							<a href="#" class="btn add-btn" data-toggle="modal" data-target="#addroi"><i class="fa fa-plus"></i> Add ROI</a>
 							</div>
 						</div>
 					</div>
@@ -147,12 +147,11 @@ if (newRecordsPerPageParam != null) {
 								<table>
 									<thead>
 										<tr>
-							
-											<th>DepositID</th>
-											<th>AccountID </th>
-									        <th>DepositDate</th>
-									        <th>Amount</th>
-									        <th>userID</th>
+											<th>TransactionID</th>
+											<th>userID </th>
+									        <th>ROIAmount</th>
+									        <th>OpenAmount</th>
+									        <th>ClosingAmount</th>
 									        <th>Edit</th>
 									         <th>Delete</th>    
 										</tr>
@@ -174,7 +173,7 @@ start = (pageno - 1) * limit;
 // pagenation code ended
 String usernameFilter = request.getParameter("AccountID");
 String idFilter = request.getParameter("DepositID");
-List<DepositBean> tax;
+List<ROIBean> tax;
 
 String whereClause = ""; // Initialize an empty whereClause
 
@@ -189,31 +188,32 @@ if (idFilter != null && !idFilter.isEmpty()) {
     whereClause += "DepositID = '" + idFilter + "'";
 }
 // page
-int recordcount = DepositDAO.totalCount();
+int recordcount = ROIDAO.totalCount();
 
 noOfPages = (int) Math.ceil((double) recordcount / limit);
 // pagee
 if (!whereClause.isEmpty()) {
     // Apply the whereClause condition
-	 tax = DepositDAO.getFilteredDeposits(whereClause, start, limit);
+	 tax = ROIDAO.getFilteredROI(whereClause, start, limit);
 } else {
     // Retrieve all data based on the limit
-	tax = DepositDAO.getFilteredDeposits("", start, limit);
+	tax = ROIDAO.getFilteredROI("", start, limit);
 }
-for (DepositBean tasks : tax) {
+for (ROIBean tasks : tax) {
 	
 %>
 <tr>
-    <td><%=tasks.getDepositID() %></td>
-    <td><%=tasks.getAccountID()%></td>
-    <td><%=tasks.getDepositDate() %></td>
-    <td><%=tasks.getAmount()  %></td>
-    <td><%=tasks.getUserID() %></td>
+    <td><%=tasks.getTransactionID() %></td>
+   <td><%=tasks.getUserID() %></td>
+   <td><%=tasks.getROIAmount() %></td>
+   <td><%=tasks.getModifiedDate() %></td>
+   <td><%=tasks.getOpenAmount() %></td>
+   <td><%=tasks.getClosingAmount() %></td>
     <td>
-        <a href="deposit_edit.jsp?vehicleID=<%= tasks.getDepositID()%>">Edit</a>
+        <a href="deposit_edit.jsp?vehicleID=<%= tasks.getTransactionID()%>">Edit</a>
     </td>
     <td>
-        <a href="DeleteVechicleSrv?VehicleID=<%= tasks.getDepositID()%>">Delete</a> 
+        <a href="DeleteVechicleSrv?VehicleID=<%= tasks.getTransactionID()%>">Delete</a> 
     </td>
 </tr>
 <%
@@ -249,7 +249,7 @@ for (DepositBean tasks : tax) {
 				<!-- /Page Content -->
 				
 				<!-- Add Tax Modal -->
-				 <jsp:include page="deposit_add.jsp" />
+				 <jsp:include page="roi_add.jsp" />
 				<!-- /Add Tax Modal -->
 				
 				<%-- <!-- Edit Tax Modal -->

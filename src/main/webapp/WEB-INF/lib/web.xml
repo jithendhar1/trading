@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+    id="WebApp_ID" version="3.1">
+    <display-name>Weblabs</display-name>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+    <!-- Sample listener for JAF initialization (if needed) -->
+<listener>
+    <listener-class>com.example.YourJAFInitializer</listener-class>
+</listener>
+
+<!-- If any context parameters are needed for JAF -->
+<context-param>
+    <param-name>yourJAFParam</param-name>
+    <param-value>yourValue</param-value>
+</context-param>
+    <!-- Define Servlets and Servlet Mappings -->
+    <servlet>
+        <servlet-name>AddEmployeeSrv</servlet-name>
+        <servlet-class>com.weblabs.srv.AddEmployeeSrv</servlet-class>
+    </servlet>   
+     <servlet-mapping>
+        <servlet-name>AddEmployeeSrv</servlet-name>
+        <url-pattern>/AddEmployeeSrv</url-pattern>
+    </servlet-mapping> 
+      <servlet>
+        <servlet-name>SetSessionAttributeServlet</servlet-name>
+        <servlet-class>com.weblabs.srv.SetSessionAttributeServlet</servlet-class>
+    </servlet>   
+     <servlet-mapping>
+        <servlet-name>SetSessionAttributeServlet</servlet-name>
+        <url-pattern>/SetSessionAttributeServlet</url-pattern>
+    </servlet-mapping>
+	<servlet>
+    <servlet-name>UseridOpenAmtservlet</servlet-name>
+    <servlet-class>your.package.path.UseridOpenAmtservlet</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>UseridOpenAmtservlet</servlet-name>
+    <url-pattern>/UseridOpenAmtservlet</url-pattern>
+</servlet-mapping>
+	
+
+
+<context-param>
+    <param-name>gson-version</param-name>
+    <param-value>2.8.8</param-value>
+</context-param>
+
+
+</web-app>
+
+
