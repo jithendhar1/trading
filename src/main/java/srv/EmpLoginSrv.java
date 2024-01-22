@@ -15,38 +15,51 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import beans.CustomerBean;
 import utility.DBUtil;
 
 @WebServlet("/EmpLoginSrv")
 public class EmpLoginSrv extends HttpServlet {
-
 	private static final long serialVersionUID = 1L;
 
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
-
-		if (validate(request, username, password)) {
-
-			response.sendRedirect("admin_dashboard.jsp");
-		} else {
-			String errorMessage = "Invalid username or password";
-			request.setAttribute("error", errorMessage);
-			request.setAttribute("wrongusername", "true"); // Set wrongusername attribute
-			RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-			rd.forward(request, response);
-		}
-
+	public EmpLoginSrv() {
+		super();
 	}
 
+	 protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	            throws ServletException, IOException {
+	        // You can handle GET requests here if needed
+	    }
+
+	    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	            throws ServletException, IOException {
+	        String username = request.getParameter("username");
+	        String password = request.getParameter("password");
+
+	        if (validate(request, username, password)) {
+	            // Check if the username is for an admin
+	            if ("admin@gmail.com".equals(username)) {
+	                response.sendRedirect("admin_dashboard.jsp");
+	            } else {
+	                response.sendRedirect("user.jsp");
+	            }
+	        } else {
+	            String errorMessage = "Invalid username or password";
+	            request.setAttribute("error", errorMessage);
+	            request.setAttribute("wrongusername", "true"); // Set wrongusername attribute
+	            RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+	            rd.forward(request, response);
+	        }
+	    }
+
+	
 	private boolean validate(HttpServletRequest request, String username, String password) {
 	    Connection con = DBUtil.provideConnection();
 	    PreparedStatement ps = null;
 
 	    try {
-	        String sql = "SELECT users.email, users.username, users.userID,users.RoleID"
+	        // Assuming "users" table has columns "email" and "password"
+	        String sql = "SELECT users.email, users.username, users.userID, users.RoleID"
 	                + " FROM users WHERE email=? AND password=?";
 	        ps = con.prepareStatement(sql);
 	        ps.setString(1, username);
@@ -58,8 +71,7 @@ public class EmpLoginSrv extends HttpServlet {
 	            session.setAttribute("username", result.getString("username"));
 	            session.setAttribute("Email", result.getString("email"));
 	            session.setAttribute("userID", result.getString("userID"));
-	            session.setAttribute("RoleID",result.getString("RoleID"));
-	            // Assuming "userID" is the correct column name
+	            session.setAttribute("RoleID", result.getString("RoleID"));
 
 	            con.close();
 	            return true;
@@ -84,4 +96,6 @@ public class EmpLoginSrv extends HttpServlet {
 
 	    return false;
 	}
+
 }
+

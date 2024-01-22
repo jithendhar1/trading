@@ -8,7 +8,6 @@
 
 <%
 		HttpSession sdsession = request.getSession(true);
-
     // Retrieve the username attribute from the session
     String username = (String) sdsession.getAttribute("userID");
 	  String roleIDString = (String) sdsession.getAttribute("RoleID");
@@ -17,7 +16,6 @@
         response.sendRedirect("login.jsp"); // Change "login.jsp" to your actual login page
     } else {
     	   int roleid = Integer.parseInt(roleIDString);
-
 %> 
 
 
@@ -181,16 +179,7 @@
 
     <!-- Custom JS -->
     <script src="js/app.js"></script>
-    <!-- <script>
-        // JavaScript for expand/collapse functionality
-        var submenuItems = document.querySelectorAll(".submenu");
-        submenuItems.forEach(function (item) {
-            item.addEventListener("click", function () {
-                this.classList.toggle("open");
-            });
-        });
-    </script> -->
-    
+   
     <script>
     // JavaScript for expand/collapse functionality
     var submenuItems = document.querySelectorAll(".submenu");

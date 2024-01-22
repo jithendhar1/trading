@@ -32,14 +32,24 @@
 </head>
 <body>
     <!-- Main Wrapper -->
-    <div class="main-wrapper">
-        <!-- Page Wrapper -->
-        <div class="page-wrapper">
-            <!-- Page Content -->
-            <div class="content container-fluid">
-                <!-- Page Header -->
-                <div class="page-header">
-                    <div class="row">
+<div class="main-wrapper">
+    <!-- Main Wrapper -->
+   <!-- Header -->
+    <!-- Include your header HTML here -->
+    <jsp:include page="header.jsp" />
+
+    <jsp:include page="sidebar.jsp" />
+
+    <!-- Page Wrapper -->
+    <div class="page-wrapper">
+
+        <!-- Page Content -->
+        <div class="content container-fluid">
+
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="row align-items-center">
+                <div class="col">
                         <div class="col-sm-12">
                             <!-- Display welcome message -->
                             <div id="welcomeMessage" style="text-align: center; margin-top: 20px; font-size: 24px;">
@@ -107,7 +117,7 @@
                 </div>
             </div>
         </div>
-
+</div></div>
         <script src="js/jquery-3.2.1.min.js"></script>
         <script src="js/popper.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
