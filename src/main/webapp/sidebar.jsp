@@ -10,7 +10,7 @@
 		HttpSession sdsession = request.getSession(true);
 
     // Retrieve the username attribute from the session
-    String username = (String) sdsession.getAttribute("customerID");
+    String username = (String) sdsession.getAttribute("userID");
 	  String roleIDString = (String) sdsession.getAttribute("RoleID");
     // Check if the user is logged in or redirect to the login page
     if (roleIDString == null) {

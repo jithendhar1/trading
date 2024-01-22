@@ -8,7 +8,7 @@
     <meta name="keywords" content="admin, estimates, bootstrap, business, corporate, creative, management, minimal, modern, accounts, invoice, html5, responsive, CRM, Projects">
     <meta name="author" content="Dreamguys- Boot			strap Admin Template">
     <meta name="robots" content="noindśex, nofollow">
-    <title>Login -  admin</title>
+    <title>Login - WeblabsHrms admin</title>
     <!-- Favicon -->
     <link rel	="shortcut icon" type="image/x-icon" href="assets/logo.png">
     <!-- Bootstrap CSS -->
@@ -16,26 +16,26 @@
     <!-- Fontawesome CSS -->
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <!-- Main CSS -->
-    <link rel="stylesheet" href="css/style.css">
-    
-    
+    <link rel="stylesheet" href="css/style.css">       
 </head>
 <body class="account-page">
     <!-- Main Wrapper -->
     <div class="main-wrapper">
         <div class="account-content">
             <div class="container">
-              
-                
+                <!-- Account Logo -->
+                <div class="account-logo">
+                    <a href="index.jsp"><img src="assets/logo2.png" alt="Company Logo"></a>
+                </div>
+                <!-- /Account Logo -->
                 <div class="account-box">
                     <div class="account-wrapper">
                         <h3 class="account-title"> Login</h3>
                         <!-- Account Form -->
-                        <!-- <form method="post" action="./CustomerLoginSrv"> -->
-                         <form method="post" action="./EmpLoginSrv"> 
+                        <form method="post" action="./EmpLoginSrv">
                             <div class="form-group">
-                                <label>User name</label>
-                                <input class="form-control" id="phno"  name="phno" required type="text">
+                                <label>User Name</label>
+                                <input class="form-control" id="username"  name="username" required type="text">
                             </div>
                             <% if (request.getAttribute("wrongusername") != null) { %>
                                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -51,7 +51,7 @@
                                         <label>Password</label>
                                     </div>
                                 </div>
-                                <input class="form-control" id="otp" name="otp" required type="text">
+                                <input class="form-control" id="password" name="password" required type="password">
                                
                             </div>
                             <% if (request.getAttribute("wrongpassword") != null) { %>
@@ -61,7 +61,9 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                            <% } %>
+                            <% 
+                            }
+                            %>
                             <div class="form-group text-center">
                                 <button href="employee.jsp" class="btn btn-primary account-btn" name="login" type="submit">Login</button>
                                 <div class="col-auto pt-2">
@@ -83,10 +85,8 @@
     <script>
     function validateLogin() {
         // Get the input values
-        var username = document.getElementById('phno').value;
-        console.log("Username: " + username);
-
-        var password = document.getElementById('otp').value;
+        var username = document.getElementById('username').value;
+        var password = document.getElementById('password').value;
 
         // Check if username and password match certain criteria (you can replace this with your validation logic)
         if (username === 'correctUsername' && password === 'correctPassword') {
