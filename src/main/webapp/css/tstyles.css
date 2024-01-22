@@ -1,0 +1,15 @@
+table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white; /* Set the background color to white */
+        }
+
+        th, td {
+            border: 1px solid black; /* Set black solid border for th and td */
+            padding: 8px;
+            text-align: left;
+        }
+        
+        .hidden {
+		    display: none;
+		}

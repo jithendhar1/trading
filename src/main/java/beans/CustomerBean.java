@@ -1,32 +1,37 @@
-package com.weblabs.beans;
+package beans;
 
 public class CustomerBean {
 	
-	private String customerID;
-	private String customername;
+	private String userID;
+	private String username;
 	private String email;
+	private String password;
 	private String phno;
 	private String firstname;
-	private String lastname;	
-	
-	
-	public String getCustomerID() {
-		return customerID;
+	private String lastname;
+	public String getUserID() {
+		return userID;
 	}
-	public void setCustomerID(String customerID) {
-		this.customerID = customerID;
+	public void setUserID(String userID) {
+		this.userID = userID;
 	}
-	public String getCustomername() {
-		return customername;
+	public String getUsername() {
+		return username;
 	}
-	public void setCustomername(String customername) {
-		this.customername = customername;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	public String getEmail() {
 		return email;
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	public String getPhno() {
 		return phno;
@@ -46,6 +51,7 @@ public class CustomerBean {
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}
+	
 
 	
 	

@@ -3,7 +3,7 @@
 <%@ page import="javax.servlet.ServletException, javax.servlet.http.HttpServlet, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse" %>
 <%@ page import="java.io.IOException" %>
 <%@ page import="java.sql.Connection, java.sql.PreparedStatement, java.sql.ResultSet, java.sql.SQLException" %>
-<%@ page import="com.weblabs.utility.DBUtil" %>
+<%@ page import="utility.DBUtil" %>
 <%@ page import="java.util.List" %>
 
 <%

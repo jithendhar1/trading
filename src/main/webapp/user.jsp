@@ -1,19 +1,18 @@
-
 <%@ page import="java.util.Map" %>
 <%@ page import="java.time.LocalDate" %>
 <%@ page import="java.text.DecimalFormat" %>
 <%@ page import="java.math.BigDecimal" %>
 <%
     // Getting the username from the session
-    String username = (String)session.getAttribute("customername");
+    String username = (String)session.getAttribute("username");
 %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <meta name="description" content="Trading Admin Dashboard">
-    <meta name="keywords" content="admin, trading, bootstrap, business, corporate, management, html5, responsive, CRM">
+    <meta name="description" content="User Dashboard">
+    <meta name="keywords" content="user, dashboard, bootstrap, business, management, html5, responsive, CRM">
     <meta name="author" content="Your Company Name">
 
     <!-- Favicon -->
@@ -34,8 +33,6 @@
 <body>
     <!-- Main Wrapper -->
     <div class="main-wrapper">
-       
-        
         <!-- Page Wrapper -->
         <div class="page-wrapper">
             <!-- Page Content -->
@@ -59,14 +56,12 @@
                     <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                         <div class="card dash-widget">
                             <div class="card-body">
-                                <a href="customers.jsp" style="text-decoration: none; color: inherit;">
-                                    <span class="dash-widget-icon"><i class="fa fa-users"></i></span>
-                                    <div class="dash-widget-info">
-                                        <% int customerCount = 500; %>
-                                        <h3><%= customerCount %></h3>
-                                        <span>Customers</span>
-                                    </div>
-                                </a>
+                                <span class="dash-widget-icon"><i class="fa fa-percent"></i></span>
+                                <div class="dash-widget-info">
+                                    <% BigDecimal roi = new BigDecimal("5.2"); %>
+                                    <h3><%= roi %>%</h3>
+                                    <span>ROI</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -74,14 +69,12 @@
                     <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                         <div class="card dash-widget">
                             <div class="card-body">
-                                <a href="deposits.jsp" style="text-decoration: none; color: inherit;">
-                                    <span class="dash-widget-icon"><i class="fa fa-money"></i></span>
-                                    <div class="dash-widget-info">
-                                        <% BigDecimal totalDeposits = new BigDecimal("1000000.00"); %>
-                                        <h3><%= totalDeposits %></h3>
-                                        <span>Total Deposits</span>
-                                    </div>
-                                </a>
+                                <span class="dash-widget-icon"><i class="fa fa-share"></i></span>
+                                <div class="dash-widget-info">
+                                    <% int referralCount = 10; %>
+                                    <h3><%= referralCount %></h3>
+                                    <span>Referrals</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -89,14 +82,12 @@
                     <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                         <div class="card dash-widget">
                             <div class="card-body">
-                                <a href="withdrawals.jsp" style="text-decoration: none; color: inherit;">
-                                    <span class="dash-widget-icon"><i class="fa fa-bank"></i></span>
-                                    <div class="dash-widget-info">
-                                        <% BigDecimal totalWithdrawals = new BigDecimal("500000.00"); %>
-                                        <h3><%= totalWithdrawals %></h3>
-                                        <span>Total Withdrawals</span>
-                                    </div>
-                                </a>
+                                <span class="dash-widget-icon"><i class="fa fa-money"></i></span>
+                                <div class="dash-widget-info">
+                                    <% BigDecimal totalDeposits = new BigDecimal("5000.0"); %>
+                                    <h3><%= totalDeposits %></h3>
+                                    <span>Deposits</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -104,14 +95,12 @@
                     <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                         <div class="card dash-widget">
                             <div class="card-body">
-                                <a href="referrals.jsp" style="text-decoration: none; color: inherit;">
-                                    <span class="dash-widget-icon"><i class="fa fa-share"></i></span>
-                                    <div class="dash-widget-info">
-                                        <% int referralCount = 50; %>
-                                        <h3><%= referralCount %></h3>
-                                        <span>Referrals</span>
-                                    </div>
-                                </a>
+                                <span class="dash-widget-icon"><i class="fa fa-bank"></i></span>
+                                <div class="dash-widget-info">
+                                    <% BigDecimal totalWithdrawals = new BigDecimal("200.0"); %>
+                                    <h3><%= totalWithdrawals %></h3>
+                                    <span>Withdrawals</span>
+                                </div>
                             </div>
                         </div>
                     </div>
