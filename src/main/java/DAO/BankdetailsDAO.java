@@ -141,4 +141,40 @@ public class BankdetailsDAO {
 
 		    return userBankdetails;
 		}
+	  public static boolean isUserExists(String username) {
+		    boolean userExists = false;
+		    Connection connection = null;
+		    PreparedStatement statement = null;
+		    ResultSet resultSet = null;
+
+		    try {
+		        // Step 1: Check if the user exists in the users table
+		        connection = DBUtil.provideConnection();
+		        String query = "SELECT COUNT(*) AS count FROM bankdetails WHERE username = ?";
+		        statement = connection.prepareStatement(query);
+		        statement.setString(1, username);
+		        resultSet = statement.executeQuery();
+
+		        if (resultSet.next()) {
+		            int count = resultSet.getInt("count");
+		            userExists = (count > 0);
+		        }
+		    } catch (Exception e) {
+		        // Handle exceptions
+		        e.printStackTrace();
+		    } finally {
+		        // Close database resources
+		        try {
+		            if (resultSet != null) resultSet.close();
+		            if (statement != null) statement.close();
+		            if (connection != null) connection.close();
+		        } catch (Exception e) {
+		            // Handle exceptions
+		            e.printStackTrace();
+		        }
+		    }
+
+		    return userExists;
+		}
+
 }

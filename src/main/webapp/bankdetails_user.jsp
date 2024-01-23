@@ -5,9 +5,12 @@
 <%@ page import="beans.BankdetailsBean" %>
 <%@ page import="java.util.List" %>
 <%@page import="DAO.BankdetailsDAO"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
     // Getting the username from the session
-    String username = (String)session.getAttribute("username");
+    String username = (String) session.getAttribute("username");
+  //  boolean userExists = BankdetailsDAO.isUserExists(username);
+   
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,7 +49,7 @@
 
 		<!-- Main Wrapper -->
         <div class="main-wrapper">
-		
+		 <jsp:include page="header.jsp" />
 		<jsp:include page="sidebar.jsp" />
             <div class="page-wrapper">
 			
@@ -63,9 +66,26 @@
 								<h3 class="page-title">BankDetails</h3>
 								
 							</div>
-							<div class="col-auto float-right ml-auto">
-							<a href="#" class="btn add-btn" data-toggle="modal" data-target="#addbankdetails"><i class="fa fa-plus"></i> Add BankDetails</a>
-							</div>
+							
+<%
+boolean prof = BankdetailsDAO.isUserExists(username);
+%>
+
+<div class="col-auto float-right ml-auto">
+    <button class="btn add-btn" data-toggle="modal" <% if (prof) { %>disabled<% } %> data-target="#addbankdetails">
+        <i class="fa fa-plus"></i> Add BankDetails
+    </button>
+</div>
+
+
+
+<%-- <div class="col-auto float-right ml-auto">
+    <button type="button" class="btn add-btn" id="employeeInformationBtn" <% if (prof) { %> disabled <% } else { %> onclick="window.location.href='bankdetails_add.jsp'" <% } %>>
+        <i class="fa fa-plus"></i> Add BankDetails
+    </button>
+</div> --%>
+
+
 						</div>
 					</div>
 					<!-- /Page Header -->
