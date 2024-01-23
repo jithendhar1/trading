@@ -43,29 +43,36 @@
     <body>
 
 		<!-- Main Wrapper -->
-        <div class="main-wrapper">
-		
-		<jsp:include page="sidebar.jsp" />
-            <div class="page-wrapper">
-			
-				<!-- Page Content -->
-                <div class="content container-fluid">
-				
-					<!-- Page Header -->
-					<div class="page-header">
-						<div class="row align-items-center">
-							<div class="col">
+       <!-- Main Wrapper -->
+       <div class="main-wrapper">
+    <!-- Main Wrapper -->
+   <!-- Header -->
+    <!-- Include your header HTML here -->
+    <jsp:include page="header.jsp" />
+
+    <jsp:include page="sidebar.jsp" />
+
+    <!-- Page Wrapper -->
+    <div class="page-wrapper">
+
+        <!-- Page Content -->
+        <div class="content container-fluid">
+
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="row align-items-center">
+                <div class="col">
 							<div id="welcomeMessage" style="text-align: center; margin-top: 20px; font-size: 24px;">
                                 Welcome  <%= username%>!
                               </div>
 								<h3 class="page-title">Deposit</h3>
-								<!-- <ul class="breadcrumb">
-									<li class="breadcrumb-item"><a href="index.jsp">Dashboard</a></li>
-									<li class="breadcrumb-item active">Tasks</li>
-								</ul> -->
+								 <ul class="breadcrumb">
+									<li class="breadcrumb-item"><a href="user.jsp">Dashboard</a></li>
+									<li class="breadcrumb-item active">Deposit</li>
+								</ul> 
 							</div>
 							<div class="col-auto float-right ml-auto">
-							<a href="#" class="btn add-btn" data-toggle="modal" data-target="#adddeposit"><i class="fa fa-plus"></i> Add Deposit</a>
+							<a href="#" class="Addbutton" data-toggle="modal" data-target="#adddeposit"><i class="fa fa-plus"></i> Add Deposit</a>
 							</div>
 						</div>
 					</div>
@@ -96,7 +103,7 @@ for (DepositBean tasks : tax) {
 %>
 <tr>
     <td><%=tasks.getDepositID() %></td>
-    <td><%=tasks.getAccountID()%></td>
+    <td><%=tasks.getDepositTransactionID()%></td>
     <td><%=tasks.getDepositDate() %></td>
     <td><%=tasks.getAmount()  %></td>
     <td><%=tasks.getUserID() %></td>

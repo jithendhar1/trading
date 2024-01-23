@@ -12,7 +12,7 @@ public class DepositServiceImpl {
 	
 	//DepositID, AccountID, DepositDate, Amount, userID
 	
-	public String addV(String AccountID,String DepositDate,String Amount,String userID) {
+	public String addV(String DepositTransactionID,String DepositDate,String Amount,String userID) {
 		
 		String Status1 = " Adding Failed!";
 
@@ -20,9 +20,9 @@ public class DepositServiceImpl {
         PreparedStatement ps = null;
 
         try {
-        	ps = con.prepareStatement("INSERT INTO deposit ( AccountID, DepositDate, Amount, userID) VALUES (?,?,?,?)");
+        	ps = con.prepareStatement("INSERT INTO deposit ( DepositTransactionID, DepositDate, Amount, userID) VALUES (?,?,?,?)");
         	//ps.setString(1, DepositID);
-        	ps.setString(1, AccountID);
+        	ps.setString(1, DepositTransactionID);
             ps.setString(2, DepositDate);
             ps.setString(3, Amount);
             ps.setString(4, userID);
@@ -45,7 +45,7 @@ public class DepositServiceImpl {
 	}
 	
 	
-	public String editV(String DepositID,String AccountID,String DepositDate,String Amount,String userID)  {
+	public String editV(String DepositID,String DepositTransactionID,String DepositDate,String Amount,String userID)  {
 		
 			String Status3 = "Updating  Failed!";
 
@@ -53,9 +53,9 @@ public class DepositServiceImpl {
 	        PreparedStatement ps = null;
 
 	        try {
-	        	ps = con.prepareStatement("UPDATE deposit SET  AccountID= ?, DepositDate= ?, Amount= ?, userID= ? WHERE DepositID = ?");
+	        	ps = con.prepareStatement("UPDATE deposit SET  DepositTransactionID= ?, DepositDate= ?, Amount= ?, userID= ? WHERE DepositID = ?");
 	        	
-	        	ps.setString(1, AccountID);
+	        	ps.setString(1, DepositTransactionID);
 	            ps.setString(2, DepositDate);
 	            ps.setString(3, Amount);
 	            ps.setString(4, userID);

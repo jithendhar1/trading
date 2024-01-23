@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@page import="DAO.CustomerDAO"%>
+    <%@page import="srv.RandomAccountIDGenerator"%>
+    <%
+    // Getting the username from the session
+    String username = (String)session.getAttribute("username");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -59,31 +65,43 @@
             
             <div class="modal-body">
 
-        <div class="form-group">
+     <!--    <div class="form-group">
             <label for="WithdrawalID">Withdrawal ID <span class="text-danger">*</span></label>
             <input id="WithdrawalID" name="WithdrawalID" class="form-control" type="text">    
-        </div>
+        </div> -->
    
 
    
+        <% String x=  CustomerDAO.getUserIDByUsername( username);           		
+%>
+ 
         <div class="form-group">
-            <label for="userID">userID <span class="text-danger">*</span></label>
-            <input id="userID" name="userID" class="form-control" type="text">
+            <label class="col-form-label">userID <span class="text-danger">*</span></label>
+            <input name="userID" readonly required class="form-control" type="text" value="<%= x %>">
         </div>
    
 
-    
+    <!-- 
         <div class="form-group">
-            <label class="col-form-label">AccountID <span class="text-danger">*</span></label>
+            <label class="col-form-label">WithdrawalTransactionID <span class="text-danger">*</span></label>
             <input name="AccountID" required class="form-control" type="text">
-        </div>
-  
+        </div> -->
+     <div class="form-group">
+                        <label for="WithdrawalTransactionID">Transaction ID <span class="text-danger">*</span></label>
+                        <%-- Use the scriptlet to generate a random account ID --%>
+                        <%
+                            String randomAccountID = RandomAccountIDGenerator.generateRandomAccountID();
+                        %>
+                        <input readonly id="WithdrawalTransactionID" name="WithdrawalTransactionID" class="form-control" type="text" value="<%= randomAccountID %>">
+                    </div>
 
  
         <div class="form-group">
             <label class="col-form-label">WithdrawalDate <span class="text-danger">*</span></label>
-            <input name="WithdrawalDate" required class="form-control" type="text">
+            <input name="WithdrawalDate" required class="form-control" type="date">
         </div>
+        
+        
         <div class="form-group">
             <label class="col-form-label">Amount <span class="text-danger">*</span></label>
             <input name="Amount" required class="form-control" type="text">

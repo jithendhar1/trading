@@ -71,12 +71,12 @@
             <input id="AccountID" name="AccountID" class="form-control" type="text">    
         </div> -->
    <div class="form-group">
-                        <label for="AccountID">Account ID <span class="text-danger">*</span></label>
+                        <label for="DepositTransactionID">DepositTransactionID <span class="text-danger">*</span></label>
                         <%-- Use the scriptlet to generate a random account ID --%>
                         <%
                             String randomAccountID = RandomAccountIDGenerator.generateRandomAccountID();
                         %>
-                        <input readonly id="AccountID" name="AccountID" class="form-control" type="text" value="<%= randomAccountID %>">
+                        <input readonly id="DepositTransactionID" name="DepositTransactionID" class="form-control" type="text" value="<%= randomAccountID %>">
                     </div>
 
    

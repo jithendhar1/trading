@@ -78,8 +78,8 @@
 											<th>userID </th>
 									        <th>userName</th>
 									        <th>Amount</th>
-									        <th>Edit</th>
-									         <th>Delete</th>    
+									        <!-- <th>Edit</th>
+									         <th>Delete</th>   -->  
 										</tr>
 									</thead>
 <%
@@ -94,12 +94,12 @@ for (BankdetailsBean tasks : tax) {
    <td><%=tasks.getUserID() %></td>
   <td><%=tasks.getUserName() %></td>
   <td><%=tasks.getAmount() %></td>
-    <td>
+    <%-- <td>
         <a href="bankdetails_edit.jsp?vehicleID=<%= tasks.getUserID()%>">Edit</a>
     </td>
     <td>
         <a href="DeleteVechicleSrv?VehicleID=<%= tasks.getUserID()%>">Delete</a> 
-    </td>
+    </td> --%>
 </tr>
 <%
 }

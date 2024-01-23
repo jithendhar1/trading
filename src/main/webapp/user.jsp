@@ -79,6 +79,7 @@
                     <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                         <div class="card dash-widget">
                             <div class="card-body">
+                             
                                 <span class="dash-widget-icon"><i class="fa fa-share"></i></span>
                                 <div class="dash-widget-info">
                                     <% int referralCount = 10; %>
@@ -92,12 +93,14 @@
                     <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                         <div class="card dash-widget">
                             <div class="card-body">
+                            <a href="deposit_user.jsp" style="text-decoration: none; color: inherit;">
                                 <span class="dash-widget-icon"><i class="fa fa-money"></i></span>
                                 <div class="dash-widget-info">
                                     <% BigDecimal totalDeposits = new BigDecimal("5000.0"); %>
                                     <h3><%= totalDeposits %></h3>
                                     <span>Deposits</span>
                                 </div>
+                                </a>
                             </div>
                         </div>
                     </div>

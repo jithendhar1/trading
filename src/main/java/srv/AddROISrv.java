@@ -28,7 +28,7 @@ public class AddROISrv extends HttpServlet {
         status = add.addV( userID, ROIAmount, ModifiedDate, OpenAmount, ClosingAmount);
 
 
-    	   RequestDispatcher rd = request.getRequestDispatcher("login.jsp?message=" + status);
+    	   RequestDispatcher rd = request.getRequestDispatcher("roi_user.jsp?message=" + status);
     rd.forward(request, response);
     }
 

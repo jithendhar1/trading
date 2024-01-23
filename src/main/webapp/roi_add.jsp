@@ -1,7 +1,11 @@
-
+<%@page import="DAO.CustomerDAO"%>
 <%@page import="DAO.ROIDAO"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+     <%
+    // Getting the username from the session
+    String username = (String)session.getAttribute("username");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -95,13 +99,18 @@
    
 
    
-     <div class="form-group">
-    <label for="userID">userID <span class="text-danger">*</span></label>
-    <input id="userID" name="userID" class="form-control" type="text" onchange="fetchOpenAmount()" >
-</div>
+    <% String x=  CustomerDAO.getUserIDByUsername( username);
+            		
+            		
+%>
+ 
+        <div class="form-group">
+            <label for="userID" class="col-form-label">userID <span class="text-danger">*</span></label>
+            <input id="userID"  name="userID"  required class="form-control" type="text" value="<%= x %>" onchange="fetchOpenAmount();">
+        </div>
 
-   <script>
-    function fetchOpenAmount() {
+
+   <!-- /*  function fetchOpenAmount() {
         var userID = document.getElementById('userID').value;
 		console.log("chintu");
         // Make an AJAX request to fetch the OpenAmount based on userID
@@ -112,6 +121,36 @@
             if (xhr.readyState === 4 && xhr.status === 200) {
                 // Update the OpenAmount field with the fetched value
                 document.getElementById('OpenAmount').value = xhr.responseText;
+            }
+        };
+
+        xhr.send();
+    } */
+     -->
+    <script>
+    function fetchOpenAmount() {
+        var userID = document.getElementById('userID').value;
+        console.log("UserID: " + userID); // Debugging statement
+
+        // Make an AJAX request to fetch the OpenAmount based on userID
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/trading/UseridOpenAmtservlet?userID=' + userID, true);
+
+        // Add the onreadystatechange function here
+        xhr.onreadystatechange = function () {
+            console.log("ReadyState: " + xhr.readyState + ", Status: " + xhr.status); // Debugging statement
+            if (xhr.readyState === 4) {
+                console.log("Response: " + xhr.responseText); // Debugging statement
+                if (xhr.status === 200) {
+                    // Update the OpenAmount field with the fetched value
+                    var openAmountInput = document.getElementById('OpenAmount');
+                    openAmountInput.value = xhr.responseText;
+
+                    // Debugging statement
+                    console.log("OpenAmount Updated: " + openAmountInput.value);
+                } else {
+                    console.log("Error fetching OpenAmount. Status: " + xhr.status);
+                }
             }
         };
 

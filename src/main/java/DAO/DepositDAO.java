@@ -21,10 +21,10 @@ public class DepositDAO {
 	            connection = DBUtil.provideConnection();
 	            String query;
 	            if (whereClause != null && !whereClause.isEmpty()) {
-	                query = "SELECT  DepositID, AccountID, DepositDate, Amount, userID FROM deposit WHERE " + whereClause + " LIMIT ? , ?;";
+	                query = "SELECT  DepositID, DepositTransactionID, DepositDate, Amount, userID FROM deposit WHERE " + whereClause + " LIMIT ? , ?;";
 	               
 	            } else {
-	                query = "SELECT  DepositID, AccountID, DepositDate, Amount, userID FROM deposit LIMIT ? , ?;";
+	                query = "SELECT  DepositID, DepositTransactionID, DepositDate, Amount, userID FROM deposit LIMIT ? , ?;";
 	            }
 
 	            preparedStatement = connection.prepareStatement(query);
@@ -37,7 +37,7 @@ public class DepositDAO {
 	            	DepositBean role = new DepositBean();
 	            	
 	            role.setDepositID(resultSet.getString("DepositID"));
-          	    role.setAccountID(resultSet.getString("AccountID"));
+          	    role.setDepositTransactionID(resultSet.getString("DepositTransactionID"));
           	    role.setDepositDate(resultSet.getString("DepositDate"));
           	    role.setAmount(resultSet.getString("Amount"));
          	    role.setUserID(resultSet.getString("userID"));
@@ -109,7 +109,7 @@ public class DepositDAO {
 		            String userID = userResultSet.getString("userID");
 
 		            // Step 2: Get all deposits based on the obtained userID
-		            String depositQuery = "SELECT DepositID, AccountID, DepositDate, Amount, userID FROM deposit WHERE userID = ?";
+		            String depositQuery = "SELECT DepositID, DepositTransactionID, DepositDate, Amount, userID FROM deposit WHERE userID = ?";
 		            depositStatement = connection.prepareStatement(depositQuery);
 		            depositStatement.setString(1, userID);
 		            depositResultSet = depositStatement.executeQuery();
@@ -117,7 +117,7 @@ public class DepositDAO {
 		            while (depositResultSet.next()) {
 		                DepositBean deposit = new DepositBean();
 		                deposit.setDepositID(depositResultSet.getString("DepositID"));
-		                deposit.setAccountID(depositResultSet.getString("AccountID"));
+		                deposit.setDepositTransactionID(depositResultSet.getString("DepositTransactionID"));
 		                deposit.setDepositDate(depositResultSet.getString("DepositDate"));
 		                deposit.setAmount(depositResultSet.getString("Amount"));
 		                deposit.setUserID(depositResultSet.getString("userID"));

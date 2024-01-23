@@ -89,13 +89,13 @@
             <label class="col-form-label">Amount <span class="text-danger">*</span></label>
             <input name="Amount" required class="form-control" type="text">
         </div>
-</div>
+
 
  <div class="submit-section">
     <button type="submit" class="btn btn-primary submit-btn">Submit</button>
   </div>
   
-  </div>
+  </div></div>
         </div>
-    
+    </div>
 </form>
