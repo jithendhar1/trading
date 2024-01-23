@@ -210,7 +210,7 @@ for (WithdrawalBean tasks : tax) {
 <tr>
     <td><%=tasks.getWithdrawalID() %></td>
     <td><%=tasks.getUserID()%></td>
-    <td><%=tasks.getAccountID() %></td>
+    <td><%=tasks.getWithdrawalTransactionID() %></td>
     <td><%=tasks.getWithdrawalDate()  %></td>
     <td><%=tasks.getAmount() %></td>
     <td>

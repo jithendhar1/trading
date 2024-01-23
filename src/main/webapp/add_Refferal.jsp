@@ -56,7 +56,7 @@
 
 
 <form action="./AddRefferal" method="post">
-<div id="adddeposit" class="modal custom-modal fade" role="dialog">
+<div id="addrefferal" class="modal custom-modal fade" role="dialog">
  <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
         
@@ -104,7 +104,7 @@
       					}
 				     %>                       
         </select>
-            %>
+            
             <input name="ReferrerUserID" required class="form-control" type="text">
         </div>
   

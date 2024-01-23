@@ -210,7 +210,7 @@ for (DepositBean tasks : tax) {
 %>
 <tr>
     <td><%=tasks.getDepositID() %></td>
-    <td><%=tasks.getAccountID()%></td>
+    <td><%=tasks.getDepositTransactionID()%></td>
     <td><%=tasks.getDepositDate() %></td>
     <td><%=tasks.getAmount()  %></td>
     <td><%=tasks.getUserID() %></td>
