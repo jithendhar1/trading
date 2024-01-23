@@ -105,6 +105,6 @@
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <!-- Custom JS -->
-    <script src="js/app.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>
