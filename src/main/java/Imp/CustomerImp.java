@@ -9,7 +9,7 @@ import utility.DBUtil;
 
 public class CustomerImp {
 
-    public String addUser(String username, String email,
+    public String addUser(String userID,String username, String email,
             String password, String phno, String firstname, String lastname) {
     	
 		String Status1 = " Adding Failed!";
@@ -19,16 +19,16 @@ public class CustomerImp {
 
             try {
           customerStatement = con.prepareStatement(
-                        "INSERT INTO users (username, email, password, phno, firstname, lastname,) " +
-                                "VALUES (?, ?, ?, ?, ?, ?)");
+                        "INSERT INTO users (userID,username, email, password, phno, firstname, lastname) " +
+                                "VALUES (?,?, ?, ?, ?, ?, ?)");
                        
-                
-                customerStatement.setString(1, username);
-                customerStatement.setString(2, email);
-                customerStatement.setString(3, password);
-                customerStatement.setString(4, phno);
-                customerStatement.setString(5, firstname);
-                customerStatement.setString(6, lastname);
+                customerStatement.setString(1,userID);
+                customerStatement.setString(2, username);
+                customerStatement.setString(3, email);
+                customerStatement.setString(4, password);
+                customerStatement.setString(5, phno);
+                customerStatement.setString(6, firstname);
+                customerStatement.setString(7, lastname);
 
                 int k = customerStatement.executeUpdate();
 
