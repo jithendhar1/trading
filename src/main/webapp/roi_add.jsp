@@ -67,6 +67,7 @@
                 // Update ClosingAmount input value
                 closingAmountInput.value = closingAmount.toFixed(2); // You can adjust the number of decimal places as needed
             }
+            fetchOpenAmount();
         });
     </script>
     

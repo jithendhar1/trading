@@ -7,7 +7,7 @@
 <%@page import="DAO.ROIDAO"%>
 <%
     // Getting the username from the session
-    String username = (String)session.getAttribute("customername");
+    String username = (String)session.getAttribute("username");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,6 +46,7 @@
         <div class="main-wrapper">
 		
 		<jsp:include page="sidebar.jsp" />
+		  <jsp:include page="sidebar.jsp" />
             <div class="page-wrapper">
 			
 				<!-- Page Content -->
@@ -137,7 +138,7 @@ for (ROIBean tasks : tax) {
 		<script src="js/select2.min.js"></script>
 
 		
-		<script src="js/app.js"></script>
+		<!-- <script src="js/app.js"></script> -->
 
 
     </body>

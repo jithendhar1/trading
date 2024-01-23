@@ -282,7 +282,7 @@ for (DepositBean tasks : tax) {
 		<script src="js/select2.min.js"></script>
 
 		
-		<script src="js/app.js"></script>
+		<!-- <script src="js/app.js"></script> -->
 
 
     </body>
