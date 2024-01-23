@@ -16,6 +16,7 @@
         response.sendRedirect("login.jsp"); // Change "login.jsp" to your actual login page
     } else {
     	   int roleid = Integer.parseInt(roleIDString);
+    	   String displayAdminDashboard = (roleid == 1) ? "block" : "none";
 %> 
 
 
@@ -54,6 +55,9 @@
         height: 1000 px; /* Set a fixed height */
         overflow-y: auto; /* Enable vertical scrollbar */
     }
+     .admin-dashboard-link {
+            display: <%= displayAdminDashboard %>; /* Set display property based on role ID */
+        }
 </style>
 <script>
     function toggleSubMenu(element) {
@@ -71,16 +75,18 @@
            
                  
                  <ul>
-                        <li class="submenu">
-                            <a href="#"><i class="la la-dashboard"></i>
-                                <span> Dashboard</span>
-                                <span class="menu-arrow"></span>
-                            </a>
-                            <ul style="display: none;">
-                                <li><a href="admin_dashboard.jsp">Admin Dashboard</a></li>
-                                <!-- <li><a href="employee_dashboard.jsp">User Dashboard</a></li> -->
-                            </ul>
-                        </li>
+                 
+                         <li class="submenu">
+                        <a href="#"><i class="la la-dashboard"></i>
+                            <span> Dashboard</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <ul style="display: none;">
+                            <!-- Conditionally display Admin Dashboard link -->
+                            <li class="admin-dashboard-link"><a href="admin_dashboard.jsp">Admin Dashboard</a></li>
+                            <!-- <li><a href="employee_dashboard.jsp">User Dashboard</a></li> -->
+                        </ul>
+                    </li>
                         <li class="menu-title">
                             <span>Main</span>
                         </li>

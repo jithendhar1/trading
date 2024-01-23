@@ -18,7 +18,7 @@ public class AddCustomerSrv extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 		String status="Adding fail";
-  
+            String userID = request.getParameter("userID");
             String username = request.getParameter("username");
             String email = request.getParameter("email");
             String password = request.getParameter("password");
@@ -27,7 +27,7 @@ public class AddCustomerSrv extends HttpServlet {
             String lastname = request.getParameter("lastname");
 
             CustomerImp cisimp =new CustomerImp();
-       	 status =cisimp.addUser(username, email, password, phno, firstname, lastname);
+       	 status =cisimp.addUser(userID,username, email, password, phno, firstname, lastname);
             
 
        	   RequestDispatcher rd = request.getRequestDispatcher("login.jsp?message=" + status);
