@@ -124,6 +124,6 @@
         <script src="js/jquery.slimscroll.min.js"></script>
         <script src="plugins/morris/morris.min.js"></script>
         <script src="js/chart.js"></script>
-        <script src="js/app.js"></script>
+       <!--  <script src="js/app.js"></script> -->
     </body>
 </html>
