@@ -13,7 +13,7 @@ import utility.DBUtil;
 
 public class CustomerDAO {
 
-	
+
 	public static List<CustomerBean> getFilteredCustomers(String whereClause, int start, int limit) {
 		List<CustomerBean> FilteredCustomers = new ArrayList<>();
 		Connection connection = null;
@@ -97,6 +97,4 @@ public class CustomerDAO {
 		}
 		return count;
 	}
-
-//get customername from id
 }
