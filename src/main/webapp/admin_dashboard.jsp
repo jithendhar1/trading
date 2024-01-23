@@ -1,4 +1,7 @@
-
+<%@page import="DAO.DepositDAO"%>
+<%@page import="DAO.WithdrawalDAO"%>
+<%@page import="DAO.ReffertalDAO"%>
+<%@page import="DAO.CustomerDAO"%>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.time.LocalDate" %>
 <%@ page import="java.text.DecimalFormat" %>
@@ -69,7 +72,7 @@
                                 <a href="customers.jsp" style="text-decoration: none; color: inherit;">
                                     <span class="dash-widget-icon"><i class="fa fa-users"></i></span>
                                     <div class="dash-widget-info">
-                                        <% int customerCount = 500; %>
+                                        <% int customerCount = CustomerDAO.totalCount(); %>
                                         <h3><%= customerCount %></h3>
                                         <span>Customers</span>
                                     </div>
@@ -84,7 +87,7 @@
                                 <a href="deposit.jsp" style="text-decoration: none; color: inherit;">
                                     <span class="dash-widget-icon"><i class="fa fa-money"></i></span>
                                     <div class="dash-widget-info">
-                                        <% BigDecimal totalDeposits = new BigDecimal("1000000.00"); %>
+                                        <% int totalDeposits = DepositDAO.totalCount();%>
                                         <h3><%= totalDeposits %></h3>
                                         <span>Total Deposits</span>
                                     </div>
@@ -99,7 +102,7 @@
                                 <a href="withdrawal.jsp" style="text-decoration: none; color: inherit;">
                                     <span class="dash-widget-icon"><i class="fa fa-bank"></i></span>
                                     <div class="dash-widget-info">
-                                        <% BigDecimal totalWithdrawals = new BigDecimal("500000.00"); %>
+                                        <% int totalWithdrawals = WithdrawalDAO.totalCount(); %>
                                         <h3><%= totalWithdrawals %></h3>
                                         <span>Total Withdrawals</span>
                                     </div>
@@ -114,7 +117,7 @@
                                 <a href="referrals.jsp" style="text-decoration: none; color: inherit;">
                                     <span class="dash-widget-icon"><i class="fa fa-share"></i></span>
                                     <div class="dash-widget-info">
-                                        <% int referralCount = 50; %>
+                                        <%int referralCount = ReffertalDAO.totalCount();%>
                                         <h3><%= referralCount %></h3>
                                         <span>Referrals</span>
                                     </div>
@@ -133,6 +136,6 @@
         <script src="js/jquery.slimscroll.min.js"></script>
         <script src="plugins/morris/morris.min.js"></script>
         <script src="js/chart.js"></script>
-        <script src="js/app.js"></script>
+        <!-- <script src="js/app.js"></script> -->
     </body>
 </html>
