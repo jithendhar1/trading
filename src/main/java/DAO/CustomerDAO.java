@@ -98,5 +98,39 @@ public class CustomerDAO {
 		return count;
 	}
 
-//get customername from id
+	public static String getUserIDByUsername(String username) {
+	    String userID = null;
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+	    ResultSet resultSet = null;
+
+	    try {
+	        connection = DBUtil.provideConnection();
+	        String query = "SELECT userID FROM users WHERE username = ?;";
+	        preparedStatement = connection.prepareStatement(query);
+	        preparedStatement.setString(1, username);
+	        resultSet = preparedStatement.executeQuery();
+
+	        if (resultSet.next()) {
+	            userID = resultSet.getString("userID");
+	        }
+	    } catch (SQLException e) {
+	        // Handle exceptions or log them properly
+	        e.printStackTrace();
+	    } finally {
+	        // Close database resources
+	        try {
+	            if (resultSet != null) resultSet.close();
+	            if (preparedStatement != null) preparedStatement.close();
+	            if (connection != null) connection.close();
+	        } catch (Exception e) {
+	            // Handle exceptions
+	            e.printStackTrace();
+	        }
+	    }
+
+	    return userID;
+	}
+
+	
 }
