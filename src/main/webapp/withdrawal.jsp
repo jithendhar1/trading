@@ -90,59 +90,63 @@ if (newRecordsPerPageParam != null) {
 
 
 		<!-- Main Wrapper -->
-        <div class="main-wrapper">
-		
-		<jsp:include page="sidebar.jsp" />
-            <div class="page-wrapper">
-			
-				<!-- Page Content -->
-                <div class="content container-fluid">
-				
-					<!-- Page Header -->
-					<div class="page-header">
-						<div class="row align-items-center">
-							<div class="col">
+       <div class="main-wrapper">
+    <!-- Main Wrapper -->
+   <!-- Header -->
+    <!-- Include your header HTML here -->
+    <jsp:include page="header.jsp" />
+
+    <jsp:include page="sidebar.jsp" />
+
+    <!-- Page Wrapper -->
+    <div class="page-wrapper">
+
+        <!-- Page Content -->
+        <div class="content container-fluid">
+
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="row align-items-center">
+                <div class="col">
 							<div id="welcomeMessage" style="text-align: center; margin-top: 20px; font-size: 24px;">
                                 Welcome  <%= username%>!
                               </div>
 								<h3 class="page-title">Withdrawal</h3>
-								<!-- <ul class="breadcrumb">
-									<li class="breadcrumb-item"><a href="index.jsp">Dashboard</a></li>
-									<li class="breadcrumb-item active">Tasks</li>
-								</ul> -->
+								 <ul class="breadcrumb">
+									<li class="breadcrumb-item"><a href="admin_dashboard.jsp">Dashboard</a></li>
+									<li class="breadcrumb-item active">Withdrawal</li>
+								</ul>
 							</div>
 							<div class="col-auto float-right ml-auto">
-							<a href="#" class="btn add-btn" data-toggle="modal" data-target="#addwithdrawal"><i class="fa fa-plus"></i> Add Withdrawal</a>
+							<a href="#" class="Addbutton" data-toggle="modal" data-target="#addwithdrawal"><i class="fa fa-plus"></i> Add Withdrawal</a>
 							</div>
 						</div>
 					</div>
 					<!-- /Page Header -->
 					<!-- Search Filter -->
-					<form action="./SearchVechicleSrv" method="post">
-    <div class="row filter-row">
+<form action="./SearchVechicleSrv" method="post">
+<div class="row filter-row">
+<div class="col-sm-6 col-md-3" id = "flag">
+        <label>Records per page:</label>
+        <select id="recordsPerPage" onchange="changeRecordsPerPage()">
+            <option value="10">10</option>
+        </select>       
+    </div>
+    
         <div class="col-sm-6 col-md-3">
             <div class="form-group form-focus select-focus">
                 <label for="id">vehicleID:</label>
-                <input type="text" name="DepositID" id="vehicleID">
+                <input class="input" type="text" name="DepositID" id="vehicleID">
             </div>
         </div>
         <div class="col-sm-6 col-md-3">
-            <input style="margin-top: 29px;" type="submit" value="Search">
-        </div>
+	     <input class="search" type="submit" value="SEARCH">
+	  </div>
     </div>
     <input type="hidden" name="start" value="<%= currentPage %>">
     <input type="hidden" name="limit" value="<%= newRecordsPerPage %>">
 
-    <div class="col-sm-6 col-md-3" id = "flag">
-        <label>Records per page:</label>
-        <select id="recordsPerPage" onchange="changeRecordsPerPage()">
-            
-            <option value="10">10</option>
-           
-          
-        </select>
-        
-    </div>
+    
 </form>
 								<table>
 									<thead>
@@ -277,7 +281,7 @@ for (WithdrawalBean tasks : tax) {
 		<script src="js/select2.min.js"></script>
 
 		
-		<script src="js/app.js"></script>
+		<!-- <script src="js/app.js"></script> -->
 
 
     </body>
