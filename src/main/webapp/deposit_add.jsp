@@ -1,5 +1,12 @@
+<%@page import="srv.RandomAccountIDGenerator"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+
+<%@page import="DAO.CustomerDAO"%>
+    <%
+    // Getting the username from the session
+    String username = (String)session.getAttribute("username");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -59,16 +66,23 @@
             
             <div class="modal-body">
  
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label for="AccountID">Account ID <span class="text-danger">*</span></label>
             <input id="AccountID" name="AccountID" class="form-control" type="text">    
-        </div>
-   
+        </div> -->
+   <div class="form-group">
+                        <label for="AccountID">Account ID <span class="text-danger">*</span></label>
+                        <%-- Use the scriptlet to generate a random account ID --%>
+                        <%
+                            String randomAccountID = RandomAccountIDGenerator.generateRandomAccountID();
+                        %>
+                        <input readonly id="AccountID" name="AccountID" class="form-control" type="text" value="<%= randomAccountID %>">
+                    </div>
 
    
         <div class="form-group">
             <label for="DepositDate">DepositDate <span class="text-danger">*</span></label>
-            <input id="DepositDate" name="DepositDate" class="form-control" type="text">
+            <input id="DepositDate" name="DepositDate" class="form-control" type="date">
         </div>
    
 
@@ -78,11 +92,14 @@
             <input name="Amount" required class="form-control" type="text">
         </div>
   
-
+<% String x=  CustomerDAO.getUserIDByUsername( username);
+            		
+            		
+%>
  
         <div class="form-group">
             <label class="col-form-label">userID <span class="text-danger">*</span></label>
-            <input name="userID" required class="form-control" type="text">
+            <input name="userID" readonly required class="form-control" type="text" value="<%= x %>">
         </div>
 </div>
 

@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@page import="DAO.CustomerDAO"%>
+    <%
+    // Getting the username from the session
+    String username = (String)session.getAttribute("username");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -60,11 +65,22 @@
             <div class="modal-body">
  
         
+        <% String x=  CustomerDAO.getUserIDByUsername( username);
+            		
+            		
+%>
+ 
+        <div class="form-group">
+            <label class="col-form-label">userID <span class="text-danger">*</span></label>
+            <input name="userID" readonly required class="form-control" type="text" value="<%= x %>">
+        </div>
+
+  
 
     
         <div class="form-group">
             <label class="col-form-label">userName <span class="text-danger">*</span></label>
-            <input name="userName" required class="form-control" type="text">
+            <input name="userName" readonly required class="form-control" type="text" value="<%= username %>">
         </div>
   
 
@@ -78,7 +94,8 @@
  <div class="submit-section">
     <button type="submit" class="btn btn-primary submit-btn">Submit</button>
   </div>
+  
   </div>
         </div>
-    </div>
+    
 </form>
