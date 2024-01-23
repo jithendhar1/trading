@@ -3,9 +3,11 @@ package beans;
 public class WithdrawalBean {
 	private String WithdrawalID;
 	private String userID;
-	private String AccountID;
+	private String WithdrawalTransactionID;
 	private String WithdrawalDate;
 	private String Amount;
+	
+	
 	public String getWithdrawalID() {
 		return WithdrawalID;
 	}
@@ -18,11 +20,11 @@ public class WithdrawalBean {
 	public void setUserID(String userID) {
 		this.userID = userID;
 	}
-	public String getAccountID() {
-		return AccountID;
+	public String getWithdrawalTransactionID() {
+		return WithdrawalTransactionID;
 	}
-	public void setAccountID(String accountID) {
-		AccountID = accountID;
+	public void setWithdrawalTransactionID(String withdrawalTransactionID) {
+		WithdrawalTransactionID = withdrawalTransactionID;
 	}
 	public String getWithdrawalDate() {
 		return WithdrawalDate;
@@ -36,7 +38,6 @@ public class WithdrawalBean {
 	public void setAmount(String amount) {
 		Amount = amount;
 	}
-	
 	
 	
 }

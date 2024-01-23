@@ -3,7 +3,7 @@ package beans;
 public class DepositBean {
 
 	private String DepositID;
-	private String AccountID;
+	private String DepositTransactionID;
 	private String DepositDate;
 	private String Amount;
 	private String userID;
@@ -15,11 +15,11 @@ public class DepositBean {
 	public void setDepositID(String depositID) {
 		DepositID = depositID;
 	}
-	public String getAccountID() {
-		return AccountID;
+	public String getDepositTransactionID() {
+		return DepositTransactionID;
 	}
-	public void setAccountID(String accountID) {
-		AccountID = accountID;
+	public void setDepositTransactionID(String depositTransactionID) {
+		DepositTransactionID = depositTransactionID;
 	}
 	public String getDepositDate() {
 		return DepositDate;
@@ -39,5 +39,6 @@ public class DepositBean {
 	public void setUserID(String userID) {
 		this.userID = userID;
 	}
+	
 	
 }

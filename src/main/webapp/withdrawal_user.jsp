@@ -1,13 +1,13 @@
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import="Imp.ROIServiceImpl" %>
-<%@ page import="beans.ROIBean" %>
+<%@ page import="Imp.WithdrawalServiceImpl" %>
+<%@ page import="beans.WithdrawalBean" %>
 <%@ page import="java.util.List" %>
-<%@page import="DAO.ROIDAO"%>
+<%@page import="DAO.WithdrawalDAO"%>
 <%
     // Getting the username from the session
-    String username = (String)session.getAttribute("customername");
+    String username = (String)session.getAttribute("username");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,65 +42,76 @@
     </head>
     <body>
 
+
+
+
 		<!-- Main Wrapper -->
-        <div class="main-wrapper">
-		
-		<jsp:include page="sidebar.jsp" />
-            <div class="page-wrapper">
-			
-				<!-- Page Content -->
-                <div class="content container-fluid">
-				
-					<!-- Page Header -->
-					<div class="page-header">
-						<div class="row align-items-center">
-							<div class="col">
+       <div class="main-wrapper">
+    <!-- Main Wrapper -->
+   <!-- Header -->
+    <!-- Include your header HTML here -->
+    <jsp:include page="header.jsp" />
+
+    <jsp:include page="sidebar.jsp" />
+
+    <!-- Page Wrapper -->
+    <div class="page-wrapper">
+
+        <!-- Page Content -->
+        <div class="content container-fluid">
+
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="row align-items-center">
+                <div class="col">
 							<div id="welcomeMessage" style="text-align: center; margin-top: 20px; font-size: 24px;">
                                 Welcome  <%= username%>!
                               </div>
-								<h3 class="page-title">ROI</h3>
-								<!-- <ul class="breadcrumb">
-									<li class="breadcrumb-item"><a href="index.jsp">Dashboard</a></li>
-									<li class="breadcrumb-item active">Tasks</li>
-								</ul> -->
+								<h3 class="page-title">Withdrawal</h3>
+								 <ul class="breadcrumb">
+									<li class="breadcrumb-item"><a href="admin_dashboard.jsp">Dashboard</a></li>
+									<li class="breadcrumb-item active">Withdrawal</li>
+								</ul>
 							</div>
 							<div class="col-auto float-right ml-auto">
-							<a href="#" class="btn add-btn" data-toggle="modal" data-target="#addroi"><i class="fa fa-plus"></i> Add ROI</a>
+							<a href="#" class="Addbutton" data-toggle="modal" data-target="#addwithdrawal"><i class="fa fa-plus"></i> Add Withdrawal</a>
 							</div>
 						</div>
 					</div>
-					
+					<!-- /Page Header -->
+					<!-- Search Filter -->
+
 								<table>
 									<thead>
 										<tr>
-											<th>TransactionID</th>
+							
+											<th>WithdrawalID</th>
 											<th>userID </th>
-									        <th>ROIAmount</th>
-									        <th>OpenAmount</th>
-									        <th>ClosingAmount</th>
-									        <!-- <th>Edit</th>
-									         <th>Delete</th>  -->   
+									        <th>AccountID</th>
+									        <th>WithdrawalDate</th>
+									        <th>Amount</th>
+									        <th>Edit</th>
+									         <th>Delete</th>    
 										</tr>
 									</thead>
 <%
 
-  List<ROIBean>  tax = ROIDAO.getROIByUsername(username);
+  List<WithdrawalBean>  tax = WithdrawalDAO.getDepositsByUsername(username);
 
-for (ROIBean tasks : tax) {
+for (WithdrawalBean tasks : tax) {
 	 
 %>
 <tr>
-    <td><%=tasks.getTransactionID() %></td>
-   <td><%=tasks.getUserID() %></td>
-   <td><%=tasks.getROIAmount() %></td>
-   <td><%=tasks.getModifiedDate() %></td>
-   <td><%=tasks.getOpenAmount() %></td>
-   <td><%=tasks.getClosingAmount() %></td>
+    <td><%=tasks.getWithdrawalID() %></td>
+    <td><%=tasks.getUserID()%></td>
+    <td><%=tasks.getWithdrawalTransactionID() %></td>
+    <td><%=tasks.getWithdrawalDate()  %></td>
+    <td><%=tasks.getAmount() %></td>
     <td>
-        <a href="deposit_edit.jsp?vehicleID=<%= tasks.getTransactionID()%>">Edit</a>
+        <a href="withdrawal_edit.jsp?vehicleID=<%= tasks.getWithdrawalID()%>">Edit</a>
     </td>
     <td>
-        <a href="DeleteVechicleSrv?VehicleID=<%= tasks.getTransactionID()%>">Delete</a> 
+        <a href="DeleteVechicleSrv?VehicleID=<%= tasks.getWithdrawalID()%>">Delete</a> 
     </td>
 </tr>
 <%
@@ -110,15 +121,28 @@ for (ROIBean tasks : tax) {
 								</table>
 <div class="row justify-content-center align-items-center" id = "flag1">
    
-  
+   <!-- Pagination links -->
+
+   
 
 </div>
 							</div>
 						</div>
 					</div>
                
-			
-				 <jsp:include page="roi_add.jsp" />
+				<!-- /Page Content -->
+				
+				<!-- Add Tax Modal -->
+				 <jsp:include page="withdrawal_add.jsp" />
+				<!-- /Add Tax Modal -->
+				
+				<%-- <!-- Edit Tax Modal -->
+				 <jsp:include page="edit_tasks.jsp" />
+				<!-- /Edit Tax Modal -->
+				
+				<!-- Delete Tax Modal -->
+				 <jsp:include page="delete_task.jsp" />
+				<!-- /Delete Tax Modal --> --%>
 				
           
 	
@@ -137,7 +161,7 @@ for (ROIBean tasks : tax) {
 		<script src="js/select2.min.js"></script>
 
 		
-		<script src="js/app.js"></script>
+		<!-- <script src="js/app.js"></script> -->
 
 
     </body>

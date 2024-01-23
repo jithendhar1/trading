@@ -21,16 +21,16 @@ public class AddWithdrawalSrv extends HttpServlet {
 		String status="Adding fail";
   
             String userID = request.getParameter("userID");
-            String AccountID = request.getParameter("AccountID");
+            String WithdrawalTransactionID = request.getParameter("WithdrawalTransactionID");
             String WithdrawalDate = request.getParameter("WithdrawalDate");
             String Amount = request.getParameter("Amount");
            
 
             WithdrawalServiceImpl aaa =new WithdrawalServiceImpl();
-       	 status =aaa.addV( userID, AccountID, WithdrawalDate, Amount);
+       	 status =aaa.addV( userID, WithdrawalTransactionID, WithdrawalDate, Amount);
             
 
-       	   RequestDispatcher rd = request.getRequestDispatcher("login.jsp?message=" + status);
+       	   RequestDispatcher rd = request.getRequestDispatcher("withdrawal_user.jsp?message=" + status);
        rd.forward(request, response);
        
     }

@@ -21,14 +21,14 @@ public class AddDepositSrv extends HttpServlet {
         
 
         String status = "Add Failed!";
-        String AccountID = request.getParameter("AccountID");
+        String DepositTransactionID = request.getParameter("DepositTransactionID");
         String DepositDate = request.getParameter("DepositDate");
         String Amount = request.getParameter("Amount");
         String userID = request.getParameter("userID");
       
         
         DepositServiceImpl add = new DepositServiceImpl();
-        status = add.addV(AccountID, DepositDate, Amount, userID);
+        status = add.addV(DepositTransactionID, DepositDate, Amount, userID);
 
 
     	   RequestDispatcher rd = request.getRequestDispatcher("deposit.jsp?message=" + status);

@@ -9,7 +9,7 @@ import utility.DBUtil;
 public class WithdrawalServiceImpl {
 
 	
-public String addV(String  userID,String AccountID,String WithdrawalDate,String Amount) {
+public String addV(String  userID,String WithdrawalTransactionID,String WithdrawalDate,String Amount) {
 		
 		String Status1 = " Adding Failed!";
 
@@ -17,9 +17,9 @@ public String addV(String  userID,String AccountID,String WithdrawalDate,String 
         PreparedStatement ps = null;
 
         try {
-        	ps = con.prepareStatement("INSERT INTO roi ( userID, AccountID, WithdrawalDate, Amount) VALUES (?,?,?,?)");
+        	ps = con.prepareStatement("INSERT INTO withdrawal ( userID, WithdrawalTransactionID, WithdrawalDate, Amount) VALUES (?,?,?,?)");
         	ps.setString(1, userID);
-        	ps.setString(2, AccountID);
+        	ps.setString(2, WithdrawalTransactionID);
             ps.setString(3, WithdrawalDate);
             ps.setString(4, Amount);
        
@@ -41,7 +41,7 @@ public String addV(String  userID,String AccountID,String WithdrawalDate,String 
         return Status1;
 	}
 	
-	public String editV(String WithdrawalID , String  userID,String AccountID,String WithdrawalDate,String Amount)  {
+	public String editV(String WithdrawalID , String  userID,String WithdrawalTransactionID,String WithdrawalDate,String Amount)  {
 		
 			String Status3 = "Updating  Failed!";
 
@@ -49,10 +49,10 @@ public String addV(String  userID,String AccountID,String WithdrawalDate,String 
 	        PreparedStatement ps = null;
 
 	        try {
-	        	ps = con.prepareStatement("UPDATE withdrawal SET   userID= ?, AccountID= ?, WithdrawalDate= ?, Amount= ? WHERE WithdrawalID = ?");
+	        	ps = con.prepareStatement("UPDATE withdrawal SET   userID= ?, WithdrawalTransactionID= ?, WithdrawalDate= ?, Amount= ? WHERE WithdrawalID = ?");
 	        	
 	        	ps.setString(1, userID);
-	        	ps.setString(2, AccountID);
+	        	ps.setString(2, WithdrawalTransactionID);
 	            ps.setString(3, WithdrawalDate);
 	            ps.setString(4, Amount);
 	            ps.setString(5, WithdrawalID);
