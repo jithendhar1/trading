@@ -6,7 +6,7 @@
 <%@page import="DAO.WithdrawalDAO"%>
 <%
     // Getting the username from the session
-    String username = (String)session.getAttribute("customername");
+    String username = (String)session.getAttribute("username");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -123,7 +123,7 @@ if (newRecordsPerPageParam != null) {
 					</div>
 					<!-- /Page Header -->
 					<!-- Search Filter -->
-<form action="./SearchVechicleSrv" method="post">
+<%-- <form action="./SearchVechicleSrv" method="post">
 <div class="row filter-row">
 <div class="col-sm-6 col-md-3" id = "flag">
         <label>Records per page:</label>
@@ -146,7 +146,7 @@ if (newRecordsPerPageParam != null) {
     <input type="hidden" name="limit" value="<%= newRecordsPerPage %>">
 
     
-</form>
+</form> --%>
 								<table>
 									<thead>
 										<tr>
@@ -156,8 +156,8 @@ if (newRecordsPerPageParam != null) {
 									        <th>AccountID</th>
 									        <th>WithdrawalDate</th>
 									        <th>Amount</th>
-									        <th>Edit</th>
-									         <th>Delete</th>    
+									        <!-- <th>Edit</th>
+									         <th>Delete</th>    --> 
 										</tr>
 									</thead>
 <%
@@ -212,12 +212,12 @@ for (WithdrawalBean tasks : tax) {
     <td><%=tasks.getWithdrawalTransactionID() %></td>
     <td><%=tasks.getWithdrawalDate()  %></td>
     <td><%=tasks.getAmount() %></td>
-    <td>
+    <%-- <td>
         <a href="withdrawal_edit.jsp?vehicleID=<%= tasks.getWithdrawalID()%>">Edit</a>
     </td>
     <td>
         <a href="DeleteVechicleSrv?VehicleID=<%= tasks.getWithdrawalID()%>">Delete</a> 
-    </td>
+    </td> --%>
 </tr>
 <%
 }

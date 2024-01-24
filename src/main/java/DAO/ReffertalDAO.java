@@ -30,7 +30,7 @@ public class ReffertalDAO {
 
 				employee.setUserID(resultSet.getString("userID"));
 				employee.setUsername(resultSet.getString("username"));
-				employee.setUsername(resultSet.getString("email"));
+				employee.setEmail(resultSet.getString("email"));
 				employee.setEmail(resultSet.getString("phno"));
 				
 				allEmployees.add(employee);
@@ -150,7 +150,7 @@ public class ReffertalDAO {
 		            String userID = userResultSet.getString("userID");
 
 		            // Step 2: Get all deposits based on the obtained userID
-		            String depositQuery = "SELECT ReferrerUserID, ReferredUserID, ReferralDate FROM referrals WHERE userID = ?";
+		            String depositQuery = "SELECT ReferrerUserID, ReferredUserID, ReferralDate FROM referrals WHERE ReferredUserID = ?";
 		            depositStatement = connection.prepareStatement(depositQuery);
 		            depositStatement.setString(1, userID);
 		            depositResultSet = depositStatement.executeQuery();

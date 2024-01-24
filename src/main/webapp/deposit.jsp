@@ -120,7 +120,7 @@ if (newRecordsPerPageParam != null) {
 					</div>
 					<!-- /Page Header -->
 					<!-- Search Filter -->
-<form action="./SearchVechicleSrv" method="post">
+<%-- <form action="./SearchVechicleSrv" method="post">
 <div class="row filter-row">
 <div class="col-sm-6 col-md-3" id = "flag">
         <label>Records per page:</label>
@@ -148,7 +148,7 @@ if (newRecordsPerPageParam != null) {
     <input type="hidden" name="limit" value="<%= newRecordsPerPage %>">
 
     
-</form>
+</form> --%>
 								<table>
 									<thead>
 										<tr>
@@ -158,8 +158,8 @@ if (newRecordsPerPageParam != null) {
 									        <th>DepositDate</th>
 									        <th>Amount</th>
 									        <th>userID</th>
-									        <th>Edit</th>
-									         <th>Delete</th>    
+									       <!--  <th>Edit</th>
+									         <th>Delete</th>   -->  
 										</tr>
 									</thead>
 <%
@@ -214,12 +214,12 @@ for (DepositBean tasks : tax) {
     <td><%=tasks.getDepositDate() %></td>
     <td><%=tasks.getAmount()  %></td>
     <td><%=tasks.getUserID() %></td>
-    <td>
+    <%-- <td>
         <a href="deposit_edit.jsp?vehicleID=<%= tasks.getDepositID()%>">Edit</a>
     </td>
     <td>
         <a href="DeleteVechicleSrv?VehicleID=<%= tasks.getDepositID()%>">Delete</a> 
-    </td>
+    </td> --%>
 </tr>
 <%
 }

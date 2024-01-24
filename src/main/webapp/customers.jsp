@@ -142,7 +142,7 @@ if (newRecordsPerPageParam != null) {
                             <div class="col">
 								<h3 class="page-title">Users</h3>
 								<ul class="breadcrumb">
-									<li class="breadcrumb-item"><a href="index.jsp">Dashboard</a></li>
+									<li class="breadcrumb-item"><a href="admin_dashboard.jsp">Dashboard</a></li>
 									<li class="breadcrumb-item active">users</li>
 								</ul>
 							</div>
@@ -159,7 +159,7 @@ if (newRecordsPerPageParam != null) {
                         </div>
           <!-- Search form -->
 
-     	<form action="./EmployeeSearchServlet" method="post" >
+     	<%-- <form action="./EmployeeSearchServlet" method="post" >
   		    <div style="margin-left:3px;" class="row filter-row">
   		     <div class="col-sm-6 col-md-3" id = "flag">
                  <label>Records per page:</label>
@@ -189,7 +189,7 @@ if (newRecordsPerPageParam != null) {
 			     <input type="hidden"  name="start" value="<%= currentPage %>">
        	 			<input type="hidden"  name="limit" value="<%= newRecordsPerPage %>">
 	                
-			        </form> 
+			        </form>  --%>
 			         </div> 
 			          <div class="table-container" style="height: 400px; overflow-y: auto;">
      

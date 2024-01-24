@@ -31,7 +31,7 @@ public class AddDepositSrv extends HttpServlet {
         status = add.addV(DepositTransactionID, DepositDate, Amount, userID);
 
 
-    	   RequestDispatcher rd = request.getRequestDispatcher("deposit.jsp?message=" + status);
+    	   RequestDispatcher rd = request.getRequestDispatcher("deposit_user.jsp?message=" + status);
     rd.forward(request, response);
     }
 

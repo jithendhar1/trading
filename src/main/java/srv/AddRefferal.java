@@ -28,7 +28,7 @@ public class AddRefferal extends HttpServlet{
        	 status =cisimp.AddReferal(ReferralID, ReferrerUserID, ReferredUserID, ReferralDate);
             
 
-       	   RequestDispatcher rd = request.getRequestDispatcher("login.jsp?message=" + status);
+       	   RequestDispatcher rd = request.getRequestDispatcher("referrals_user.jsp?message=" + status);
        rd.forward(request, response);
        
     }
