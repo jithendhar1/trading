@@ -15,6 +15,7 @@ public String addV(String  userID,String WithdrawalTransactionID,String Withdraw
 
         Connection con = DBUtil.provideConnection();
         PreparedStatement ps = null;
+        PreparedStatement psUpdateBank = null;
 
         try {
         	ps = con.prepareStatement("INSERT INTO withdrawal ( userID, WithdrawalTransactionID, WithdrawalDate, Amount) VALUES (?,?,?,?)");
@@ -28,18 +29,31 @@ public String addV(String  userID,String WithdrawalTransactionID,String Withdraw
             int k = ps.executeUpdate();
 
             if (k > 0) {
-                Status1 = " Added Successfully!";
-            }
-        } catch (SQLException e) {
-            Status1 = "Error: " + e.getMessage();
-            e.printStackTrace();
-        } finally {
-            DBUtil.closeConnection(con);
-            DBUtil.closeConnection(ps);
-        }
+            	 Status1 = " Added Successfully!";
 
-        return Status1;
-	}
+                 // Update the bankdetails table
+                 psUpdateBank = con.prepareStatement("UPDATE bankdetails SET Amount = Amount - ? WHERE userID = ?");
+                 psUpdateBank.setString(1, Amount); // Assuming Amount is a String
+                 psUpdateBank.setString(2, userID);
+
+                 int updateResult = psUpdateBank.executeUpdate();
+
+                 if (updateResult <= 0) {
+                     Status1 = "Error updating bankdetails";
+                 }
+             }
+         } catch (SQLException e) {
+             Status1 = "Error: " + e.getMessage();
+             e.printStackTrace();
+         } finally {
+        	 DBUtil.closeConnection(con);
+             DBUtil.closeConnection(ps);
+             DBUtil.closeConnection(psUpdateBank);
+         }
+
+         return Status1;
+     }
+	
 	
 	public String editV(String WithdrawalID , String  userID,String WithdrawalTransactionID,String WithdrawalDate,String Amount)  {
 		

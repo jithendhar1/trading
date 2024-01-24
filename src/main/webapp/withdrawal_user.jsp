@@ -90,8 +90,8 @@
 									        <th>AccountID</th>
 									        <th>WithdrawalDate</th>
 									        <th>Amount</th>
-									        <th>Edit</th>
-									         <th>Delete</th>    
+									        <!-- <th>Edit</th>
+									         <th>Delete</th>  -->   
 										</tr>
 									</thead>
 <%
@@ -107,12 +107,12 @@ for (WithdrawalBean tasks : tax) {
     <td><%=tasks.getWithdrawalTransactionID() %></td>
     <td><%=tasks.getWithdrawalDate()  %></td>
     <td><%=tasks.getAmount() %></td>
-    <td>
+    <%-- <td>
         <a href="withdrawal_edit.jsp?vehicleID=<%= tasks.getWithdrawalID()%>">Edit</a>
     </td>
     <td>
         <a href="DeleteVechicleSrv?VehicleID=<%= tasks.getWithdrawalID()%>">Delete</a> 
-    </td>
+    </td> --%>
 </tr>
 <%
 }

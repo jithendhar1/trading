@@ -1,3 +1,8 @@
+<%@page import="DAO.ROIDAO"%>
+<%@page import="DAO.DepositDAO"%>
+<%@page import="DAO.WithdrawalDAO"%>
+<%@page import="DAO.ReffertalDAO"%>
+<%@page import="DAO.CustomerDAO"%>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.time.LocalDate" %>
 <%@ page import="java.text.DecimalFormat" %>
@@ -66,12 +71,15 @@
                     <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                         <div class="card dash-widget">
                             <div class="card-body">
+                             <a href="roi_user.jsp" style="text-decoration: none; color: inherit;">
                                 <span class="dash-widget-icon"><i class="fa fa-percent"></i></span>
                                 <div class="dash-widget-info">
-                                    <% BigDecimal roi = new BigDecimal("5.2"); %>
-                                    <h3><%= roi %>%</h3>
+                                  <%--   <% BigDecimal roi = new BigDecimal("5.2"); %> --%>
+                                  <% int roi = ROIDAO.totalCountByUsername( username); %>
+                                    <h3><%= roi %></h3>
                                     <span>ROI</span>
                                 </div>
+                                 </a>
                             </div>
                         </div>
                     </div>
@@ -79,13 +87,15 @@
                     <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                         <div class="card dash-widget">
                             <div class="card-body">
-                             
+                              <a href="referrals_user.jsp" style="text-decoration: none; color: inherit;">
                                 <span class="dash-widget-icon"><i class="fa fa-share"></i></span>
                                 <div class="dash-widget-info">
-                                    <% int referralCount = 10; %>
+                                    <%-- <% int referralCount = 10; %> --%>
+                                     <% int referralCount = ReffertalDAO.totalCountByUsername( username); %>
                                     <h3><%= referralCount %></h3>
                                     <span>Referrals</span>
                                 </div>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -96,7 +106,8 @@
                             <a href="deposit_user.jsp" style="text-decoration: none; color: inherit;">
                                 <span class="dash-widget-icon"><i class="fa fa-money"></i></span>
                                 <div class="dash-widget-info">
-                                    <% BigDecimal totalDeposits = new BigDecimal("5000.0"); %>
+                                   <%--  <% BigDecimal totalDeposits = new BigDecimal("5000.0"); %> --%>
+                                   <% int totalDeposits = DepositDAO.totalCountByUsername( username); %>
                                     <h3><%= totalDeposits %></h3>
                                     <span>Deposits</span>
                                 </div>
@@ -108,12 +119,15 @@
                     <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                         <div class="card dash-widget">
                             <div class="card-body">
+                            <a href="withdrawal_user.jsp" style="text-decoration: none; color: inherit;">
                                 <span class="dash-widget-icon"><i class="fa fa-bank"></i></span>
                                 <div class="dash-widget-info">
-                                    <% BigDecimal totalWithdrawals = new BigDecimal("200.0"); %>
+                                    <%-- <% BigDecimal totalWithdrawals = new BigDecimal("200.0"); %> --%>
+                                     <% int totalWithdrawals = WithdrawalDAO.totalCountByUsername( username); %>
                                     <h3><%= totalWithdrawals %></h3>
                                     <span>Withdrawals</span>
                                 </div>
+                                  </a>
                             </div>
                         </div>
                     </div>

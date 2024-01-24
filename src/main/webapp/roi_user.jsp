@@ -45,7 +45,7 @@
 		<!-- Main Wrapper -->
         <div class="main-wrapper">
 		
-		<jsp:include page="sidebar.jsp" />
+	    <jsp:include page="header.jsp" />
 		  <jsp:include page="sidebar.jsp" />
             <div class="page-wrapper">
 			
@@ -77,6 +77,7 @@
 											<th>TransactionID</th>
 											<th>userID </th>
 									        <th>ROIAmount</th>
+									        <th>Date</th>
 									        <th>OpenAmount</th>
 									        <th>ClosingAmount</th>
 									        <!-- <th>Edit</th>
@@ -97,12 +98,12 @@ for (ROIBean tasks : tax) {
    <td><%=tasks.getModifiedDate() %></td>
    <td><%=tasks.getOpenAmount() %></td>
    <td><%=tasks.getClosingAmount() %></td>
-    <td>
+   <%--  <td>
         <a href="deposit_edit.jsp?vehicleID=<%= tasks.getTransactionID()%>">Edit</a>
     </td>
     <td>
         <a href="DeleteVechicleSrv?VehicleID=<%= tasks.getTransactionID()%>">Delete</a> 
-    </td>
+    </td> --%>
 </tr>
 <%
 }
