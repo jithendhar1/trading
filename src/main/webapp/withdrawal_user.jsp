@@ -42,9 +42,6 @@
     </head>
     <body>
 
-
-
-
 		<!-- Main Wrapper -->
        <div class="main-wrapper">
     <!-- Main Wrapper -->

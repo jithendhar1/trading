@@ -197,4 +197,77 @@ public class WithdrawalDAO {
 		    return count;
 		}
 
+	  public static String AmountGetting(String userID) {
+		 
+		    Connection connection = null;
+		    PreparedStatement userStatement = null;
+		    ResultSet userResultSet = null;
+          String amount = null;
+		    try {
+		        connection = DBUtil.provideConnection();
+		      
+		            // Step 2: Get the total count of withdrawals based on the obtained userID
+		            String countQuery = "SELECT Amount FROM bankdetails WHERE userID = ?";
+		             userStatement = connection.prepareStatement(countQuery);
+		             userStatement.setString(1, userID);
+		            ResultSet countResultSet = userStatement.executeQuery();
+		            // Close countResultSet and countStatement
+		            if (countResultSet.next()) {
+		                // Get the amount from the result set
+		                amount = countResultSet.getString("Amount");
+		            }
+		            countResultSet.close();
+		            userStatement.close();
+		        }
+
+		     catch (Exception e) {
+		        e.printStackTrace();
+		    } finally {
+		        // Close database resources
+		        try {
+		            if (userResultSet != null) userResultSet.close();
+		            if (userStatement != null) userStatement.close();
+		            if (connection != null) connection.close();
+		        } catch (Exception e) {
+		            e.printStackTrace();
+		        }
+		    }
+
+		    return amount;
+		}
+	  
+	  public static int COUNT(String userID) {
+			 int count = 0;
+			 Connection connection = null;
+		        PreparedStatement ps = null;
+		        ResultSet rs = null;
+			 try {
+				 connection = DBUtil.provideConnection();
+			   String query = "select count(*) as count from withdrawal where userID=?";
+			    ps = connection.prepareStatement(query);
+	            ps.setString(1, userID);
+	             rs = ps.executeQuery();
+
+	            if (rs.next()) {
+	                count = rs.getInt("count");
+	            }
+
+	            // Close countResultSet and countStatement
+	            rs.close();
+	            ps.close();
+			 } catch (Exception e) {
+			        e.printStackTrace();
+			    } finally {
+			        // Close database resources
+			        try {
+			            if (rs != null) rs.close();
+			            if (rs != null) rs.close();
+			            if (connection != null) connection.close();
+			        } catch (Exception e) {
+			            e.printStackTrace();
+			        }
+			    }
+
+			    return count;
+			}
 }
