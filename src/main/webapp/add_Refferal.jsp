@@ -92,7 +92,7 @@
     
         <div class="form-group">
             <label class="col-form-label">ReferrerUserID <span class="text-danger">*</span></label>
-            <select id="selectedEmployee" name="selectedEmployee" class="form-control">
+            <select id="selectedEmployee" name="ReferrerUserID" class="form-control">
             
             <%
 						List<CustomerBean> dept = ReffertalDAO.getAllEmployees();
@@ -105,7 +105,7 @@
 				     %>                       
         </select>
             
-            <input name="ReferrerUserID" required class="form-control" type="text">
+           <!--  <input name="ReferrerUserID" required class="form-control" type="text"> -->
         </div>
   
 <% String x=  CustomerDAO.getUserIDByUsername( username);
