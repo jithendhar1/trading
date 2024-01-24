@@ -50,7 +50,7 @@
 <body>
 
 
-<form action="./AddBankDetailsSrvSrv" method="post">
+<form action="./AddBankDetailsSrv" method="post">
 <div id="addbankdetails" class="modal custom-modal fade" role="dialog">
  <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
