@@ -87,8 +87,8 @@
 									        <th>DepositDate</th>
 									        <th>Amount</th>
 									        <th>userID</th>
-									        <th>Edit</th>
-									         <th>Delete</th>    
+									        <!-- <th>Edit</th>
+									         <th>Delete</th>     -->
 										</tr>
 									</thead>
 
@@ -107,12 +107,12 @@ for (DepositBean tasks : tax) {
     <td><%=tasks.getDepositDate() %></td>
     <td><%=tasks.getAmount()  %></td>
     <td><%=tasks.getUserID() %></td>
-    <td>
+    <%-- <td>
         <a href="deposit_edit.jsp?vehicleID=<%= tasks.getDepositID()%>">Edit</a>
     </td>
     <td>
         <a href="DeleteVechicleSrv?VehicleID=<%= tasks.getDepositID()%>">Delete</a> 
-    </td>
+    </td> --%>
 </tr>
 <%
 }

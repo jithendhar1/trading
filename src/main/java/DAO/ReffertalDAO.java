@@ -183,5 +183,52 @@ public class ReffertalDAO {
 
 		    return userReferrals;
 		}
+	 public static int totalCountByUsername(String username) {
+		    int count = 0;
+		    Connection connection = null;
+		    PreparedStatement userStatement = null;
+		    ResultSet userResultSet = null;
 
+		    try {
+		        connection = DBUtil.provideConnection();
+
+		        // Step 1: Get userID from userDB based on the provided username
+		        String userQuery = "SELECT userID FROM users WHERE username = ?";
+		        userStatement = connection.prepareStatement(userQuery);
+		        userStatement.setString(1, username);
+		        userResultSet = userStatement.executeQuery();
+
+		        if (userResultSet.next()) {
+		            String userID = userResultSet.getString("userID");
+
+		            // Step 2: Get the total count of withdrawals based on the obtained userID
+		            String countQuery = "SELECT COUNT(*) AS count FROM withdrawal WHERE userID = ?";
+		            PreparedStatement countStatement = connection.prepareStatement(countQuery);
+		            countStatement.setString(1, userID);
+		            ResultSet countResultSet = countStatement.executeQuery();
+
+		            if (countResultSet.next()) {
+		                count = countResultSet.getInt("count");
+		            }
+
+		            // Close countResultSet and countStatement
+		            countResultSet.close();
+		            countStatement.close();
+		        }
+
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    } finally {
+		        // Close database resources
+		        try {
+		            if (userResultSet != null) userResultSet.close();
+		            if (userStatement != null) userStatement.close();
+		            if (connection != null) connection.close();
+		        } catch (Exception e) {
+		            e.printStackTrace();
+		        }
+		    }
+
+		    return count;
+		}
 }
