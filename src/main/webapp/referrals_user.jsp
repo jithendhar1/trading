@@ -6,7 +6,7 @@
 <%@page import="DAO.WithdrawalDAO"%>
 <%
     // Getting the username from the session
-    String username = (String)session.getAttribute("customername");
+    String username = (String)session.getAttribute("username");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -63,10 +63,10 @@
                 <div id="welcomeMessage" style="text-align: center; margin-top: 20px; font-size: 24px;">
                                 Welcome  <%= username%>!
                               </div>
-								<h3 class="page-title">Withdrawal</h3>
+								<h3 class="page-title">Referals</h3>
 								 <ul class="breadcrumb">
-									<li class="breadcrumb-item"><a href="admin_dashboard.jsp">Dashboard</a></li>
-									<li class="breadcrumb-item active">Withdrawal</li>
+									<li class="breadcrumb-item"><a href="user.jsp">Dashboard</a></li>
+									<li class="breadcrumb-item active">referals</li>
 								</ul>
 							</div>
 							<div class="col-auto float-right ml-auto">

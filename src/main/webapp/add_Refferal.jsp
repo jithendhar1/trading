@@ -79,7 +79,7 @@
                         <%
                             String randomAccountID = RandomAccountIDGenerator.generateRandomAccountID();
                         %>
-                        <input readonly id="ReferralID" name="AccountID" class="form-control" type="text" value="<%= randomAccountID %>">
+                        <input readonly id="ReferralID" name="ReferralID" class="form-control" type="text" value="<%= randomAccountID %>">
                     </div>
 
    

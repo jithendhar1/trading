@@ -16,7 +16,7 @@ public String AddReferal(String ReferralID,String ReferrerUserID,String Referred
         PreparedStatement ps = null;
 
         try {
-        	ps = con.prepareStatement("INSERT INTO referrals_table (ReferralID, ReferrerUserID, ReferredUserID, ReferralDate) VALUES (?,?,?,?)");
+        	ps = con.prepareStatement("INSERT INTO referrals (ReferralID, ReferrerUserID, ReferredUserID, ReferralDate) VALUES (?,?,?,?)");
         
         	ps.setString(1, ReferralID);
             ps.setString(2, ReferrerUserID);

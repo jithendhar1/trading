@@ -63,7 +63,11 @@
 							<div id="welcomeMessage" style="text-align: center; margin-top: 20px; font-size: 24px;">
                                 Welcome  <%= username%>!
                               </div>
-								<h3 class="page-title">BankDetails</h3>
+									<h3 class="page-title">BankDetails</h3>
+							 <ul class="breadcrumb">
+									<li class="breadcrumb-item"><a href="user.jsp">Dashboard</a></li>
+									<li class="breadcrumb-item active">Bankdetails</li>
+								</ul> 
 								
 							</div>
 							

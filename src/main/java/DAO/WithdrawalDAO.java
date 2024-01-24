@@ -41,6 +41,7 @@ public class WithdrawalDAO {
        	    role.setUserID(resultSet.getString("userID"));
        	    role.setWithdrawalTransactionID(resultSet.getString("WithdrawalTransactionID"));
        	    role.setWithdrawalDate(resultSet.getString("WithdrawalDate"));
+       	    role.setAmount(resultSet.getString("Amount"));
       	   
       	    
       	  FilteredWithdrawals.add(role);

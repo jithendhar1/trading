@@ -106,10 +106,10 @@ if (newRecordsPerPageParam != null) {
                                 Welcome  <%= username%>!
                               </div>
 								<h3 class="page-title">ROI</h3>
-								<!-- <ul class="breadcrumb">
-									<li class="breadcrumb-item"><a href="index.jsp">Dashboard</a></li>
-									<li class="breadcrumb-item active">Tasks</li>
-								</ul> -->
+								 <ul class="breadcrumb">
+									<li class="breadcrumb-item"><a href="admin_dashboard.jsp">Dashboard</a></li>
+									<li class="breadcrumb-item active">ROI</li>
+								</ul> 
 							</div>
 							<div class="col-auto float-right ml-auto">
 							<a href="#" class="btn add-btn" data-toggle="modal" data-target="#addroi"><i class="fa fa-plus"></i> Add ROI</a>
@@ -118,7 +118,7 @@ if (newRecordsPerPageParam != null) {
 					</div>
 					<!-- /Page Header -->
 					<!-- Search Filter -->
-					<form action="./SearchVechicleSrv" method="post">
+	<%-- 				<form action="./SearchVechicleSrv" method="post">
     <div class="row filter-row">
         <div class="col-sm-6 col-md-3">
             <div class="form-group form-focus select-focus">
@@ -143,7 +143,7 @@ if (newRecordsPerPageParam != null) {
         </select>
         
     </div>
-</form>
+</form> --%>
 								<table>
 									<thead>
 										<tr>
@@ -152,8 +152,8 @@ if (newRecordsPerPageParam != null) {
 									        <th>ROIAmount</th>
 									        <th>OpenAmount</th>
 									        <th>ClosingAmount</th>
-									        <th>Edit</th>
-									         <th>Delete</th>    
+									        <!-- <th>Edit</th>
+									         <th>Delete</th>  -->   
 										</tr>
 									</thead>
 <%
@@ -209,12 +209,12 @@ for (ROIBean tasks : tax) {
    <td><%=tasks.getModifiedDate() %></td>
    <td><%=tasks.getOpenAmount() %></td>
    <td><%=tasks.getClosingAmount() %></td>
-    <td>
+   <%--  <td>
         <a href="deposit_edit.jsp?vehicleID=<%= tasks.getTransactionID()%>">Edit</a>
     </td>
     <td>
         <a href="DeleteVechicleSrv?VehicleID=<%= tasks.getTransactionID()%>">Delete</a> 
-    </td>
+    </td> --%>
 </tr>
 <%
 }

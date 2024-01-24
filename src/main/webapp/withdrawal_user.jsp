@@ -69,7 +69,7 @@
                               </div>
 								<h3 class="page-title">Withdrawal</h3>
 								 <ul class="breadcrumb">
-									<li class="breadcrumb-item"><a href="admin_dashboard.jsp">Dashboard</a></li>
+									<li class="breadcrumb-item"><a href="user.jsp">Dashboard</a></li>
 									<li class="breadcrumb-item active">Withdrawal</li>
 								</ul>
 							</div>

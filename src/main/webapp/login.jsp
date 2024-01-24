@@ -34,7 +34,7 @@
                         <!-- Account Form -->
                         <form method="post" action="./EmpLoginSrv">
                             <div class="form-group">
-                                <label>User Name</label>
+                                <label>Email</label>
                                 <input class="form-control" id="username"  name="username" required type="text">
                             </div>
                             <% if (request.getAttribute("wrongusername") != null) { %>

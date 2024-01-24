@@ -19,8 +19,8 @@ public class CustomerImp {
 
             try {
           customerStatement = con.prepareStatement(
-                        "INSERT INTO users (userID,username, email, password, phno, firstname, lastname) " +
-                                "VALUES (?,?, ?, ?, ?, ?, ?)");
+                        "INSERT INTO users (userID,username, email, password, phno, firstname, lastname,RoleID) " +
+                                "VALUES (?,?, ?, ?, ?, ?, ?,2)");
                        
                 customerStatement.setString(1,userID);
                 customerStatement.setString(2, username);

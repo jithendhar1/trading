@@ -109,10 +109,10 @@ if (newRecordsPerPageParam != null) {
                 <div id="welcomeMessage" style="text-align: center; margin-top: 20px; font-size: 24px;">
                                 Welcome  <%= username%>!
                               </div>
-								<h3 class="page-title">Withdrawal</h3>
+								<h3 class="page-title">Referals</h3>
 								 <ul class="breadcrumb">
 									<li class="breadcrumb-item"><a href="admin_dashboard.jsp">Dashboard</a></li>
-									<li class="breadcrumb-item active">Withdrawal</li>
+									<li class="breadcrumb-item active">Referals</li>
 								</ul>
 							</div>
 							<div class="col-auto float-right ml-auto">
@@ -122,7 +122,7 @@ if (newRecordsPerPageParam != null) {
 					</div>
 					<!-- /Page Header -->
 					<!-- Search Filter -->
-<form action="./SearchVechicleSrv" method="post">
+<%-- <form action="./SearchVechicleSrv" method="post">
 <div class="row filter-row">
 <div class="col-sm-6 col-md-3" id = "flag">
         <label>Records per page:</label>
@@ -145,7 +145,7 @@ if (newRecordsPerPageParam != null) {
     <input type="hidden" name="limit" value="<%= newRecordsPerPage %>">
 
     
-</form>
+</form> --%>
 								<table>
 									<thead>
 										<tr>
