@@ -18,17 +18,17 @@ public class AddBankDetailsSrv extends HttpServlet {
         
    
         String status = "Add Failed!";
-       // String userID = request.getParameter("userID");
+        String userID = request.getParameter("userID");
         String userName = request.getParameter("userName");
         String Amount = request.getParameter("Amount");
        
       
         
         BankDetailsServiceImpl add = new BankDetailsServiceImpl();
-        status = add.addV( userName, Amount);
+        status = add.addV(userID, userName, Amount);
 
 
-    	   RequestDispatcher rd = request.getRequestDispatcher("login.jsp?message=" + status);
+    	   RequestDispatcher rd = request.getRequestDispatcher("bankdetails_user.jsp?message=" + status);
     rd.forward(request, response);
     }
 
