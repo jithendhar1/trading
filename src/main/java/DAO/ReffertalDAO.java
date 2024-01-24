@@ -21,7 +21,7 @@ public class ReffertalDAO {
 		Connection connection = DBUtil.provideConnection();
 		try {
 			
-			String query = "SELECT userID, username, email, phno";
+			String query = "SELECT userID, username, email, phno From users";
 			preparedStatement = connection.prepareStatement(query);
 			resultSet = preparedStatement.executeQuery();
 

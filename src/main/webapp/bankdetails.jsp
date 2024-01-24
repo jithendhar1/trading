@@ -7,7 +7,7 @@
 <%@page import="DAO.BankdetailsDAO"%>
 <%
     // Getting the username from the session
-    String username = (String)session.getAttribute("customername");
+    String username = (String)session.getAttribute("username");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -90,18 +90,21 @@ if (newRecordsPerPageParam != null) {
 
 
 		<!-- Main Wrapper -->
-        <div class="main-wrapper">
-		
+    <div class="main-wrapper">
+
+        <!-- Header -->
+         <jsp:include page="header.jsp" />
+
+        <!-- Sidebar -->
 		<jsp:include page="sidebar.jsp" />
-            <div class="page-wrapper">
-			
-				<!-- Page Content -->
-                <div class="content container-fluid">
-				
-					<!-- Page Header -->
-					<div class="page-header">
-						<div class="row align-items-center">
-							<div class="col">
+	   <!-- Page Wrapper -->
+        <div class="page-wrapper">
+          <!-- Page Content -->
+            <div class="content container-fluid">
+               <!-- Page Header -->
+                <div class="page-header">
+                    <div class="row align-items-center">
+                        <div class="col">
 							<div id="welcomeMessage" style="text-align: center; margin-top: 20px; font-size: 24px;">
                                 Welcome  <%= username%>!
                               </div>
@@ -112,27 +115,14 @@ if (newRecordsPerPageParam != null) {
 								</ul> -->
 							</div>
 							<div class="col-auto float-right ml-auto">
-							<a href="#" class="btn add-btn" data-toggle="modal" data-target="#addbankdetails"><i class="fa fa-plus"></i> Add BankDetails</a>
+							<a href="#" class="Addbutton" data-toggle="modal" data-target="#addbankdetails"><i class="fa fa-plus"></i> Add BankDetails</a>
 							</div>
 						</div>
 					</div>
 					<!-- /Page Header -->
 					<!-- Search Filter -->
-					<form action="./SearchVechicleSrv" method="post">
+<form action="./SearchVechicleSrv" method="post">
     <div class="row filter-row">
-        <div class="col-sm-6 col-md-3">
-            <div class="form-group form-focus select-focus">
-                <label for="id">vehicleID:</label>
-                <input type="text" name="DepositID" id="vehicleID">
-            </div>
-        </div>
-        <div class="col-sm-6 col-md-3">
-            <input style="margin-top: 29px;" type="submit" value="Search">
-        </div>
-    </div>
-    <input type="hidden" name="start" value="<%= currentPage %>">
-    <input type="hidden" name="limit" value="<%= newRecordsPerPage %>">
-
     <div class="col-sm-6 col-md-3" id = "flag">
         <label>Records per page:</label>
         <select id="recordsPerPage" onchange="changeRecordsPerPage()">
@@ -143,6 +133,22 @@ if (newRecordsPerPageParam != null) {
         </select>
         
     </div>
+        <div class="col-sm-6 col-md-3">
+            <div class="form-group form-focus select-focus">
+                <label for="id">vehicleID:</label>
+                <input class="input" type="text" name="DepositID" id="vehicleID">
+            </div>
+        </div>
+        
+      <div class="col-sm-6 col-md-3">
+				    <input class="search" type="submit" value="SEARCH">
+	</div>
+	
+    </div>
+    <input type="hidden" name="start" value="<%= currentPage %>">
+    <input type="hidden" name="limit" value="<%= newRecordsPerPage %>">
+
+    
 </form>
 								<table>
 									<thead>
@@ -206,12 +212,12 @@ for (BankdetailsBean tasks : tax) {
    <td><%=tasks.getUserID() %></td>
   <td><%=tasks.getUserName() %></td>
   <td><%=tasks.getAmount() %></td>
-    <td>
+   <%--  <td>
         <a href="bankdetails_edit.jsp?vehicleID=<%= tasks.getUserID()%>">Edit</a>
     </td>
     <td>
         <a href="DeleteVechicleSrv?VehicleID=<%= tasks.getUserID()%>">Delete</a> 
-    </td>
+    </td> --%>
 </tr>
 <%
 }
@@ -246,7 +252,7 @@ for (BankdetailsBean tasks : tax) {
 				<!-- /Page Content -->
 				
 				<!-- Add Tax Modal -->
-				 <jsp:include page="bankdetails_add.jsp" />
+				 <%-- <jsp:include page="bankdetails_add.jsp" /> --%>
 				<!-- /Add Tax Modal -->
 				
 				<%-- <!-- Edit Tax Modal -->

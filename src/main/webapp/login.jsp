@@ -21,7 +21,7 @@
 <body class="account-page">
     <!-- Main Wrapper -->
     <div class="main-wrapper">
-        <div class="account-content">
+        <div class="account-content"> 
             <div class="container">
                 <!-- Account Logo -->
                 <div class="account-logo">

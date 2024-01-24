@@ -16,7 +16,7 @@
         response.sendRedirect("login.jsp"); // Change "login.jsp" to your actual login page
     } else {
     	   int roleid = Integer.parseInt(roleIDString);
-    	   String displayAdminDashboard = (roleid == 1) ? "block" : "none";
+    	    String displayAdminDashboard = (roleid == 1) ? "block" : "none"; 
 %> 
 
 
@@ -57,7 +57,7 @@
     }
      .admin-dashboard-link {
             display: <%= displayAdminDashboard %>; /* Set display property based on role ID */
-        }
+        } 
 </style>
 <script>
     function toggleSubMenu(element) {
