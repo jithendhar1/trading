@@ -1,3 +1,4 @@
+<%@page import="DAO.WithdrawalDAO"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@page import="DAO.CustomerDAO"%>
@@ -70,10 +71,9 @@
             <input id="WithdrawalID" name="WithdrawalID" class="form-control" type="text">    
         </div> -->
    
+        <% String x=  CustomerDAO.getUserIDByUsername(username);           		
 
-   
-        <% String x=  CustomerDAO.getUserIDByUsername( username);           		
-%>
+         %>
  
         <div class="form-group">
             <label class="col-form-label">userID <span class="text-danger">*</span></label>
@@ -101,11 +101,15 @@
             <input name="WithdrawalDate" required class="form-control" type="date">
         </div>
         
-        
+    
         <div class="form-group">
             <label class="col-form-label">Amount <span class="text-danger">*</span></label>
-            <input name="Amount" required class="form-control" type="text">
+            <input id="withdrawalAmount" name="Amount" required class="form-control" type="text">
         </div>
+        
+        
+
+
 </div>
 
  <div class="submit-section">
