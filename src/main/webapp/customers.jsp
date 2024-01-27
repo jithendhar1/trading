@@ -4,7 +4,7 @@
 <%@ page import="beans.CustomerBean" %>
 <%@ page import="java.util.List" %>
 
-<%
+<%-- <%
 HttpSession sdsession = request.getSession(true);
 
 // Retrieve the username attribute from the session
@@ -16,7 +16,7 @@ response.sendRedirect("login.jsp"); // Change "login.jsp" to your actual login p
 } else {
    int roleid = Integer.parseInt(roleIDString);
 
-%>
+%> --%>
 
 <!DOCTYPE html>
 <html>
@@ -137,7 +137,7 @@ if (newRecordsPerPageParam != null) {
                     <div class="row align-items-center">
                         <div class="col">
                             <div id="welcomeMessage" style="text-align: center; margin-top: 20px; font-size: 24px;">
-                                Welcome <%= username %>😊😊
+                                Welcome 😊😊
                               </div>
                             <div class="col">
 								<h3 class="page-title">Users</h3>
@@ -150,7 +150,7 @@ if (newRecordsPerPageParam != null) {
                          <div class="col-auto float-right ml-auto">
 <!--                         <a href="#" class="btn add-btn" data-toggle="modal" data-target="#deleteEmployee"><i class="fa fa-plus"></i>Delete </a> -->
 <!--                                 <a href="#" class="btn add-btn" data-toggle="modal" data-target="#editEmployee"><i class="fa fa-plus"></i>Edit </a> -->
-                             	<a href="#" class="Addbutton" data-toggle="modal" data-target="#addemployee"><i class="fa fa-plus"></i> Add Employee</a><div class="view-icons">
+                             	<!-- XXXXXXXXXXXXXXX<a href="#" class="Addbutton" data-toggle="modal" data-target="#addemployee"><i class="fa fa-plus"></i> Add Employee</a><div class="view-icons"> -->
                                 <!-- <a href="employee.jsp" title="Grid View" class="grid-view btn btn-link active"><i class="fa fa-th"></i></a>
                                 <a href="employees-list.jsp" title="Tabular View" class="list-view btn btn-link"><i class="fa fa-bars"></i></a>
                           -->   </div>
@@ -300,7 +300,7 @@ if (newRecordsPerPageParam != null) {
 
     <% if (pageno < noOfPages) { %>
         <a href="employee.jsp?page=<%=pageno + 1%>"><span class="pagination-label">Next</span></a>
-    <% } }%>
+    <% } %>
    </div>
 </div>
 </div>
@@ -327,10 +327,7 @@ if (newRecordsPerPageParam != null) {
     <script src="js/moment.min.js"></script>
     <script src="js/bootstrap-datetimepicker.min.js"></script>
 
-    <!-- Custom JS -->
-    <!-- <script src="js/app.js"></script> -->
     
-    <!--  <!-- Custom JS -->
     <script src="js/validateForm.js"></script> -->
  
 
