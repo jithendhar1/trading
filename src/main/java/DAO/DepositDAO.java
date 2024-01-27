@@ -102,7 +102,7 @@ public class DepositDAO {
 
 		        if ("Admin".equals(username)) {
 		            // If the username is Admin, use a different query
-		            String adminQuery = "SELECT DepositID, DepositTransactionID, DepositDate, Amount,status, userID FROM deposit";
+		            String adminQuery = "SELECT TransactionID, transactiondate, Amount,status, userID FROM transaction";
 		            depositStatement = connection.prepareStatement(adminQuery);
 		        } else {
 		            // For other users, get userID from userDB based on the provided username
@@ -115,7 +115,7 @@ public class DepositDAO {
 		                String userID = userResultSet.getString("userID");
 
 		                // Get all deposits based on the obtained userID
-		                String depositQuery = "SELECT DepositID, DepositTransactionID, DepositDate, Amount,status, userID FROM deposit WHERE userID = ?";
+		                String depositQuery = "SELECT  TransactionID, transactiondate, Amount,status, userID FROM transaction WHERE userID = ?";
 		                depositStatement = connection.prepareStatement(depositQuery);
 		                depositStatement.setString(1, userID);
 		            }
@@ -126,9 +126,9 @@ public class DepositDAO {
 
 		        while (depositResultSet.next()) {
 		            DepositBean deposit = new DepositBean();
-		            deposit.setDepositID(depositResultSet.getString("DepositID"));
-		            deposit.setDepositTransactionID(depositResultSet.getString("DepositTransactionID"));
-		            deposit.setDepositDate(depositResultSet.getString("DepositDate"));
+		           
+		            deposit.setDepositTransactionID(depositResultSet.getString("TransactionID"));
+		            deposit.setDepositDate(depositResultSet.getString("transactiondate"));
 		            deposit.setAmount(depositResultSet.getString("Amount"));
 		            deposit.setStatus(depositResultSet.getString("status"));
 		            deposit.setUserID(depositResultSet.getString("userID"));

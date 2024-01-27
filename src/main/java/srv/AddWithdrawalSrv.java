@@ -22,12 +22,12 @@ public class AddWithdrawalSrv extends HttpServlet {
   
             String userID = request.getParameter("userID");
             String WithdrawalTransactionID = request.getParameter("WithdrawalTransactionID");
-            String WithdrawalDate = request.getParameter("WithdrawalDate");
+           
             String Amount = request.getParameter("Amount");
            
 
             WithdrawalServiceImpl aaa =new WithdrawalServiceImpl();
-       	 status =aaa.addV( userID, WithdrawalTransactionID, WithdrawalDate, Amount);
+       	 status =aaa.addV( userID, WithdrawalTransactionID, Amount);
             
 
        	   RequestDispatcher rd = request.getRequestDispatcher("withdrawal_user.jsp?message=" + status);

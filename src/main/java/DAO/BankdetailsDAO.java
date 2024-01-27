@@ -192,5 +192,40 @@ public class BankdetailsDAO {
 
 		    return userExists;
 		}
+	  
+	  public static String getUserOpenAmount(String userID) {
+		    String userOpenAmount = null;
+		    Connection connection = null;
+		    PreparedStatement statement = null;
+		    ResultSet resultSet = null;
+
+		    try {
+		        // Step 1: Retrieve the user's open amount from the CustomerAccdetails table
+		        connection = DBUtil.provideConnection();
+		        String query = "SELECT Amount FROM CustomerAccdetails WHERE userID = ?";
+		        statement = connection.prepareStatement(query);
+		        statement.setString(1, userID);
+		        resultSet = statement.executeQuery();
+
+		        if (resultSet.next()) {
+		            userOpenAmount = resultSet.getString("Amount");
+		        }
+		    } catch (Exception e) {
+		        // Handle exceptions
+		        e.printStackTrace();
+		    } finally {
+		        // Close database resources
+		        try {
+		            if (resultSet != null) resultSet.close();
+		            if (statement != null) statement.close();
+		            if (connection != null) connection.close();
+		        } catch (Exception e) {
+		            // Handle exceptions
+		            e.printStackTrace();
+		        }
+		    }
+
+		    return userOpenAmount;
+		}
 
 }
