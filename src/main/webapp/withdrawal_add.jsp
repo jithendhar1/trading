@@ -96,10 +96,10 @@
                     </div>
 
  
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label class="col-form-label">WithdrawalDate <span class="text-danger">*</span></label>
             <input name="WithdrawalDate" required class="form-control" type="date">
-        </div>
+        </div> -->
         
     
         <div class="form-group">

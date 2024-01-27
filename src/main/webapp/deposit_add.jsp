@@ -114,10 +114,10 @@
                     </div>
 
    
-        <div class="form-group">
+       <!--  <div class="form-group">
             <label for="DepositDate">DepositDate <span class="text-danger">*</span></label>
             <input id="DepositDate" name="DepositDate" class="form-control" type="date">
-        </div>
+        </div> -->
    
 
     

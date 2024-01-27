@@ -94,8 +94,8 @@
 									<thead>
 										<tr>
 							
-											<th>DepositID</th>
-											<th>AccountID </th>
+											
+											<th>DepositTransactionID </th>
 									        <th>DepositDate</th>
 									        <th>Amount</th>
 									        <th>userID</th>
@@ -134,6 +134,7 @@ for (DepositBean tasks : tax) {
     	<input type="text" name="depositID" value="<%=tasks.getDepositTransactionID()%>" hidden>
     	<input type="text" name="amount" value="<%=tasks.getAmount()%>" hidden>
     	<input type="text" name="userID" value="<%=tasks.getUserID()%>" hidden>
+    	<input type="text" name="username" value="<%=username%>" hidden>
         <button type="submit" name="status" id="approveButton" value="1" onclick="changeButtonColor(this)">Approve</button>
     </form>
     
