@@ -58,7 +58,7 @@ response.sendRedirect("login.jsp"); // Change "login.jsp" to your actual login p
     <script src="js/respond.min.js"></script>
     <![endif]-->
     
-    <title>Employee List</title>
+    <title>Customer</title>
 <style>
 #table{
     width:1210px;
@@ -147,14 +147,14 @@ if (newRecordsPerPageParam != null) {
 								</ul>
 							</div>
                         </div>
-                         <div class="col-auto float-right ml-auto">
-<!--                         <a href="#" class="btn add-btn" data-toggle="modal" data-target="#deleteEmployee"><i class="fa fa-plus"></i>Delete </a> -->
-<!--                                 <a href="#" class="btn add-btn" data-toggle="modal" data-target="#editEmployee"><i class="fa fa-plus"></i>Edit </a> -->
-                             	<a href="#" class="Addbutton" data-toggle="modal" data-target="#addemployee"><i class="fa fa-plus"></i> Add Employee</a><div class="view-icons">
-                                <!-- <a href="employee.jsp" title="Grid View" class="grid-view btn btn-link active"><i class="fa fa-th"></i></a>
+                        <!--  <div class="col-auto float-right ml-auto">
+                        <a href="#" class="btn add-btn" data-toggle="modal" data-target="#deleteEmployee"><i class="fa fa-plus"></i>Delete </a>
+                                <a href="#" class="btn add-btn" data-toggle="modal" data-target="#editEmployee"><i class="fa fa-plus"></i>Edit </a>
+                             	<a href="#" class="Addbutton" data-toggle="modal" data-target="#addemployee"><i class="fa fa-plus"></i> Add User</a><div class="view-icons">
+                                <a href="employee.jsp" title="Grid View" class="grid-view btn btn-link active"><i class="fa fa-th"></i></a>
                                 <a href="employees-list.jsp" title="Tabular View" class="list-view btn btn-link"><i class="fa fa-bars"></i></a>
-                          -->   </div>
-                        </div>
+                            </div>
+                        </div> -->
                         </div>
                         </div>
           <!-- Search form -->

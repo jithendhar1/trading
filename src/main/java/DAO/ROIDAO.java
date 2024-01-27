@@ -22,10 +22,10 @@ public class ROIDAO {
 	            connection = DBUtil.provideConnection();
 	            String query;
 	            if (whereClause != null && !whereClause.isEmpty()) {
-	                query = "SELECT  TransactionID, userID, ROIAmount, ModifiedDate, OpenAmount, ClosingAmount FROM roi WHERE " + whereClause + " LIMIT ? , ?;";
+	                query = "SELECT  TransactionID, userID, Amount, ModifiedDate, OpenAmount, ClosingAmount FROM roi WHERE " + whereClause + " LIMIT ? , ?;";
 	               
 	            } else {
-	                query = "SELECT TransactionID, userID, ROIAmount, ModifiedDate, OpenAmount, ClosingAmount FROM roi LIMIT ? , ?;";
+	                query = "SELECT TransactionID, userID, Amount, ModifiedDate, OpenAmount, ClosingAmount FROM roi LIMIT ? , ?;";
 	            }
 
 	            preparedStatement = connection.prepareStatement(query);
@@ -39,7 +39,7 @@ public class ROIDAO {
 	            	
 	        role.setTransactionID(resultSet.getString("TransactionID"));
        	    role.setUserID(resultSet.getString("userID"));
-       	    role.setROIAmount(resultSet.getString("ROIAmount"));
+       	    role.setROIAmount(resultSet.getString("Amount"));
        	    role.setModifiedDate(resultSet.getString("ModifiedDate"));
       	    role.setOpenAmount(resultSet.getString("OpenAmount"));
       	  role.setClosingAmount(resultSet.getString("ClosingAmount"));
@@ -132,52 +132,56 @@ public class ROIDAO {
 		    ResultSet depositResultSet = null;
 
 		    try {
-		        // Step 1: Get userID from userDB based on the provided username
-		        connection = DBUtil.provideConnection();
-		        String userQuery = "SELECT userID FROM users WHERE username = ?";
-		        userStatement = connection.prepareStatement(userQuery);
-		        userStatement.setString(1, username);
-		        userResultSet = userStatement.executeQuery();
+		    	connection = DBUtil.provideConnection();
+		    	/* if ("Admin".equals(username)) {
+			            // If the username is Admin, use a different query
+			            String adminQuery = "SELECT TransactionID, userID, Amount,ModifiedDate,OpenAmount,ClosingAmount FROM roi";
+			            depositStatement = connection.prepareStatement(adminQuery);
+			        }
+		    	 else {*/
+			            // For other users, get userID from userDB based on the provided username
+			        
 
-		        if (userResultSet.next()) {
-		            String userID = userResultSet.getString("userID");
+			                // Get all deposits based on the obtained userID
+			                String depositQuery = "SELECT TransactionID, userID,Amount, ModifiedDate, OpenAmount, ClosingAmount FROM roi";
+			                depositStatement = connection.prepareStatement(depositQuery);
+			             
+			            
+			        
 
-		            // Step 2: Get all deposits based on the obtained userID
-		            String depositQuery = "SELECT TransactionID, userID, ROIAmount, ModifiedDate, OpenAmount, ClosingAmount FROM roi WHERE userID = ?";
-		            depositStatement = connection.prepareStatement(depositQuery);
-		            depositStatement.setString(1, userID);
-		            depositResultSet = depositStatement.executeQuery();
+		    	 depositResultSet = depositStatement.executeQuery();
 
-		            while (depositResultSet.next()) {
+			        while (depositResultSet.next()) {
 		            	ROIBean deposit = new ROIBean();
 		                deposit.setTransactionID(depositResultSet.getString("TransactionID"));
 		                deposit.setUserID(depositResultSet.getString("userID"));
-		                deposit.setROIAmount(depositResultSet.getString("ROIAmount"));
+		                deposit.setROIAmount(depositResultSet.getString("Amount"));
 		                deposit.setModifiedDate(depositResultSet.getString("ModifiedDate"));
 		                deposit.setOpenAmount(depositResultSet.getString("OpenAmount"));
 		                deposit.setClosingAmount(depositResultSet.getString("ClosingAmount"));
 		                userROI.add(deposit);
-		            }
-		        }
-		    } catch (Exception e) {
-		        // Handle exceptions
-		        e.printStackTrace();
-		    } finally {
-		        // Close database resources
-		        try {
-		            if (depositResultSet != null) depositResultSet.close();
-		            if (depositStatement != null) depositStatement.close();
-		            if (userResultSet != null) userResultSet.close();
-		            if (userStatement != null) userStatement.close();
-		            if (connection != null) connection.close();
-		        } catch (Exception e) {
-		            // Handle exceptions
-		            e.printStackTrace();
-		        }
-		    }
+		               
+			        }
 
-		    return userROI;
-		}
+			    } catch (Exception e) {
+			        // Handle exceptions
+			        e.printStackTrace();
+			    } finally {
+			        // Close database resources
+			        try {
+			            if (depositResultSet != null) depositResultSet.close();
+			            if (depositStatement != null) depositStatement.close();
+			            if (userResultSet != null) userResultSet.close();
+			            if (userStatement != null) userStatement.close();
+			            if (connection != null) connection.close();
+			        } catch (Exception e) {
+			            // Handle exceptions
+			            e.printStackTrace();
+			        }
+			    }
+
+			    return userROI;
+			}
 
 	  public static int totalCountByUsername(String username) {
 		    int count = 0;
@@ -198,7 +202,7 @@ public class ROIDAO {
 		            String userID = userResultSet.getString("userID");
 
 		            // Step 2: Get the total count of withdrawals based on the obtained userID
-		            String countQuery = "SELECT COUNT(*) AS count FROM withdrawal WHERE userID = ?";
+		            String countQuery = "SELECT COUNT(*) AS count FROM roi WHERE userID = ?";
 		            PreparedStatement countStatement = connection.prepareStatement(countQuery);
 		            countStatement.setString(1, userID);
 		            ResultSet countResultSet = countStatement.executeQuery();

@@ -17,7 +17,7 @@ public class ROIServiceImpl {
         PreparedStatement ps = null;
 
         try {
-        	ps = con.prepareStatement("INSERT INTO roi (userID, ROIAmount, ModifiedDate, OpenAmount, ClosingAmount) VALUES (?,?,?,?,?)");
+        	ps = con.prepareStatement("INSERT INTO roi (userID, Amount, ModifiedDate, OpenAmount, ClosingAmount) VALUES (?,?,?,?,?)");
         	ps.setString(1, userID);
         	ps.setString(2, ROIAmount);
             ps.setString(3, ModifiedDate);

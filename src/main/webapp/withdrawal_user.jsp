@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page import="Imp.WithdrawalServiceImpl" %>
@@ -66,12 +65,14 @@
                               </div>
 								<h3 class="page-title">Withdrawal</h3>
 								 <ul class="breadcrumb">
-									<li class="breadcrumb-item"><a href="user.jsp">Dashboard</a></li>
+									<li class="breadcrumb-item"><a href="<%= (username.equals("Admin")) ? "admin_dashboard.jsp" : "user.jsp" %>">Dashboard</a></li>
 									<li class="breadcrumb-item active">Withdrawal</li>
 								</ul>
 							</div>
 							<div class="col-auto float-right ml-auto">
+							<% if (!"Admin".equals(username)) { %>
 							<a href="#" class="Addbutton" data-toggle="modal" data-target="#addwithdrawal"><i class="fa fa-plus"></i> Add Withdrawal</a>
+							<% } %>
 							</div>
 						</div>
 					</div>
@@ -87,13 +88,14 @@
 									        <th>AccountID</th>
 									        <th>WithdrawalDate</th>
 									        <th>Amount</th>
+									        <th>Status</th>
 									        <!-- <th>Edit</th>
 									         <th>Delete</th>  -->   
 										</tr>
 									</thead>
 <%
 
-  List<WithdrawalBean>  tax = WithdrawalDAO.getDepositsByUsername(username);
+  List<WithdrawalBean>  tax = WithdrawalDAO.getWithdrawalsByUsername(username);
 
 for (WithdrawalBean tasks : tax) {
 	 
@@ -104,6 +106,32 @@ for (WithdrawalBean tasks : tax) {
     <td><%=tasks.getWithdrawalTransactionID() %></td>
     <td><%=tasks.getWithdrawalDate()  %></td>
     <td><%=tasks.getAmount() %></td>
+    
+    <%
+    String status = tasks.getStatsu();
+    String statusText = "Approved";
+
+    if ("0".equals(status)) {
+        statusText = "Pending";
+    }
+%>
+<%if (!"Admin".equals(username)) { %>
+    <td><%=statusText%></td>
+<%} else{%>
+<td>
+    <form action="./WithdrawalStatus" method="post" onsubmit="return disableButton()">
+    	<input type="text" name="WithdrawalTransactionID" value="<%=tasks.getWithdrawalTransactionID()%>" hidden>
+    	<input type="text" name="amount" value="<%=tasks.getAmount()%>" hidden>
+    	<input type="text" name="userID" value="<%=tasks.getUserID()%>" hidden>
+        <button type="submit" name="status" id="approveButton" value="1">Approve</button>
+    </form>
+    
+  
+</td>
+
+<%} %>
+    
+    
     <%-- <td>
         <a href="withdrawal_edit.jsp?vehicleID=<%= tasks.getWithdrawalID()%>">Edit</a>
     </td>

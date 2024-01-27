@@ -4,7 +4,23 @@ public class BankdetailsBean {
 	private String userID;
 	private String userName;
 	private String Amount;
+	private String AcountNumber;
+	private String BankName;
 	
+	
+	
+	public String getAcountNumber() {
+		return AcountNumber;
+	}
+	public void setAcountNumber(String acountNumber) {
+		AcountNumber = acountNumber;
+	}
+	public String getBankName() {
+		return BankName;
+	}
+	public void setBankName(String bankName) {
+		BankName = bankName;
+	}
 	public String getUserID() {
 		return userID;
 	}

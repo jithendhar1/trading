@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import beans.BankdetailsBean;
+import beans.Referrals;
 import utility.DBUtil;
 
 public class BankdetailsDAO {
@@ -22,10 +23,10 @@ public class BankdetailsDAO {
 	            connection = DBUtil.provideConnection();
 	            String query;
 	            if (whereClause != null && !whereClause.isEmpty()) {
-	                query = "SELECT  userID, userName, Amount FROM bankdetails WHERE " + whereClause + " LIMIT ? , ?;";
+	                query = "SELECT  userID, userName, Amount FROM CustomerAccdetails WHERE " + whereClause + " LIMIT ? , ?;";
 	               
 	            } else {
-	                query = "SELECT  userID, userName, Amount FROM bankdetails LIMIT ? , ?;";
+	                query = "SELECT  userID, userName, Amount FROM CustomerAccdetails LIMIT ? , ?;";
 	            }
 
 	            preparedStatement = connection.prepareStatement(query);
@@ -70,7 +71,7 @@ public class BankdetailsDAO {
 		        ResultSet rs = null;
 			 try {
 				 connection = DBUtil.provideConnection();
-			   String query = "select count(*) as count from bankdetails";
+			   String query = "select count(*) as count from CustomerAccdetails";
 			 ps = connection.prepareStatement(query);
 			 rs = ps.executeQuery();
 			 while (rs.next()) {
@@ -99,29 +100,41 @@ public class BankdetailsDAO {
 		    try {
 		        // Step 1: Get userID from userDB based on the provided username
 		        connection = DBUtil.provideConnection();
-		        String userQuery = "SELECT userID FROM users WHERE username = ?";
-		        userStatement = connection.prepareStatement(userQuery);
-		        userStatement.setString(1, username);
-		        userResultSet = userStatement.executeQuery();
 
-		        if (userResultSet.next()) {
-		            String userID = userResultSet.getString("userID");
+		        if ("Admin".equals(username)) {
+		            // If the username is Admin, use a different query
+		            String adminQuery = "SELECT userID, userName, Amount,AcountNumber FROM CustomerAccdetails";
+		            depositStatement = connection.prepareStatement(adminQuery);
+		        } else {
+		            // For other users, get userID from userDB based on the provided username
+		            String userQuery = "SELECT userID FROM users WHERE username = ?";
+		            userStatement = connection.prepareStatement(userQuery);
+		            userStatement.setString(1, username);
+		            userResultSet = userStatement.executeQuery();
 
-		            // Step 2: Get all deposits based on the obtained userID
-		            String depositQuery = "SELECT userID, userName, Amount FROM bankdetails WHERE userID = ?";
-		            depositStatement = connection.prepareStatement(depositQuery);
-		            depositStatement.setString(1, userID);
-		            depositResultSet = depositStatement.executeQuery();
+		            if (userResultSet.next()) {
+		                String userID = userResultSet.getString("userID");
 
-		            while (depositResultSet.next()) {
-		            	BankdetailsBean deposit = new BankdetailsBean();
-		                deposit.setUserID(depositResultSet.getString("userID"));
-		                deposit.setUserName(depositResultSet.getString("userName"));
-		                deposit.setAmount(depositResultSet.getString("Amount"));
-		               
-		                userBankdetails.add(deposit);
+		                // Get all deposits based on the obtained userID
+		                String depositQuery = "SELECT userID, userName, Amount,AcountNumber FROM CustomerAccdetails WHERE userID = ?";
+		                depositStatement = connection.prepareStatement(depositQuery);
+		                depositStatement.setString(1, userID);
 		            }
 		        }
+		        // Execute the deposit query
+		        depositResultSet = depositStatement.executeQuery();
+
+		        while (depositResultSet.next()) {
+		        	BankdetailsBean deposit = new BankdetailsBean();
+		            deposit.setUserID(depositResultSet.getString("userID"));
+		            deposit.setUserName(depositResultSet.getString("userName"));
+		            deposit.setAmount(depositResultSet.getString("Amount"));
+		            deposit.setAcountNumber(depositResultSet.getString("AcountNumber"));
+					/* deposit.setBankName(depositResultSet.getString("BankName")); */
+
+		            userBankdetails.add(deposit);
+		        }
+
 		    } catch (Exception e) {
 		        // Handle exceptions
 		        e.printStackTrace();
@@ -141,6 +154,9 @@ public class BankdetailsDAO {
 
 		    return userBankdetails;
 		}
+	  
+	  
+	  
 	  public static boolean isUserExists(String username) {
 		    boolean userExists = false;
 		    Connection connection = null;
@@ -150,7 +166,7 @@ public class BankdetailsDAO {
 		    try {
 		        // Step 1: Check if the user exists in the users table
 		        connection = DBUtil.provideConnection();
-		        String query = "SELECT COUNT(*) AS count FROM bankdetails WHERE username = ?";
+		        String query = "SELECT COUNT(*) AS count FROM CustomerAccdetails WHERE username = ?";
 		        statement = connection.prepareStatement(query);
 		        statement.setString(1, username);
 		        resultSet = statement.executeQuery();

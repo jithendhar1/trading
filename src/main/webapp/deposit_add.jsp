@@ -40,12 +40,12 @@
     <link rel="stylesheet" href="css/style.css">
     
     <!-- Table styles CSS -->
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/tstyles.css">
     
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
    
-    <script src="js/html5shiv.min.js"></script>
-    <script src="js/respond.min.js"></script>
+    <!-- <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script> -->
    
     <title>Leave List</title>
 </head>
@@ -70,7 +70,41 @@
             <label for="AccountID">Account ID <span class="text-danger">*</span></label>
             <input id="AccountID" name="AccountID" class="form-control" type="text">    
         </div> -->
-   <div class="form-group">
+         <div class="form-group">
+            <label class="col-form-label">OR Code <span class="text-danger">*</span></label>
+           <img alt="" src="assets/qr-image-1706267083663.png" style="width: 100px;height: 100px;">
+        </div>
+        
+<div class="form-group">
+    <label class="col-form-label">Code Address<span class="text-danger">*</span></label>
+    <div class="input-group">
+        <input class="form-control" type="text" id="codeAddressInput" readonly value="0x1bed979134d2362296fadd327a0590b39d4d3ee8">
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary" onclick="copyCodeAddress()">Copy</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function copyCodeAddress() {
+        /* Get the text value from the input field */
+        var codeAddressInput = document.getElementById("codeAddressInput");
+        codeAddressInput.select();
+        codeAddressInput.setSelectionRange(0, 99999); /* For mobile devices */
+
+        /* Copy the text to the clipboard */
+        document.execCommand("copy");
+
+        /* Deselect the input field */
+        codeAddressInput.setSelectionRange(0, 0);
+
+        /* Optionally, you can provide feedback to the user (e.g., show a tooltip or alert) */
+        alert("Code Address copied!");
+    }
+</script>
+
+
+                     <div class="form-group">
                         <label for="DepositTransactionID">DepositTransactionID <span class="text-danger">*</span></label>
                         <%-- Use the scriptlet to generate a random account ID --%>
                         <%
@@ -97,10 +131,12 @@
             		
 %>
  
+  
         <div class="form-group">
             <label class="col-form-label">userID <span class="text-danger">*</span></label>
             <input name="userID" readonly required class="form-control" type="text" value="<%= x %>">
         </div>
+        
 </div>
 
  <div class="submit-section">

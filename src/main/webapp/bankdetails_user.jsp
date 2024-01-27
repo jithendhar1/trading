@@ -21,7 +21,7 @@
 		<meta name="keywords" content="admin, estimates, bootstrap, business, corporate, creative, management, minimal, modern, accounts, invoice, html5, responsive, CRM, Projects">
         <meta name="author" content="Dreamguys - Bootstrap Admin Template">
         <meta name="robots" content="noindex, nofollow">
-        <title>vechicle -  template</title>
+        <title>Bank Details</title>
 		
 		<!-- Favicon -->
         <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
@@ -63,10 +63,11 @@
 							<div id="welcomeMessage" style="text-align: center; margin-top: 20px; font-size: 24px;">
                                 Welcome  <%= username%>!
                               </div>
-									<h3 class="page-title">BankDetails</h3>
+									<h3 class="page-title">Account Details</h3>
 							 <ul class="breadcrumb">
-									<li class="breadcrumb-item"><a href="user.jsp">Dashboard</a></li>
-									<li class="breadcrumb-item active">Bankdetails</li>
+									<!-- <li class="breadcrumb-item"><a href="user.jsp">Dashboard</a></li> -->
+									<li class="breadcrumb-item"><a href="<%= (username.equals("Admin")) ? "admin_dashboard.jsp" : "user.jsp" %>">Dashboard</a></li>
+									<li class="breadcrumb-item active">Acountdetails</li>
 								</ul> 
 								
 							</div>
@@ -75,11 +76,14 @@
 boolean prof = BankdetailsDAO.isUserExists(username);
 %>
 
-<div class="col-auto float-right ml-auto">
-    <button class="btn add-btn" data-toggle="modal" <% if (prof) { %>disabled<% } %> data-target="#addbankdetails">
-        <i class="fa fa-plus"></i> Add BankDetails
+<%-- <div class="col-auto float-right ml-auto">
+<% if (!"Admin".equals(username)) { %>
+    
+    <button class="btn add-btn" data-toggle="modal" data-target="#addbankdetails">
+        <i class="fa fa-plus"></i> Add Account Details
     </button>
-</div>
+    <%} %>
+</div> --%>
 
 
 
@@ -102,6 +106,8 @@ boolean prof = BankdetailsDAO.isUserExists(username);
 											<th>userID </th>
 									        <th>userName</th>
 									        <th>Amount</th>
+									        <th>AcountNumber</th>
+									       <!--  <th>BankName</th> -->
 									        <!-- <th>Edit</th>
 									         <th>Delete</th>   -->  
 										</tr>
@@ -118,6 +124,8 @@ for (BankdetailsBean tasks : tax) {
    <td><%=tasks.getUserID() %></td>
   <td><%=tasks.getUserName() %></td>
   <td><%=tasks.getAmount() %></td>
+  <td><%=tasks.getAcountNumber() %></td>
+  <%-- <td><%=tasks.getBankName() %></td> --%>
     <%-- <td>
         <a href="bankdetails_edit.jsp?vehicleID=<%= tasks.getUserID()%>">Edit</a>
     </td>

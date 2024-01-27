@@ -6,8 +6,16 @@ public class WithdrawalBean {
 	private String WithdrawalTransactionID;
 	private String WithdrawalDate;
 	private String Amount;
+	private String statsu;
 	
 	
+	
+	public String getStatsu() {
+		return statsu;
+	}
+	public void setStatsu(String statsu) {
+		this.statsu = statsu;
+	}
 	public String getWithdrawalID() {
 		return WithdrawalID;
 	}
