@@ -21,11 +21,13 @@ public class AddBankDetailsSrv extends HttpServlet {
         String userID = request.getParameter("userID");
         String userName = request.getParameter("userName");
         String Amount = request.getParameter("Amount");
+        String AcountNumber = request.getParameter("AcountNumber");
+        String BankName = request.getParameter("BankName");
        
       
         
         BankDetailsServiceImpl add = new BankDetailsServiceImpl();
-        status = add.addV(userID, userName, Amount);
+        status = add.addV(AcountNumber,BankName,userID, userName, Amount);
 
 
     	   RequestDispatcher rd = request.getRequestDispatcher("bankdetails_user.jsp?message=" + status);

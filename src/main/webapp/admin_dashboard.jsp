@@ -84,7 +84,7 @@
                     <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                         <div class="card dash-widget">
                             <div class="card-body">
-                                <a href="deposit.jsp" style="text-decoration: none; color: inherit;">
+                                <a href="deposit_user.jsp" style="text-decoration: none; color: inherit;">
                                     <span class="dash-widget-icon"><i class="fa fa-money"></i></span>
                                     <div class="dash-widget-info">
                                         <% int totalDeposits = DepositDAO.totalCount();%>
@@ -99,7 +99,7 @@
                     <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                         <div class="card dash-widget">
                             <div class="card-body">
-                                <a href="withdrawal.jsp" style="text-decoration: none; color: inherit;">
+                                <a href="withdrawal_user.jsp" style="text-decoration: none; color: inherit;">
                                     <span class="dash-widget-icon"><i class="fa fa-bank"></i></span>
                                     <div class="dash-widget-info">
                                         <% int totalWithdrawals = WithdrawalDAO.totalCount(); %>
@@ -114,7 +114,7 @@
                     <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                         <div class="card dash-widget">
                             <div class="card-body">
-                                <a href="referrals.jsp" style="text-decoration: none; color: inherit;">
+                                <a href="referrals_user.jsp" style="text-decoration: none; color: inherit;">
                                     <span class="dash-widget-icon"><i class="fa fa-share"></i></span>
                                     <div class="dash-widget-info">
                                         <%int referralCount = ReffertalDAO.totalCount();%>

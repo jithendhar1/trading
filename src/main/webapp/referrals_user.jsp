@@ -17,7 +17,7 @@
 		<meta name="keywords" content="admin, estimates, bootstrap, business, corporate, creative, management, minimal, modern, accounts, invoice, html5, responsive, CRM, Projects">
         <meta name="author" content="Dreamguys - Bootstrap Admin Template">
         <meta name="robots" content="noindex, nofollow">
-        <title>vechicle -  template</title>
+        <title>Referrals</title>
 		
 		<!-- Favicon -->
         <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
@@ -65,30 +65,34 @@
                               </div>
 								<h3 class="page-title">Referals</h3>
 								 <ul class="breadcrumb">
-									<li class="breadcrumb-item"><a href="user.jsp">Dashboard</a></li>
+								    <li class="breadcrumb-item"><a href="<%= (username.equals("Admin")) ? "admin_dashboard.jsp" : "user.jsp" %>">Dashboard</a></li>
 									<li class="breadcrumb-item active">referals</li>
 								</ul>
 							</div>
+							
 							<div class="col-auto float-right ml-auto">
- 							<a href="#" class="Addbutton" data-toggle="modal" data-target="#addrefferal"><i class="fa fa-plus"></i> Add refferal</a>
- 							</div>
+							    <% if (!"Admin".equals(username)) { %>
+							        <a href="#" class="Addbutton" data-toggle="modal" data-target="#addrefferal">
+							            <i class="fa fa-plus"></i> Add referral
+							        </a>
+							    <% } %>
+							</div>
+						
 						</div>
 					</div>
-					<!-- /Page Header -->
-					<!-- Search Filter -->
+					
 						<table>
 									<thead>
 										<tr>
 								
 											<th>ReferrerUserID</th>
 									        <th>ReferredUserID in</th>
-									        <th>ReferralDate</th>					            
+									        <th>ReferralDate</th>
+									        <th>ReferrerName</th>					            
 										</tr>
 									</thead>
 <%
-
-  List<Referrals>  tax = ReffertalDAO.getReferralsByUsername(username);
-
+  List<Referrals>  tax = ReffertalDAO.getNewReferralsByUsername(username);
 for (Referrals tasks : tax) {
 	 
 %>
@@ -96,6 +100,7 @@ for (Referrals tasks : tax) {
     <td><%=tasks.getReferrerUserID()%></td>
     <td><%=tasks.getReferredUserID()%></td>
     <td><%=tasks.getReferralDate()%></td>
+    <td><%=tasks.getReferrerName() %></td>
     
     <%-- <td>
         <a href="withdrawal_edit.jsp?vehicleID=<%= tasks.getWithdrawalID()%>">Edit</a>

@@ -1,9 +1,19 @@
+<%@page import="DAO.CustomerDAO"%>
+<%@page import="beans.CustomerBean"%>
+<%@page import="DAO.ReffertalDAO"%>
+<%@ page import="java.util.List" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@page import="srv.RandomAccountIDGenerator"%>
 <%
+HttpSession sessionn = request.getSession();
     // Getting the username from the session
-    String username = (String)session.getAttribute("customername");
+    String username = (String)session.getAttribute("username");
+String ReferredUserID = request.getParameter("userid");
+List<CustomerBean> deptt = ReffertalDAO.getAllEmployees();
+
+// Check if ReferredUserID has a value
+boolean isReferredUser = (ReferredUserID != null && !ReferredUserID.isEmpty());
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,7 +24,7 @@
     <meta name="keywords" content="admin, estimates, bootstrap, business, corporate, creative, management, minimal, modern, accounts, invoice, html5, responsive, CRM, Projects">
     <meta name="author" content="Dreamguys - Bootstrap Admin Template">
     <meta name="robots" content="noindex, nofollow">
-    <title>worker -  template</title>
+    <title>Registration</title>
 
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
@@ -39,7 +49,7 @@
     <style>
         body {
             display: flex;
-            align-items: center;
+            align-i\tems: center;
             justify-content: center;
             height: 100vh;
             margin: 0;
@@ -50,17 +60,24 @@
             height: 80vh; /* Adjust the height as needed */
             border: 2px solid black;
             border-radius: 10px;
-            background-color: #ADD8E6;
+            background-color: #fff;
             padding: 20px; /* Adjust the padding as needed */
         }
     </style>
 </head>
-<body>
+<body >
+<div class="main-wrapper">
+        <div class="account-content"> 
+            <div class="container">
+<div class="account-logo">
+                    <a><img src="assets/logo2.png" alt="Company Logo"></a>
+</div> 
 
-<div style="width: 1000px;margin-left:480px;" class="row">
+
+<div  style="width: 1000px;margin-left:320px;" class="row">
     <form action="./AddUser" method="post" class="form-container col-md-6">
         <div style="font-weight: bold;" class="text-center">
-            <h2 style="color: navy blue;">Registration Form</h2>
+            <h2>Registration Form</h2>
         </div>
 
         <!-- Your form fields go here -->
@@ -82,6 +99,20 @@
                 </div>
             </div>
 
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>First Name <span class="text-danger">*</span></label>
+                    <input name="firstname" class="form-control" type="text">
+                </div>
+            </div>
+           
+           <div class="col-md-6">
+                <div class="form-group">
+                    <label>Last Name <span class="text-danger">*</span></label>
+                    <input name="lastname" class="form-control" type="text">
+                </div>
+            </div>
+ 
            <div class="col-md-6">
                 <div class="form-group">
                     <label>Email <span class="text-danger">*</span></label>
@@ -96,37 +127,49 @@
                 </div>
             </div>
             
-                                 <div class="form-group">
-                                 <label class="col-form-label">Password</label>
-                                  <input class="form-control" required name="password" id="password" type="password">
-                            </div>
-                  
-                     <div class="col-sm-6">
-                       <div class="form-group">
-                         <label class="col-form-label">Confirm Password</label>
-                        <input class="form-control" required name="confirm_pass" id="confirm_pass" type="password">
-                         </div>
-                      </div>
-                        <span id="passwordError" style="color: red;"></span>
-
-           
-           <div class="col-md-6">
+            <div class="col-md-6">
                 <div class="form-group">
-                    <label>First Name <span class="text-danger">*</span></label>
-                    <input name="firstname" class="form-control" type="text">
+                    <label>Password<span class="text-danger">*</span></label>
+                    <input name="password" id="password" type="password" class="form-control">
                 </div>
             </div>
-           
-           <div class="col-md-6">
+            
+            <div class="col-md-6">
                 <div class="form-group">
-                    <label>Last Name <span class="text-danger">*</span></label>
-                    <input name="lastname" class="form-control" type="text">
+                    <label>Confirm Password<span class="text-danger">*</span></label>
+                    <input name="confirm_pass" id="confirm_pass" type="password" class="form-control">
+                </div>
+            </div>
+            <span id="passwordError" style="color: red;"></span>
+            
+           
+            
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>referral<span class="text-danger">*</span></label>
+                    
+                    <select id="selectedEmployee" name="ReferrerUserID" class="form-control">
+            <%
+						List<CustomerBean> dept = ReffertalDAO.getAllEmployees();
+						String Userid = CustomerDAO.getUserIDByUsername(username);
+						%>
+                        <option>Select Name</option>
+            <%
+                                        for (CustomerBean dep : dept) {
+                                            // If ReferredUserID has a value, auto-select the matching option
+                                            boolean isSelected = isReferredUser && dep.getUserID().equals(ReferredUserID);
+                                    %>
+                                        <option value="<%=dep.getUserID()%>"  <%= isSelected ? "selected" : "" %>><%= dep.getUsername()%></option>
+                                    <%
+                                        }
+                                    %>                      
+        </select>
                 </div>
             </div>
        
         </div>
         <div class="col-md-6">
-            <button type="submit" class="btn btn-success">Register</button>
+            <button style="margin-left: 160px;" type="submit" class="btn btn-success">Register</button>
         </div>
     </form>
 </div>
@@ -156,6 +199,6 @@
 <script src="js/jquery.slimscroll.min.js"></script>
 <script src="js/select2.min.js"></script>
 <script src="js/app.js"></script>
-
+</div></div></div>
 </body>
 </html>

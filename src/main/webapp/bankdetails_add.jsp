@@ -56,7 +56,7 @@
         <div class="modal-content">
       
             <div class="modal-header">
-                <h5 class="modal-title">Add BankDetails</h5>
+                <h5 class="modal-title">Add Account Details</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -75,21 +75,26 @@
             <input name="userID" readonly required class="form-control" type="text" value="<%= x %>">
         </div>
 
-  
-
-    
         <div class="form-group">
             <label class="col-form-label">userName <span class="text-danger">*</span></label>
             <input name="userName" readonly required class="form-control" type="text" value="<%= username %>">
         </div>
   
+          <div class="form-group">
+            <label class="col-form-label">AcountNumber <span class="text-danger">*</span></label>
+            <input name="AcountNumber" required class="form-control" type="text">
+        </div>
+       <!--  <div class="form-group">
+            <label class="col-form-label">BankName <span class="text-danger">*</span></label>
+            <input name="BankName" required class="form-control" type="text">
+        </div> -->
 
  
         <div class="form-group">
             <label class="col-form-label">Amount <span class="text-danger">*</span></label>
             <input name="Amount" required class="form-control" type="text">
         </div>
-
+        
 
  <div class="submit-section">
     <button type="submit" class="btn btn-primary submit-btn">Submit</button>

@@ -18,7 +18,7 @@
 		<meta name="keywords" content="admin, estimates, bootstrap, business, corporate, creative, management, minimal, modern, accounts, invoice, html5, responsive, CRM, Projects">
         <meta name="author" content="Dreamguys - Bootstrap Admin Template">
         <meta name="robots" content="noindex, nofollow">
-        <title>vechicle -  template</title>
+        <title>Deposit</title>
 		
 		<!-- Favicon -->
         <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
@@ -38,7 +38,17 @@
 		<!-- Main CSS -->
         <link rel="stylesheet" href="css/style.css">
 		<link rel="stylesheet" href="css/tstyles.css">
-		
+		 <script>
+        function changeButtonColor(button) {
+            // Check if the button has a class indicating it has been clicked
+            if (!button.classList.contains('clicked')) {
+                // Change button color to green
+                button.style.backgroundColor = 'green';
+                // Add a class to indicate that the button has been clicked
+                button.classList.add('clicked');
+            }
+        }
+    </script>
     </head>
     <body>
 
@@ -67,12 +77,14 @@
                               </div>
 								<h3 class="page-title">Deposit</h3>
 								 <ul class="breadcrumb">
-									<li class="breadcrumb-item"><a href="user.jsp">Dashboard</a></li>
+							        <li class="breadcrumb-item"><a href="<%= (username.equals("Admin")) ? "admin_dashboard.jsp" : "user.jsp" %>">Dashboard</a></li>
 									<li class="breadcrumb-item active">Deposit</li>
 								</ul> 
 							</div>
 							<div class="col-auto float-right ml-auto">
+							 <% if (!"Admin".equals(username)) { %>
 							<a href="#" class="Addbutton" data-toggle="modal" data-target="#adddeposit"><i class="fa fa-plus"></i> Add Deposit</a>
+							<%} %>
 							</div>
 						</div>
 					</div>
@@ -87,11 +99,10 @@
 									        <th>DepositDate</th>
 									        <th>Amount</th>
 									        <th>userID</th>
-									        <!-- <th>Edit</th>
-									         <th>Delete</th>     -->
+									        <th>Status</th>
+									       <!--   <th>Delete</th>     -->
 										</tr>
 									</thead>
-
 
 
 <%
@@ -105,65 +116,49 @@ for (DepositBean tasks : tax) {
     <td><%=tasks.getDepositID() %></td>
     <td><%=tasks.getDepositTransactionID()%></td>
     <td><%=tasks.getDepositDate() %></td>
-    <td><%=tasks.getAmount()  %></td>
-    <td><%=tasks.getUserID() %></td>
-    <%-- <td>
-        <a href="deposit_edit.jsp?vehicleID=<%= tasks.getDepositID()%>">Edit</a>
-    </td>
-    <td>
-        <a href="DeleteVechicleSrv?VehicleID=<%= tasks.getDepositID()%>">Delete</a> 
-    </td> --%>
+    <td><%=tasks.getAmount()%></td>
+    <td><%=tasks.getUserID()%></td>
+ <%
+    String status = tasks.getStatus();
+    String statusText = "Approved";
+
+    if ("0".equals(status)) {
+        statusText = "Pending";
+    }
+%>
+<%if (!"Admin".equals(username)) { %>
+    <td><%=statusText%></td>
+<%} else{%>
+<td>
+    <form action="./DepositeStatus" method="post" onsubmit="return disableButton()">
+    	<input type="text" name="depositID" value="<%=tasks.getDepositTransactionID()%>" hidden>
+    	<input type="text" name="amount" value="<%=tasks.getAmount()%>" hidden>
+    	<input type="text" name="userID" value="<%=tasks.getUserID()%>" hidden>
+        <button type="submit" name="status" id="approveButton" value="1" onclick="changeButtonColor(this)">Approve</button>
+    </form>
+    
+</td>
+
+
+<%} %>
 </tr>
 <%
 }
 %>
-
 								</table>
-<div class="row justify-content-center align-items-center" id = "flag1">
-   
-   <!-- Pagination links -->
 
-    
-
-
-</div>
 							</div>
 						</div>
 					</div>
-               
-				<!-- /Page Content -->
-				
-				<!-- Add Tax Modal -->
+
 				 <jsp:include page="deposit_add.jsp" />
-				<!-- /Add Tax Modal -->
-				
-				<%-- <!-- Edit Tax Modal -->
-				 <jsp:include page="edit_tasks.jsp" />
-				<!-- /Edit Tax Modal -->
-				
-				<!-- Delete Tax Modal -->
-				 <jsp:include page="delete_task.jsp" />
-				<!-- /Delete Tax Modal --> --%>
-				
-          
+	  <!--   <script src="js/jquery-3.2.1.min.js"></script>  -->
+        <script src="js/popper.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+		<!-- <script src="js/jquery.slimscroll.min.js"></script> -->
+		<script src="js/select2.min.js"></script>
 	
 
 		
-        <script src="js/jquery-3.2.1.min.js"></script>
-
-		
-        <script src="js/popper.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-
-		
-		<script src="js/jquery.slimscroll.min.js"></script>
-		
-		
-		<script src="js/select2.min.js"></script>
-
-		
-		<!-- <script src="js/app.js"></script> -->
-
-
     </body>
 </html>

@@ -75,7 +75,7 @@
                                 <span class="dash-widget-icon"><i class="fa fa-percent"></i></span>
                                 <div class="dash-widget-info">
                                   <%--   <% BigDecimal roi = new BigDecimal("5.2"); %> --%>
-                                  <% int roi = ROIDAO.totalCountByUsername( username); %>
+                                  <% int roi = ROIDAO.totalCountByUsername(username); %>
                                     <h3><%= roi %></h3>
                                     <span>ROI</span>
                                 </div>
@@ -91,7 +91,7 @@
                                 <span class="dash-widget-icon"><i class="fa fa-share"></i></span>
                                 <div class="dash-widget-info">
                                     <%-- <% int referralCount = 10; %> --%>
-                                     <% int referralCount = ReffertalDAO.totalCountByUsername( username); %>
+                                     <% int referralCount = ReffertalDAO.totalCountByUsername(username); %>
                                     <h3><%= referralCount %></h3>
                                     <span>Referrals</span>
                                 </div>
@@ -107,7 +107,7 @@
                                 <span class="dash-widget-icon"><i class="fa fa-money"></i></span>
                                 <div class="dash-widget-info">
                                    <%--  <% BigDecimal totalDeposits = new BigDecimal("5000.0"); %> --%>
-                                   <% int totalDeposits = DepositDAO.totalCountByUsername( username); %>
+                                   <% int totalDeposits = DepositDAO.totalCountByUsername(username); %>
                                     <h3><%= totalDeposits %></h3>
                                     <span>Deposits</span>
                                 </div>
@@ -123,7 +123,7 @@
                                 <span class="dash-widget-icon"><i class="fa fa-bank"></i></span>
                                 <div class="dash-widget-info">
                                     <%-- <% BigDecimal totalWithdrawals = new BigDecimal("200.0"); %> --%>
-                                     <% int totalWithdrawals = WithdrawalDAO.totalCountByUsername( username); %>
+                                     <% int totalWithdrawals = WithdrawalDAO.totalCountByUsername(username); %>
                                     <h3><%= totalWithdrawals %></h3>
                                     <span>Withdrawals</span>
                                 </div>

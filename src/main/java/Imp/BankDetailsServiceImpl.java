@@ -9,7 +9,7 @@ import utility.DBUtil;
 public class BankDetailsServiceImpl {
 
 	
-	public String addV(String userID,String userName,String Amount) {
+	public String addV(String AcountNumber,String BankName,  String userID,String userName,String Amount) {
 		
 		String Status1 = " Adding Failed!";
 
@@ -17,10 +17,12 @@ public class BankDetailsServiceImpl {
         PreparedStatement ps = null;
 
         try {
-        	ps = con.prepareStatement("INSERT INTO bankdetails (userID,userName, Amount) VALUES (?,?,?)");
+        	ps = con.prepareStatement("INSERT INTO bankdetails (userID,userName, Amount,AcountNumber,BankName) VALUES (?,?,?,?,?)");
             ps.setString(1, userID);
         	ps.setString(2, userName);
             ps.setString(3, Amount);
+            ps.setString(4, AcountNumber);
+            ps.setString(5, BankName);
            
             int k = ps.executeUpdate();
 

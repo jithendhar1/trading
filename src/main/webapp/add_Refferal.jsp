@@ -74,7 +74,7 @@
             <input id="AccountID" name="AccountID" class="form-control" type="text">    
         </div> -->
    <div class="form-group">
-                        <label for="AccountID">Refferal ID <span class="text-danger">*</span></label>
+                        <label for="AccountID">Refferal ID<span class="text-danger">*</span></label>
                         <%-- Use the scriptlet to generate a random account ID --%>
                         <%
                             String randomAccountID = RandomAccountIDGenerator.generateRandomAccountID();
@@ -82,38 +82,27 @@
                         <input readonly id="ReferralID" name="ReferralID" class="form-control" type="text" value="<%= randomAccountID %>">
                     </div>
 
+          <div class="form-group">
+            <label class="col-form-label">Referrer Name<span class="text-danger">*</span></label>
+            <input id="ReferralDate" name="ReferrerName" class="form-control" type="text">
+        </div>
    
         <div class="form-group">
             <lab1el for="ReferralDate">ReferralDate <span class="text-danger">*</span></label>
             <input id="ReferralDate" name="ReferralDate" class="form-control" type="date">
         </div>
-   
-
-    
+        
         <div class="form-group">
-            <label class="col-form-label">ReferrerUserID <span class="text-danger">*</span></label>
-            <select id="selectedEmployee" name="ReferrerUserID" class="form-control">
-            
-            <%
-						List<CustomerBean> dept = ReffertalDAO.getAllEmployees();
-						for(CustomerBean dep: dept)
-						{
-						%>
-                       <option><%= dep.getUsername() %></option>
-                    <%
-      					}
-				     %>                       
-        </select>
-            
-           <!--  <input name="ReferrerUserID" required class="form-control" type="text"> -->
+            <label class="col-form-label">Referrer Email<span class="text-danger">*</span></label>
+            <input id="ReferralDate" name="ReferrerEmail" class="form-control" type="text">
         </div>
   
 <% String x=  CustomerDAO.getUserIDByUsername( username);
             		
             		
-%>     <div class="form-group">
-            <label class="col-form-label">ReferredUserID <span class="text-danger">*</span></label>
-            <input name="ReferredUserID" readonly required class="form-control" type="text" value="<%= x %>">
+%>      <div class="form-group">
+            <label hidden class="col-form-label">ReferredUserID <span class="text-danger">*</span></label>
+            <input name="ReferredUserID" hidden readonly required class="form-control" type="text" value="<%= x %>">
         </div>
 </div>
 

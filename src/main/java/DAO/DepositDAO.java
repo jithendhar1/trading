@@ -98,32 +98,43 @@ public class DepositDAO {
 		    ResultSet depositResultSet = null;
 
 		    try {
-		        // Step 1: Get userID from userDB based on the provided username
 		        connection = DBUtil.provideConnection();
-		        String userQuery = "SELECT userID FROM users WHERE username = ?";
-		        userStatement = connection.prepareStatement(userQuery);
-		        userStatement.setString(1, username);
-		        userResultSet = userStatement.executeQuery();
 
-		        if (userResultSet.next()) {
-		            String userID = userResultSet.getString("userID");
+		        if ("Admin".equals(username)) {
+		            // If the username is Admin, use a different query
+		            String adminQuery = "SELECT DepositID, DepositTransactionID, DepositDate, Amount,status, userID FROM deposit";
+		            depositStatement = connection.prepareStatement(adminQuery);
+		        } else {
+		            // For other users, get userID from userDB based on the provided username
+		            String userQuery = "SELECT userID FROM users WHERE username = ?";
+		            userStatement = connection.prepareStatement(userQuery);
+		            userStatement.setString(1, username);
+		            userResultSet = userStatement.executeQuery();
 
-		            // Step 2: Get all deposits based on the obtained userID
-		            String depositQuery = "SELECT DepositID, DepositTransactionID, DepositDate, Amount, userID FROM deposit WHERE userID = ?";
-		            depositStatement = connection.prepareStatement(depositQuery);
-		            depositStatement.setString(1, userID);
-		            depositResultSet = depositStatement.executeQuery();
+		            if (userResultSet.next()) {
+		                String userID = userResultSet.getString("userID");
 
-		            while (depositResultSet.next()) {
-		                DepositBean deposit = new DepositBean();
-		                deposit.setDepositID(depositResultSet.getString("DepositID"));
-		                deposit.setDepositTransactionID(depositResultSet.getString("DepositTransactionID"));
-		                deposit.setDepositDate(depositResultSet.getString("DepositDate"));
-		                deposit.setAmount(depositResultSet.getString("Amount"));
-		                deposit.setUserID(depositResultSet.getString("userID"));
-		                userDeposits.add(deposit);
+		                // Get all deposits based on the obtained userID
+		                String depositQuery = "SELECT DepositID, DepositTransactionID, DepositDate, Amount,status, userID FROM deposit WHERE userID = ?";
+		                depositStatement = connection.prepareStatement(depositQuery);
+		                depositStatement.setString(1, userID);
 		            }
 		        }
+
+		        // Execute the deposit query
+		        depositResultSet = depositStatement.executeQuery();
+
+		        while (depositResultSet.next()) {
+		            DepositBean deposit = new DepositBean();
+		            deposit.setDepositID(depositResultSet.getString("DepositID"));
+		            deposit.setDepositTransactionID(depositResultSet.getString("DepositTransactionID"));
+		            deposit.setDepositDate(depositResultSet.getString("DepositDate"));
+		            deposit.setAmount(depositResultSet.getString("Amount"));
+		            deposit.setStatus(depositResultSet.getString("status"));
+		            deposit.setUserID(depositResultSet.getString("userID"));
+		            userDeposits.add(deposit);
+		        }
+
 		    } catch (Exception e) {
 		        // Handle exceptions
 		        e.printStackTrace();
@@ -144,6 +155,7 @@ public class DepositDAO {
 		    return userDeposits;
 		}
 
+
 	  public static int totalCountByUsername(String username) {
 		    int count = 0;
 		    Connection connection = null;
@@ -163,7 +175,7 @@ public class DepositDAO {
 		            String userID = userResultSet.getString("userID");
 
 		            // Step 2: Get the total count of withdrawals based on the obtained userID
-		            String countQuery = "SELECT COUNT(*) AS count FROM withdrawal WHERE userID = ?";
+		            String countQuery = "SELECT COUNT(*) AS count FROM deposit WHERE userID = ?";
 		            PreparedStatement countStatement = connection.prepareStatement(countQuery);
 		            countStatement.setString(1, userID);
 		            ResultSet countResultSet = countStatement.executeQuery();
@@ -192,5 +204,57 @@ public class DepositDAO {
 
 		    return count;
 		}
+	  
+	  public static int totalCountDeposites(String userID) {
+			 int count = 0;
+			 Connection connection = null;
+		        PreparedStatement ps = null;
+		        ResultSet rs = null;
+			 try {
+				 connection = DBUtil.provideConnection();
+			   String query = "SELECT COUNT(*) AS count FROM deposit WHERE userID = ?";
+			 ps = connection.prepareStatement(query);
+			 ps.setString(1, userID);
+			 rs = ps.executeQuery();
+			 while (rs.next()) {
+			 count = rs.getInt("count");
+			 }
+			 } catch (Exception e) {
+			 e.printStackTrace();
+			 } finally {
+			 try {
+				 connection.close();
+			 } catch (SQLException ex) {
+			 ex.printStackTrace();
+			 }
+			 }
+			 return count;
+			 }
+	  
+	  public static String referralID(String userID) {
+			 String count = null;
+			 Connection connection = null;
+		        PreparedStatement ps = null;
+		        ResultSet rs = null;
+			 try {
+				 connection = DBUtil.provideConnection();
+			   String query = "SELECT ReferrerUsername FROM users WHERE userID = ?";
+			 ps = connection.prepareStatement(query);
+			 ps.setString(1, userID);
+			 rs = ps.executeQuery();
+			 while (rs.next()) {
+			 count = rs.getString("ReferrerUsername");
+			 }
+			 } catch (Exception e) {
+			 e.printStackTrace();
+			 } finally {
+			 try {
+				 connection.close();
+			 } catch (SQLException ex) {
+			 ex.printStackTrace();
+			 }
+			 }
+			 return count;
+			 }
 
 }
