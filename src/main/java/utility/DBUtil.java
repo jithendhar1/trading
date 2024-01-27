@@ -1,4 +1,4 @@
-package com.weblabs.utility;
+package utility;
 
 import java.sql.Connection;
 
