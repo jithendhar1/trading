@@ -7,8 +7,15 @@ public class DepositBean {
 	private String DepositDate;
 	private String Amount;
 	private String userID;
+	private String status;
 	
 	
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	public String getDepositID() {
 		return DepositID;
 	}

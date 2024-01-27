@@ -9,6 +9,16 @@ public class CustomerBean {
 	private String phno;
 	private String firstname;
 	private String lastname;
+	private String ReferrerUserID;
+	
+	
+	
+	public String getReferrerUserID() {
+		return ReferrerUserID;
+	}
+	public void setReferrerUserID(String referrerUserID) {
+		ReferrerUserID = referrerUserID;
+	}
 	public String getUserID() {
 		return userID;
 	}

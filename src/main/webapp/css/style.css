@@ -564,16 +564,16 @@ table.dataTable thead > tr > td.sorting {
     color: #fff;
 }
 .btn-success {
-	background-color: #55ce63;
-	border: 1px solid #55ce63
+	background-color: #ff9b44;
+	border: 0px solid #ff9b44
 }
 .btn-success:hover,
 .btn-success:focus,
 .btn-success.active,
 .btn-success:active,
 .open > .dropdown-toggle.btn-success {
-	background: #4ab657;
-	border: 1px solid #4ab657;
+	background: #ff9b44;
+	border: 0px solid #ff9b44;
 	color: #fff;
 }
 .btn-success.active.focus,

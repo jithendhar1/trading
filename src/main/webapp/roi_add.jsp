@@ -1,4 +1,7 @@
 <%@page import="DAO.CustomerDAO"%>
+<%@page import="beans.CustomerBean"%>
+<%@page import="DAO.ReffertalDAO"%>
+<%@ page import="java.util.List" %>
 <%@page import="DAO.ROIDAO"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -47,7 +50,7 @@
     <script src="js/respond.min.js"></script>
    
     <title>Leave List</title>
-     <script>
+      <script>
         document.addEventListener("DOMContentLoaded", function() {
             // Get references to the input fields
             var roiaAmountInput = document.querySelector('input[name="ROIAmount"]');
@@ -67,8 +70,35 @@
                 // Update ClosingAmount input value
                 closingAmountInput.value = closingAmount.toFixed(2); // You can adjust the number of decimal places as needed
             }
+
+            // Fetch OpenAmount initially
             fetchOpenAmount();
         });
+
+        function fetchOpenAmount() {
+            var userID = document.getElementById('selectedEmployee').value;
+
+            // Make an AJAX request to fetch the OpenAmount based on userID
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '/trading/UseridOpenAmtservlet?userID=' + userID, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        // Update the OpenAmount field with the fetched value
+                        var openAmountInput = document.getElementById('OpenAmount');
+                        openAmountInput.value = xhr.responseText;
+
+                        // Trigger the closing amount update
+                        updateClosingAmount();
+                    } else {
+                        console.log("Error fetching OpenAmount. Status: " + xhr.status);
+                    }
+                }
+            };
+
+            xhr.send();
+        }
     </script>
     
     
@@ -98,16 +128,22 @@
             <input id="TransactionID" name="TransactionID" class="form-control" type="text">    
         </div> -->
    
-
-   
-    <% String x=  CustomerDAO.getUserIDByUsername( username);
-            		
-            		
-%>
+    <% String x=  CustomerDAO.getUserIDByUsername(username);%>
  
         <div class="form-group">
             <label for="userID" class="col-form-label">userID <span class="text-danger">*</span></label>
-            <input id="userID"  name="userID"  required class="form-control" type="text" value="<%= x %>" onchange="fetchOpenAmount();">
+<%--             <input id="userID"  name="userID"  required class="form-control" type="text" value="<%= x %>" onchange="fetchOpenAmount();">
+ --%>            <select id="selectedEmployee" name="userID" class="form-control" onchange="fetchOpenAmount();">
+            <%
+						List<CustomerBean> dept = ReffertalDAO.getAllEmployees();
+						for(CustomerBean dep: dept)
+						{
+						%>
+                       <option><%= dep.getUserID()%></option>
+                    <%
+      					}
+				     %>                       
+        </select>
         </div>
 
 
@@ -128,7 +164,7 @@
         xhr.send();
     } */
      -->
-    <script>
+   <!--  <script>
     function fetchOpenAmount() {
         var userID = document.getElementById('userID').value;
         console.log("UserID: " + userID); // Debugging statement
@@ -157,7 +193,7 @@
 
         xhr.send();
     }
-</script>
+</script> -->
     
         <div class="form-group">
             <label class="col-form-label">ROIAmount <span class="text-danger">*</span></label>
@@ -194,4 +230,5 @@
         </div>
     </div>
 </form>
+
     

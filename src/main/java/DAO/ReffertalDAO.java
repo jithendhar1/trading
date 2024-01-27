@@ -138,6 +138,7 @@ public class ReffertalDAO {
 		    ResultSet userResultSet = null;
 		    ResultSet depositResultSet = null;
 
+		    
 		    try {
 		        // Step 1: Get userID from userDB based on the provided username
 		        connection = DBUtil.provideConnection();
@@ -202,7 +203,7 @@ public class ReffertalDAO {
 		            String userID = userResultSet.getString("userID");
 
 		            // Step 2: Get the total count of withdrawals based on the obtained userID
-		            String countQuery = "SELECT COUNT(*) AS count FROM withdrawal WHERE userID = ?";
+		            String countQuery = "SELECT COUNT(*) AS count FROM referrals WHERE ReferredUserID = ?";
 		            PreparedStatement countStatement = connection.prepareStatement(countQuery);
 		            countStatement.setString(1, userID);
 		            ResultSet countResultSet = countStatement.executeQuery();
@@ -231,4 +232,70 @@ public class ReffertalDAO {
 
 		    return count;
 		}
+	 
+	 public static List<Referrals> getNewReferralsByUsername(String username) {
+		    List<Referrals> userReferrals = new ArrayList<>();
+		    Connection connection = null;
+		    PreparedStatement userStatement = null;
+		    PreparedStatement depositStatement = null;
+		    ResultSet userResultSet = null;
+		    ResultSet depositResultSet = null;
+
+		    try {
+		        connection = DBUtil.provideConnection();
+
+		        if ("Admin".equals(username)) {
+		            // If the username is Admin, use a different query
+		            String adminQuery = "SELECT ReferrerEmail, ReferredUserID, ReferralDate,ReferrerName FROM referrals";
+		            depositStatement = connection.prepareStatement(adminQuery);
+		        } else {
+		            // For other users, get userID from userDB based on the provided username
+		            String userQuery = "SELECT userID FROM users WHERE username = ?";
+		            userStatement = connection.prepareStatement(userQuery);
+		            userStatement.setString(1, username);
+		            userResultSet = userStatement.executeQuery();
+
+		            if (userResultSet.next()) {
+		                String userID = userResultSet.getString("userID");
+
+		                // Get all deposits based on the obtained userID
+		                String depositQuery = "SELECT ReferrerEmail, ReferredUserID, ReferralDate,ReferrerName FROM referrals WHERE ReferredUserID = ?";
+		                depositStatement = connection.prepareStatement(depositQuery);
+		                depositStatement.setString(1, userID);
+		            }
+		        }
+
+		        // Execute the deposit query
+		        depositResultSet = depositStatement.executeQuery();
+
+		        while (depositResultSet.next()) {
+		            Referrals deposit = new Referrals();
+		            deposit.setReferrerUserID(depositResultSet.getString("ReferrerEmail"));
+		            deposit.setReferredUserID(depositResultSet.getString("ReferredUserID"));
+		            deposit.setReferralDate(depositResultSet.getString("ReferralDate"));
+		            deposit.setReferrerName(depositResultSet.getString("ReferrerName"));
+
+		            userReferrals.add(deposit);
+		        }
+
+		    } catch (Exception e) {
+		        // Handle exceptions
+		        e.printStackTrace();
+		    } finally {
+		        // Close database resources
+		        try {
+		            if (depositResultSet != null) depositResultSet.close();
+		            if (depositStatement != null) depositStatement.close();
+		            if (userResultSet != null) userResultSet.close();
+		            if (userStatement != null) userStatement.close();
+		            if (connection != null) connection.close();
+		        } catch (Exception e) {
+		            // Handle exceptions
+		            e.printStackTrace();
+		        }
+		    }
+
+		    return userReferrals;
+		}
+
 }

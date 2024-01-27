@@ -64,12 +64,32 @@
                             <% 
                             }
                             %>
-                            <div class="form-group text-center">
-                                <button href="employee.jsp" class="btn btn-primary account-btn" name="login" type="submit">Login</button>
-                                <div class="col-auto pt-2">
-                                    <a class="text-muted float-right" href="forgot-password.jsp">Forgot password?</a>
-                                </div>
-                            </div>
+                           
+                                     <!-- <div class="row">              
+								      <button class="btn btn-primary account-btn" name="login" type="submit" style="width:100px; height:50px;">Login</button>
+                                       <a href="registration.jsp" class="btn btn-secondary account-btn" style="width: 100px; height: 50px; margin-left: 10px;">Register</a>
+								   </div> -->
+								   <!-- Existing code ... -->
+								<div class="form-group text-center">
+								    <div class="row justify-content-center">
+								        <div class="col-md-6"> <!-- Adjust the column size as needed -->
+								            <button class="btn btn-primary account-btn" name="login" type="submit" style="width: 150px; height: 50px;margin-left: 10px;">Login</button>
+								        </div>
+								        <div class="col-md-6"> <!-- Adjust the column size as needed -->
+								            <a href="registration.jsp" class="btn btn-secondary account-btn" style="width: 150px; height: 50px; margin-left: 10px;">Register</a>
+								        </div>
+								    </div>
+								   
+								</div>
+								<!-- Existing code ... -->
+								   
+								    <div class="col-auto pt-2">
+								        <a class="text-muted float-right" style="margin-left: 120px;" href="forgot-password.jsp">Forgot password?</a>
+								    </div>
+								</div>
+
+							</div>
+                            
                            <!--  <div class="account-footer">
                                 <p>Having Trouble? report an issue on GitHub <a target="_blank" href="https://github.com/MusheAbdulHakim/Smarthr---hr-payroll-project-employee-management-System/issues">GitHub issues</a></p>
                             </div> -->

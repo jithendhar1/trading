@@ -6,7 +6,15 @@ public class Referrals {
 	    private String referrerUserID;
 	    private String referredUserID;
 	    private String referralDate;
+	    private String ReferrerName;
 	    
+	    
+		public String getReferrerName() {
+			return ReferrerName;
+		}
+		public void setReferrerName(String referrerName) {
+			ReferrerName = referrerName;
+		}
 		public String getReferralID() {
 			return referralID;
 		}

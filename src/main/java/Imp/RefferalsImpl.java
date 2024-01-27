@@ -8,7 +8,7 @@ import utility.DBUtil;
 
 public class RefferalsImpl {
 
-public String AddReferal(String ReferralID,String ReferrerUserID,String ReferredUserID,String ReferralDate) {
+public String AddReferal(String ReferralID,String ReferrerName,String ReferrerEmail,String ReferredUserID,String ReferralDate) {
 		
 		String Status1 = " Adding Failed!";
 
@@ -16,12 +16,13 @@ public String AddReferal(String ReferralID,String ReferrerUserID,String Referred
         PreparedStatement ps = null;
 
         try {
-        	ps = con.prepareStatement("INSERT INTO referrals (ReferralID, ReferrerUserID, ReferredUserID, ReferralDate) VALUES (?,?,?,?)");
+        	ps = con.prepareStatement("INSERT INTO referrals (ReferralID, ReferrerEmail, ReferredUserID, ReferralDate,ReferrerName) VALUES (?,?,?,?,?)");
         
         	ps.setString(1, ReferralID);
-            ps.setString(2, ReferrerUserID);
+            ps.setString(2, ReferrerEmail);
             ps.setString(3, ReferredUserID);
             ps.setString(4, ReferralDate);
+            ps.setString(5, ReferrerName);
            
             int k = ps.executeUpdate();
 

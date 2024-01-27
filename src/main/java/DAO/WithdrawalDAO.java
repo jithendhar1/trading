@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import beans.Referrals;
 import beans.WithdrawalBean;
 import utility.DBUtil;
 
@@ -90,8 +91,8 @@ public class WithdrawalDAO {
 			 return count;
 			 }
 	
-	  public static List<WithdrawalBean> getDepositsByUsername(String username) {
-		    List<WithdrawalBean> userDeposits = new ArrayList<>();
+	  public static List<WithdrawalBean>getWithdrawalsByUsername(String username) {
+		    List<WithdrawalBean> userWithdrawals = new ArrayList<>();
 		    Connection connection = null;
 		    PreparedStatement userStatement = null;
 		    PreparedStatement depositStatement = null;
@@ -99,33 +100,44 @@ public class WithdrawalDAO {
 		    ResultSet depositResultSet = null;
 
 		    try {
-		        // Step 1: Get userID from userDB based on the provided username
 		        connection = DBUtil.provideConnection();
-		        String userQuery = "SELECT userID FROM users WHERE username = ?";
-		        userStatement = connection.prepareStatement(userQuery);
-		        userStatement.setString(1, username);
-		        userResultSet = userStatement.executeQuery();
 
-		        if (userResultSet.next()) {
-		            String userID = userResultSet.getString("userID");
+		        // Step 1: Get userID from userDB based on the provided username
+		        if ("Admin".equals(username)) {
+		            // If the username is Admin, use a different query
+		            String adminQuery = "SELECT WithdrawalID,userID, WithdrawalTransactionID, WithdrawalDate,Amount,status FROM withdrawal";
+		            depositStatement = connection.prepareStatement(adminQuery);
+		        } else {
+		            // For other users, get userID from userDB based on the provided username
+		            String userQuery = "SELECT userID FROM users WHERE username = ?";
+		            userStatement = connection.prepareStatement(userQuery);
+		            userStatement.setString(1, username);
+		            userResultSet = userStatement.executeQuery();
 
-		            // Step 2: Get all deposits based on the obtained userID
-		            String depositQuery = "SELECT  WithdrawalID, userID, WithdrawalTransactionID, WithdrawalDate, Amount FROM withdrawal WHERE userID = ?";
-		            depositStatement = connection.prepareStatement(depositQuery);
-		            depositStatement.setString(1, userID);
-		            depositResultSet = depositStatement.executeQuery();
+		            if (userResultSet.next()) {
+		                String userID = userResultSet.getString("userID");
 
-		            while (depositResultSet.next()) {
-		            	WithdrawalBean deposit = new WithdrawalBean();
-		            	
-		                deposit.setWithdrawalID(depositResultSet.getString("WithdrawalID"));
-		                deposit.setUserID(depositResultSet.getString("userID"));
-		                deposit.setWithdrawalTransactionID(depositResultSet.getString("WithdrawalTransactionID"));
-		                deposit.setWithdrawalDate(depositResultSet.getString("WithdrawalDate"));
-		                deposit.setAmount(depositResultSet.getString("Amount"));
-		                userDeposits.add(deposit);
+		                // Get all deposits based on the obtained userID
+		                String depositQuery = "SELECT WithdrawalID,userID, WithdrawalTransactionID, WithdrawalDate,Amount,status FROM withdrawal WHERE userID = ?";
+		                depositStatement = connection.prepareStatement(depositQuery);
+		                depositStatement.setString(1, userID);
 		            }
 		        }
+		        // Execute the deposit query
+		        depositResultSet = depositStatement.executeQuery();
+
+		        while (depositResultSet.next()) {
+		            WithdrawalBean deposit = new WithdrawalBean();
+		            deposit.setWithdrawalID(depositResultSet.getString("WithdrawalID"));
+		            deposit.setUserID(depositResultSet.getString("userID"));
+		            deposit.setWithdrawalTransactionID(depositResultSet.getString("WithdrawalTransactionID"));
+		            deposit.setWithdrawalDate(depositResultSet.getString("WithdrawalDate"));
+		            deposit.setAmount(depositResultSet.getString("Amount"));
+		            deposit.setStatsu(depositResultSet.getString("status"));
+
+		            userWithdrawals.add(deposit);
+		        }
+
 		    } catch (Exception e) {
 		        // Handle exceptions
 		        e.printStackTrace();
@@ -143,9 +155,8 @@ public class WithdrawalDAO {
 		        }
 		    }
 
-		    return userDeposits;
+		    return userWithdrawals;
 		}
-
 
 
 	  public static int totalCountByUsername(String username) {
