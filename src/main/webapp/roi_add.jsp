@@ -3,6 +3,7 @@
 <%@page import="DAO.ReffertalDAO"%>
 <%@ page import="java.util.List" %>
 <%@page import="DAO.ROIDAO"%>
+<%@page import="srv.RandomAccountIDGenerator"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
      <%
@@ -127,6 +128,14 @@
             <label for="TransactionID">TransactionID<span class="text-danger">*</span></label>
             <input id="TransactionID" name="TransactionID" class="form-control" type="text">    
         </div> -->
+        <div class="form-group">
+                        <label for="DepositTransactionID">DepositTransactionID <span class="text-danger">*</span></label>
+                        <%-- Use the scriptlet to generate a random account ID --%>
+                        <%
+                            String randomAccountID = RandomAccountIDGenerator.generateRandomAccountID();
+                        %>
+                        <input readonly id="DepositTransactionID" name="TransactionID" class="form-control" type="text" value="<%= randomAccountID %>">
+                    </div>
    
     <% String x=  CustomerDAO.getUserIDByUsername(username);%>
  
@@ -220,7 +229,7 @@
             <label class="col-form-label">ClosingAmount <span class="text-danger">*</span></label>
             <input name="ClosingAmount" readonly required class="form-control" type="text">
         </div>
-
+<input name="Approvedby" type="text" value="<%=username%>" hidden>
  <div class="submit-section">
     <button type="submit" class="btn btn-primary submit-btn">Submit</button>
   </div>

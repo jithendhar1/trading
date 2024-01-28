@@ -19,13 +19,15 @@ public class AddROISrv extends HttpServlet {
     	
         String status = "Add Failed!";
         String userID = request.getParameter("userID");
+        String TransactionID = request.getParameter("TransactionID");
+        String Approvedby = request.getParameter("Approvedby");
         String ROIAmount = request.getParameter("ROIAmount");
         String ModifiedDate = request.getParameter("ModifiedDate");
         String OpenAmount = request.getParameter("OpenAmount");
         String ClosingAmount = request.getParameter("ClosingAmount");
         
         ROIServiceImpl add = new ROIServiceImpl();
-        status = add.addV( userID, ROIAmount, ModifiedDate, OpenAmount, ClosingAmount);
+        status = add.addV(Approvedby,userID, ROIAmount, ModifiedDate, OpenAmount, ClosingAmount,TransactionID);
 
 
     	   RequestDispatcher rd = request.getRequestDispatcher("roi_user.jsp?message=" + status);
