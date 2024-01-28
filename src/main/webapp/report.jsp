@@ -72,78 +72,109 @@
 					
 					
 					
-					
+						
 <label for="transactionType">Transaction Type:</label>
-<select name="transactionType" id="transactionType" onchange="updateDropdown()">
+<select  name="transactionType" id="transactionType" onchange="updateDropdown('type')">
+   <option >Select</option>
     <option value="deposit">Deposit</option>
     <option value="roi">ROI</option>
     <option value="withdrawal">Withdrawal</option>
     <option value="referral">Referral</option>
+    <option value="all">ALL</option>
+    
+</select>
+					
+<label for="transactiondate">Transaction Date:</label>
+<select  name="transactiondate" id="transactiondate" onchange="updateDropdown('date')">
+   <option >Select</option>
+    <option value="yearly">Yearly</option>
+     <option value="halfyearly">Halferly</option>
+    <option value="quarterly">Quartely</option>
+    <option value="monthly">Monthly</option>
+   
 </select>
 
-<script>
-function updateDropdown() {
-    var selectedValue = document.getElementById("transactionType").value;
-    // Use AJAX to send the selected value to the server and update the table content
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            // Update the table content with the response from the server
-            document.getElementById("transactionTableBody").innerHTML = this.responseText;
-        }
-    };
-    // Replace 'yourServlet' with the actual servlet or server-side script handling the request
-    xhttp.open("GET", "ReportSrv?transactionType=" + selectedValue, true);
-    xhttp.send();
-}
-</script>
 
-<table>
-    <thead>
-        <tr>
-            <th>userID</th>
-            <th>open amount</th>
-            <th>closing amount</th>
-            <th>transaction date</th>
-            <th>status</th>  
-            <th>Approved by</th>
-            <th>TransactionID</th>  
-        </tr>
-    </thead>
-    <tbody id="transactionTableBody">
-        <% 
-        String transactionType = request.getParameter("transactionType");
-        List<TransactionBean>  tax = TransactionDAO.getTransactionsByTransactiontype(transactionType);
-        for (TransactionBean tasks : tax) {
-        %>	
-        <tr>
-            <td><%=tasks.getUserID() %></td>
-            <td><%=tasks.getOpenamount() %></td>
-            <td><%=tasks.getClosingamount() %></td>
-            <td><%=tasks.getTransactiondate() %></td>
-            <td><%=tasks.getStatus() %></td>
-            <td><%=tasks.getApprovedby() %></td>
-            <td><%=tasks.getTransactionID() %></td>
-        </tr>
-        <%
-        }
-        %>
-    </tbody>
-</table>
 
+<label for="UserID"> UserID :</label>
+<select id="UserID" name="UserID" onchange="updateDropdown('userID')">
+    <option value="Select">Select</option>
+    <%
+        List<TransactionBean> transactions = TransactionDAO.getAllTransactions();
+        for (TransactionBean transaction : transactions) {
+    %>
+        <option value="<%= transaction.getUserID() %>"><%= transaction.getUserID() %></option>
+    <%
+        }
+    %>
+</select>
+
+<label for="Date">Date :</label>
+<input  id="Date" name="Date" type="date" onchange="updateDropdown('customDate')"><br>
+	
+
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>userID</th>
+                            <th>open amount</th>
+                            <th>closing amount</th>
+                            <th>transaction date</th>
+                            <th>status</th>  
+                            <th>Approved by</th>
+                            <th>TransactionID</th>  
+                        </tr>
+                    </thead>
+                        <tbody id="transactionTableBody">
+                        <% 
+                            // Retrieve parameters
+                            String updateType = request.getParameter("updateType");
+                            String transactionType = request.getParameter("transactionType");
+                            String transactiondate = request.getParameter("transactiondate");
+                            String userID = request.getParameter("UserID");
+                            String customDate = request.getParameter("Date");
+
+                            // Initialize the list of transactions
+                            List<TransactionBean> tax = null;
+
+                            // Check the update type and fetch transactions accordingly
+                            if ("type".equals(updateType)) {
+                                tax = TransactionDAO.getTransactionsByTransactionType(transactionType);
+                            } else if ("date".equals(updateType)) {
+                                tax = TransactionDAO.getTransactionsByTransactiondate(transactiondate);
+                            } else if ("userID".equals(updateType)) {
+                                tax = TransactionDAO.getTransactionsByUserID(userID);
+                            } else if ("customDate".equals(updateType)) {
+                                tax = TransactionDAO.getTransactionsByDate(customDate);
+                            } else {
+                                // Default case, load all transactions
+                                tax = TransactionDAO.getAllTransactions();
+                            }
+
+                            // Iterate through transactions
+                            for (TransactionBean tasks : tax) {
+                        %>	
+                            <tr>
+                                <td><%=tasks.getUserID() %></td>
+                                <td><%=tasks.getOpenamount() %></td>
+                                <td><%=tasks.getClosingamount() %></td>
+                                <td><%=tasks.getTransactiondate() %></td>
+                                <td><%=tasks.getStatus() %></td>
+                                <td><%=tasks.getApprovedby() %></td>
+                                <td><%=tasks.getTransactionID() %></td>
+                            </tr>
+                        <%
+                            }
+                        %>
+                    </tbody>
+                </table>
 								
 							</div>
 						</div>
 					</div>
                
 				
-				
-				
-				
-          
-	
-
-		
         <script src="js/jquery-3.2.1.min.js"></script>
 
 		
@@ -160,5 +191,43 @@ function updateDropdown() {
 		<!-- <script src="js/app.js"></script> -->
 
 
-    </body>
+   <script>
+        function updateDropdown(updateType) {
+            var selectedValue = "";
+
+            // Retrieve selected value based on updateType
+            if (updateType === 'customDate') {
+                selectedValue = document.getElementById("Date").value;
+            } else if (updateType === 'userID') {
+                selectedValue = document.getElementById("UserID").value;
+            }else if (updateType === 'date') {
+                selectedValue = document.getElementById("transactiondate").value;
+            }else if (updateType === 'type') {
+                selectedValue = document.getElementById("transactionType").value;
+            }
+
+            // Create AJAX request
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    // Update the table content with the response from the server
+                    document.getElementById("transactionTableBody").innerHTML = this.responseText;
+                }
+            };
+
+            // Adjust the servlet URLs based on your actual servlet names
+            if (updateType === 'type') {
+                xhttp.open("GET", "ReportSrv?transactionType=" + selectedValue, true);
+            } else if (updateType === 'date') {
+                xhttp.open("GET", "ReporttransactiondateSrv?transactiondate=" + selectedValue, true);
+            } else if (updateType === 'userID') {
+                xhttp.open("GET", "ReporttransactionuseridSrv?UserID=" + selectedValue, true);
+            } else if (updateType === 'customDate') {
+                xhttp.open("GET", "ReportDateSrv?Date=" + selectedValue, true);
+            }
+
+            xhttp.send();
+        }
+    </script>
+</body>
 </html>
