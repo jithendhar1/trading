@@ -129,7 +129,7 @@
             <input id="TransactionID" name="TransactionID" class="form-control" type="text">    
         </div> -->
         <div class="form-group">
-                        <label for="DepositTransactionID">DepositTransactionID <span class="text-danger">*</span></label>
+                        <label for="DepositTransactionID">ROI TransactionID <span class="text-danger">*</span></label>
                         <%-- Use the scriptlet to generate a random account ID --%>
                         <%
                             String randomAccountID = RandomAccountIDGenerator.generateRandomAccountID();

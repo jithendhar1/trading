@@ -132,5 +132,39 @@ public class CustomerDAO {
 	    return userID;
 	}
 
+	public static String getEmailByUsername(String userID) {
+	    String Email = null;
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+	    ResultSet resultSet = null;
+
+	    try {
+	        connection = DBUtil.provideConnection();
+	        String query = "SELECT email FROM users WHERE userID = ?;";
+	        preparedStatement = connection.prepareStatement(query);
+	        preparedStatement.setString(1, userID);
+	        resultSet = preparedStatement.executeQuery();
+
+	        if (resultSet.next()) {
+	            Email = resultSet.getString("email");
+	        }
+	    } catch (SQLException e) {
+	        // Handle exceptions or log them properly
+	        e.printStackTrace();
+	    } finally {
+	        // Close database resources
+	        try {
+	            if (resultSet != null) resultSet.close();
+	            if (preparedStatement != null) preparedStatement.close();
+	            if (connection != null) connection.close();
+	        } catch (Exception e) {
+	            // Handle exceptions
+	            e.printStackTrace();
+	        }
+	    }
+
+	    return Email;
+	}
+
 	
 }
