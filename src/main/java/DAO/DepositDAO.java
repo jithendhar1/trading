@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import beans.DepositBean;
+import beans.TransactionBean;
 import utility.DBUtil;
 public class DepositDAO {
 
@@ -70,7 +71,7 @@ public class DepositDAO {
 		        ResultSet rs = null;
 			 try {
 				 connection = DBUtil.provideConnection();
-			   String query = "select count(*) as count from deposit";
+			   String query = "select count(*) as count from transaction where Transactiontype='Deposit'";
 			 ps = connection.prepareStatement(query);
 			 rs = ps.executeQuery();
 			 while (rs.next()) {
@@ -89,8 +90,8 @@ public class DepositDAO {
 			 }
 	  
 	  
-	  public static List<DepositBean> getDepositsByUsername(String username) {
-		    List<DepositBean> userDeposits = new ArrayList<>();
+	  public static List<TransactionBean> getDepositsByUsername(String username) {
+		    List<TransactionBean> userDeposits = new ArrayList<>();
 		    Connection connection = null;
 		    PreparedStatement userStatement = null;
 		    PreparedStatement depositStatement = null;
@@ -102,7 +103,7 @@ public class DepositDAO {
 
 		        if ("Admin".equals(username)) {
 		            // If the username is Admin, use a different query
-		            String adminQuery = "SELECT TransactionID, transactiondate, Amount,status, userID FROM transaction";
+		            String adminQuery = "SELECT TransactionID, transactiondate, Amount,status, userID FROM transaction where Transactiontype='Deposit'";
 		            depositStatement = connection.prepareStatement(adminQuery);
 		        } else {
 		            // For other users, get userID from userDB based on the provided username
@@ -115,7 +116,7 @@ public class DepositDAO {
 		                String userID = userResultSet.getString("userID");
 
 		                // Get all deposits based on the obtained userID
-		                String depositQuery = "SELECT  TransactionID, transactiondate, Amount,status, userID FROM transaction WHERE userID = ?";
+		                String depositQuery = "SELECT  TransactionID, transactiondate, Amount,status, userID FROM transaction WHERE userID = ? AND Transactiontype='Deposit'";
 		                depositStatement = connection.prepareStatement(depositQuery);
 		                depositStatement.setString(1, userID);
 		            }
@@ -125,10 +126,10 @@ public class DepositDAO {
 		        depositResultSet = depositStatement.executeQuery();
 
 		        while (depositResultSet.next()) {
-		            DepositBean deposit = new DepositBean();
+		        	TransactionBean deposit = new TransactionBean();
 		           
-		            deposit.setDepositTransactionID(depositResultSet.getString("TransactionID"));
-		            deposit.setDepositDate(depositResultSet.getString("transactiondate"));
+		            deposit.setTransactionID(depositResultSet.getString("TransactionID"));
+		            deposit.setTransactiondate(depositResultSet.getString("transactiondate"));
 		            deposit.setAmount(depositResultSet.getString("Amount"));
 		            deposit.setStatus(depositResultSet.getString("status"));
 		            deposit.setUserID(depositResultSet.getString("userID"));
@@ -175,7 +176,7 @@ public class DepositDAO {
 		            String userID = userResultSet.getString("userID");
 
 		            // Step 2: Get the total count of withdrawals based on the obtained userID
-		            String countQuery = "SELECT COUNT(*) AS count FROM deposit WHERE userID = ?";
+		            String countQuery = "SELECT COUNT(*) AS count FROM transaction WHERE userID = ? AND Transactiontype='Deposit'";
 		            PreparedStatement countStatement = connection.prepareStatement(countQuery);
 		            countStatement.setString(1, userID);
 		            ResultSet countResultSet = countStatement.executeQuery();

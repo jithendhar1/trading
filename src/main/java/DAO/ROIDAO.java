@@ -202,7 +202,7 @@ public class ROIDAO {
 		            String userID = userResultSet.getString("userID");
 
 		            // Step 2: Get the total count of withdrawals based on the obtained userID
-		            String countQuery = "SELECT COUNT(*) AS count FROM roi WHERE userID = ?";
+		            String countQuery = "SELECT COUNT(*) AS count FROM transaction WHERE userID = ? AND Transactiontype ='ROI'";
 		            PreparedStatement countStatement = connection.prepareStatement(countQuery);
 		            countStatement.setString(1, userID);
 		            ResultSet countResultSet = countStatement.executeQuery();

@@ -62,7 +62,7 @@ public class ReffertalDAO {
 	        ResultSet rs = null;
 		 try {
 			 connection = DBUtil.provideConnection();
-		   String query = "select count(*) as count from referrals";
+		   String query = "select count(*) as count from transaction where Transactiontype='Referral'";
 		 ps = connection.prepareStatement(query);
 		 rs = ps.executeQuery();
 		 while (rs.next()) {
@@ -203,7 +203,8 @@ public class ReffertalDAO {
 		            String userID = userResultSet.getString("userID");
 
 		            // Step 2: Get the total count of withdrawals based on the obtained userID
-		            String countQuery = "SELECT COUNT(*) AS count FROM referrals WHERE ReferredUserID = ?";
+		            String countQuery = "SELECT COUNT(*) AS count FROM transaction WHERE userID = ? AND Transactiontype ='Referral'";
+
 		            PreparedStatement countStatement = connection.prepareStatement(countQuery);
 		            countStatement.setString(1, userID);
 		            ResultSet countResultSet = countStatement.executeQuery();
@@ -298,4 +299,5 @@ public class ReffertalDAO {
 		    return userReferrals;
 		}
 
+	
 }

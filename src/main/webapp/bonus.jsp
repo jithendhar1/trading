@@ -1,10 +1,10 @@
-
+<%@page import="DAO.BonusDAO"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import="Imp.DepositServiceImpl" %>
+<%@ page import="Imp.WithdrawalServiceImpl" %>
 <%@ page import="beans.TransactionBean" %>
 <%@ page import="java.util.List" %>
-<%@ page import="DAO.DepositDAO"%>
+<%@page import="DAO.WithdrawalDAO"%>
 <%
     // Getting the username from the session
     String username = (String)session.getAttribute("username");
@@ -18,7 +18,7 @@
 		<meta name="keywords" content="admin, estimates, bootstrap, business, corporate, creative, management, minimal, modern, accounts, invoice, html5, responsive, CRM, Projects">
         <meta name="author" content="Dreamguys - Bootstrap Admin Template">
         <meta name="robots" content="noindex, nofollow">
-        <title>Deposit</title>
+        <title>Bonus</title>
 		
 		<!-- Favicon -->
         <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
@@ -38,22 +38,11 @@
 		<!-- Main CSS -->
         <link rel="stylesheet" href="css/style.css">
 		<link rel="stylesheet" href="css/tstyles.css">
-		 <script>
-        function changeButtonColor(button) {
-            // Check if the button has a class indicating it has been clicked
-            if (!button.classList.contains('clicked')) {
-                // Change button color to green
-                button.style.backgroundColor = 'green';
-                // Add a class to indicate that the button has been clicked
-                button.classList.add('clicked');
-            }
-        }
-    </script>
+		
     </head>
     <body>
 
 		<!-- Main Wrapper -->
-       <!-- Main Wrapper -->
        <div class="main-wrapper">
     <!-- Main Wrapper -->
    <!-- Header -->
@@ -75,51 +64,45 @@
 							<div id="welcomeMessage" style="text-align: center; margin-top: 20px; font-size: 24px;">
                                 Welcome  <%= username%>!
                               </div>
-								<h3 class="page-title">Deposit</h3>
+								<h3 class="page-title">Bonus</h3>
 								 <ul class="breadcrumb">
-							        <li class="breadcrumb-item"><a href="<%= (username.equals("Admin")) ? "admin_dashboard.jsp" : "user.jsp" %>">Dashboard</a></li>
-									<li class="breadcrumb-item active">Deposit</li>
-								</ul> 
+									<li class="breadcrumb-item"><a href="<%= (username.equals("Admin")) ? "admin_dashboard.jsp" : "user.jsp" %>">Dashboard</a></li>
+									<li class="breadcrumb-item active">Bonus</li>
+								</ul>
 							</div>
-							<div class="col-auto float-right ml-auto">
-							 <% if (!"Admin".equals(username)) { %>
-							<a href="#" class="Addbutton" data-toggle="modal" data-target="#adddeposit"><i class="fa fa-plus"></i> Add Deposit</a>
-							<%} %>
-							</div>
+							
 						</div>
 					</div>
-					
+					<!-- /Page Header -->
+					<!-- Search Filter -->
 
 								<table>
 									<thead>
 										<tr>
 							
-											
-											<th>DepositTransactionID </th>
-									        <th>DepositDate</th>
-									        <th>Amount</th>
-									        <th>userID</th>
+											<th>UserID </th>
+									        <th>Transaction Date</th>
 									        <th>Status</th>
+									        <th>Transaction ID</th>
+									        <th>Amount</th>
+									        <th>Referral Person ID</th>
 									        
-									       <!--   <th>Delete</th>     -->
 										</tr>
 									</thead>
-
-
 <%
 
-  List<TransactionBean>  tax = DepositDAO.getDepositsByUsername(username);
+  List<TransactionBean>  tax = BonusDAO.getWithdrawalsByUsername(username);
 
 for (TransactionBean tasks : tax) {
 	 
 %>
 <tr>
-    <%-- td><%=tasks.getDepositID() %></td> --%>
-    <td><%=tasks.getTransactionID()%></td>
-    <td><%=tasks.getTransactiondate()%></td>
-    <td><%=tasks.getAmount()%></td>
     <td><%=tasks.getUserID()%></td>
- <%
+    <td><%=tasks.getTransactiondate()%></td>
+    <td><%=tasks.getTransactionID()%></td>
+    <td><%=tasks.getAmount() %></td>
+    <td><%=tasks.getReferralID() %></td>
+     <%
     String status = tasks.getStatus();
     String statusText = "Approved";
 
@@ -131,36 +114,78 @@ for (TransactionBean tasks : tax) {
     <td><%=statusText%></td>
 <%} else{%>
 <td>
-    <form action="./DepositeStatus" method="post" onsubmit="return disableButton()">
-    	<input type="text" name="depositID" value="<%=tasks.getTransactionID()%>" hidden>
-    	<input type="text" name="amount" value="<%=tasks.getAmount()%>" hidden>
+    <form action="./BonusStatus" method="post" onsubmit="return disableButton()">
     	<input type="text" name="userID" value="<%=tasks.getUserID()%>" hidden>
-    	<input type="text" name="username" value="<%=username%>" hidden>
-        <button type="submit" name="status" id="approveButton" value="1" onclick="changeButtonColor(this)">Approve</button>
+    	<input type="text" name="TransactionDate" value="<%=tasks.getTransactiondate()%>" hidden>
+    	<input type="text" name="TransactionID" value="<%=tasks.getTransactionID()%>" hidden>
+    	<input type="text" name="Amount" value="<%=tasks.getAmount()%>" hidden>
+    	<input type="text" name="ReferralID" value="<%=tasks.getReferralID()%>" hidden>
+        <button type="submit" name="status" id="approveButton" value="1">Approve</button>
     </form>
     
+  
 </td>
-
-
-<%} %>
+    
+    
+    
+    
+    
+    <%-- <td>
+        <a href="withdrawal_edit.jsp?vehicleID=<%= tasks.getWithdrawalID()%>">Edit</a>
+    </td>
+    <td>
+        <a href="DeleteVechicleSrv?VehicleID=<%= tasks.getWithdrawalID()%>">Delete</a> 
+    </td> --%>
 </tr>
 <%
-}
+}}
 %>
-								</table>
 
+								</table>
+<div class="row justify-content-center align-items-center" id = "flag1">
+   
+   <!-- Pagination links -->
+
+   
+
+</div>
 							</div>
 						</div>
 					</div>
-
-				 <jsp:include page="deposit_add.jsp" />
-	  <!--   <script src="js/jquery-3.2.1.min.js"></script>  -->
-        <script src="js/popper.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-		<!-- <script src="js/jquery.slimscroll.min.js"></script> -->
-		<script src="js/select2.min.js"></script>
+               
+				<!-- /Page Content -->
+				
+				<!-- Add Tax Modal -->
+				 <jsp:include page="withdrawal_add.jsp" />
+				<!-- /Add Tax Modal -->
+				
+				<%-- <!-- Edit Tax Modal -->
+				 <jsp:include page="edit_tasks.jsp" />
+				<!-- /Edit Tax Modal -->
+				
+				<!-- Delete Tax Modal -->
+				 <jsp:include page="delete_task.jsp" />
+				<!-- /Delete Tax Modal --> --%>
+				
+          
 	
 
 		
+        <script src="js/jquery-3.2.1.min.js"></script>
+
+		
+        <script src="js/popper.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+
+		
+		<script src="js/jquery.slimscroll.min.js"></script>
+		
+		
+		<script src="js/select2.min.js"></script>
+
+		
+		<!-- <script src="js/app.js"></script> -->
+
+
     </body>
 </html>

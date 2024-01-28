@@ -10,8 +10,24 @@ public class TransactionBean {
 	private String Approvedby;
 	private String Transactiontype;
 	private String TransactionID;
+	private String Amount;
+	private String ReferralID;
 	
 	
+	
+	
+	public String getReferralID() {
+		return ReferralID;
+	}
+	public void setReferralID(String referralID) {
+		ReferralID = referralID;
+	}
+	public String getAmount() {
+		return Amount;
+	}
+	public void setAmount(String amount) {
+		Amount = amount;
+	}
 	public String getUserID() {
 		return userID;
 	}

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page import="Imp.WithdrawalServiceImpl" %>
-<%@ page import="beans.WithdrawalBean" %>
+<%@ page import="beans.TransactionBean" %>
 <%@ page import="java.util.List" %>
 <%@page import="DAO.WithdrawalDAO"%>
 <%
@@ -83,11 +83,10 @@
 									<thead>
 										<tr>
 							
-											<th>WithdrawalID</th>
-											<th>userID </th>
-									        <th>AccountID</th>
+											<th>WithdrawalTransactionID </th>
 									        <th>WithdrawalDate</th>
 									        <th>Amount</th>
+									        <th>userID</th>
 									        <th>Status</th>
 									        <!-- <th>Edit</th>
 									         <th>Delete</th>  -->   
@@ -95,20 +94,19 @@
 									</thead>
 <%
 
-  List<WithdrawalBean>  tax = WithdrawalDAO.getWithdrawalsByUsername(username);
+  List<TransactionBean>  tax = WithdrawalDAO.getWithdrawalsByUsername(username);
 
-for (WithdrawalBean tasks : tax) {
+for (TransactionBean tasks : tax) {
 	 
 %>
 <tr>
-    <td><%=tasks.getWithdrawalID() %></td>
+    <td><%=tasks.getTransactionID()%></td>
+    <td><%=tasks.getTransactiondate()%></td>
+    <td><%=tasks.getAmount()%></td>
     <td><%=tasks.getUserID()%></td>
-    <td><%=tasks.getWithdrawalTransactionID() %></td>
-    <td><%=tasks.getWithdrawalDate()  %></td>
-    <td><%=tasks.getAmount() %></td>
     
     <%
-    String status = tasks.getStatsu();
+    String status = tasks.getStatus();
     String statusText = "Approved";
 
     if ("0".equals(status)) {
@@ -120,9 +118,10 @@ for (WithdrawalBean tasks : tax) {
 <%} else{%>
 <td>
     <form action="./WithdrawalStatus" method="post" onsubmit="return disableButton()">
-    	<input type="text" name="WithdrawalTransactionID" value="<%=tasks.getWithdrawalTransactionID()%>" hidden>
+    	<input type="text" name="WithdrawalTransactionID" value="<%=tasks.getTransactionID()%>" hidden>
     	<input type="text" name="amount" value="<%=tasks.getAmount()%>" hidden>
     	<input type="text" name="userID" value="<%=tasks.getUserID()%>" hidden>
+    		<input type="text" name="username" value="<%=username%>" hidden>
         <button type="submit" name="status" id="approveButton" value="1">Approve</button>
     </form>
     
