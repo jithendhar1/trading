@@ -8,8 +8,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import DAO.CustomerDAO;
 import Imp.WithdrawalServiceImpl;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet("/AddWithdrawalSrv")
 public class AddWithdrawalSrv extends HttpServlet {
@@ -29,7 +32,16 @@ public class AddWithdrawalSrv extends HttpServlet {
             WithdrawalServiceImpl aaa =new WithdrawalServiceImpl();
        	 status =aaa.addV( userID, WithdrawalTransactionID, Amount);
             
-
+       	List<String> userInfo = CustomerDAO.getUserInfoByUsername(userID);
+		String email = userInfo.get(0);
+		String username = userInfo.get(1);
+		
+		WithdrawalMailLink.sendLinkEmail(email, userID, username);
+		// Store the OTP in the session to verify it later
+		//request.getSession().setAttribute("otp", otp);
+		 request.getSession().setAttribute("email", email);
+		 
+		 
        	   RequestDispatcher rd = request.getRequestDispatcher("withdrawal_user.jsp?message=" + status);
        rd.forward(request, response);
        
