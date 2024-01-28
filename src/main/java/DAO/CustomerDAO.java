@@ -132,21 +132,56 @@ public class CustomerDAO {
 	    return userID;
 	}
 
-	public static String getEmailByUsername(String userID) {
-	    String Email = null;
+	public static List<String> getUserInfoByUsername(String userID) {
+	    List<String> userInfo = new ArrayList<>();
 	    Connection connection = null;
 	    PreparedStatement preparedStatement = null;
 	    ResultSet resultSet = null;
 
 	    try {
 	        connection = DBUtil.provideConnection();
-	        String query = "SELECT email FROM users WHERE userID = ?;";
+	        String query = "SELECT email, username FROM users WHERE userID = ?";
 	        preparedStatement = connection.prepareStatement(query);
 	        preparedStatement.setString(1, userID);
 	        resultSet = preparedStatement.executeQuery();
 
 	        if (resultSet.next()) {
-	            Email = resultSet.getString("email");
+	            userInfo.add(resultSet.getString("email"));
+	            userInfo.add(resultSet.getString("username"));
+	        }
+	    } catch (SQLException e) {
+	        // Handle exceptions or log them properly
+	        e.printStackTrace();
+	    } finally {
+	        // Close database resources in reverse order of creation to avoid issues
+	        try {
+	            if (resultSet != null) resultSet.close();
+	            if (preparedStatement != null) preparedStatement.close();
+	            if (connection != null) connection.close();
+	        } catch (SQLException e) {
+	            // Handle exceptions
+	            e.printStackTrace();
+	        }
+	    }
+
+	    return userInfo;
+	}
+
+	public static String getUsernameByUserID(String userid) {
+	    String username = null;
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+	    ResultSet resultSet = null;
+
+	    try {
+	        connection = DBUtil.provideConnection();
+	        String query = "SELECT username FROM users WHERE userID = ?";
+	        preparedStatement = connection.prepareStatement(query);
+	        preparedStatement.setString(1, userid);
+	        resultSet = preparedStatement.executeQuery();
+
+	        if (resultSet.next()) {
+	            username = resultSet.getString("username");
 	        }
 	    } catch (SQLException e) {
 	        // Handle exceptions or log them properly
@@ -163,8 +198,7 @@ public class CustomerDAO {
 	        }
 	    }
 
-	    return Email;
+	    return username;
 	}
-
 	
 }
