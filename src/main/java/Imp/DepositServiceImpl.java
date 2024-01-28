@@ -1,15 +1,20 @@
 package Imp;
 
 import java.math.BigDecimal;
+import javax.servlet.http.HttpServletRequest;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import DAO.BankdetailsDAO;
+import DAO.CustomerDAO;
 import DAO.DepositDAO;
+import srv.DepositMailLink;
+import srv.ReferalLinkGenarate;
 import utility.DBUtil;
 
 public class DepositServiceImpl {
@@ -45,9 +50,9 @@ public class DepositServiceImpl {
 			ps.setString(6, Amount);
 			int k = ps.executeUpdate();
 
-			if (k > 0) {
-				
+			if (k > 0) {	
 				Status1 ="adding succesfully";
+		
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

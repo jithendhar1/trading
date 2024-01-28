@@ -1,4 +1,5 @@
 
+<%@page import="DAO.CustomerDAO"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page import="Imp.DepositServiceImpl" %>
@@ -7,7 +8,16 @@
 <%@ page import="DAO.DepositDAO"%>
 <%
     // Getting the username from the session
-    String username = (String)session.getAttribute("username");
+    String username = null;
+    String uid = request.getParameter("userid");
+if (uid != null) {
+	String uid2 = CustomerDAO.getUsernameByUserID(uid);
+	  username = uid2;
+   
+} else {
+	 username = (String)session.getAttribute("username");
+}
+    
 %>
 <!DOCTYPE html>
 <html lang="en">
