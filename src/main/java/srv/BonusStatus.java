@@ -15,10 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import DAO.BankdetailsDAO;
 import utility.DBUtil;
 
-@WebServlet("/WithdrawalStatus")
-public class WithdrawalStatus extends HttpServlet{
+@WebServlet("/BonusStatus")
+public class BonusStatus extends HttpServlet{
 
-	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -37,7 +36,9 @@ public class WithdrawalStatus extends HttpServlet{
   
             String userID = request.getParameter("userID");         
             String Amount = request.getParameter("amount");
-            String depositeid = request.getParameter("WithdrawalTransactionID");
+            //String Transactiondate = request.getParameter("TransactionDate");
+            String TransactionID = request.getParameter("TransactionID");
+            String ReferralID = request.getParameter("ReferralID");
             String ApprovedUsername = request.getParameter("username");
             PreparedStatement ps = null;
             PreparedStatement psUpdateBank = null;
@@ -55,7 +56,7 @@ public class WithdrawalStatus extends HttpServlet{
 		if (updateResult1 > 0) {*/
         
 		
-        psUpdateBank = conn.prepareStatement("INSERT INTO transaction (userID ,openamount ,closingamount ,transactiondate,Approvedby ,Transactiontype,status,TransactionID,Amount) VALUES(?,?,?,?,?,'Withdrawal',1,?,?)");
+        psUpdateBank = conn.prepareStatement("INSERT INTO transaction (userID ,openamount ,closingamount ,transactiondate,Approvedby ,Transactiontype,status,TransactionID,Amount,ReferralID) VALUES(?,?,?,?,?,'Bonus',1,?,?,?)");
         double tempopen = Double.parseDouble(openamount);
 		double tempamoyunt = Double.parseDouble(Amount);
 		double closeamot = tempopen -tempamoyunt;
@@ -69,8 +70,9 @@ public class WithdrawalStatus extends HttpServlet{
         psUpdateBank.setString(3, Closingamount);
         psUpdateBank.setString(4, formattedDate);
         psUpdateBank.setString(5, ApprovedUsername);
-        psUpdateBank.setString(6, depositeid);
+        psUpdateBank.setString(6, TransactionID);
         psUpdateBank.setString(7, Amount);
+        psUpdateBank.setString(8, ReferralID);
 		
 		int k1= psUpdateBank.executeUpdate();
 		if(k1>0) {
@@ -102,4 +104,3 @@ public class WithdrawalStatus extends HttpServlet{
 	}
 	}
 }
-	

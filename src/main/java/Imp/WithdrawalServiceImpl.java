@@ -32,26 +32,26 @@ public String addV(String userID,String WithdrawalTransactionID,String Amount) {
          
          }
         String Readamount = String.valueOf(Temp);*/
-        
-        try {
+        String openamount = BankdetailsDAO.getUserOpenAmount(userID);
         Connection con1 = DBUtil.provideConnection();
         
-        String openamount = BankdetailsDAO.getUserOpenAmount(userID);
-		int tempopen = Integer.parseInt(openamount);
+        try {
+       
+        double tempopen = Double.parseDouble(openamount);
 		int tempamoyunt = Integer.parseInt(Amount);
-		int closeamot = tempopen - tempamoyunt;
+		double closeamot = tempopen - tempamoyunt;
 		String Closingamount = String.valueOf(closeamot);
 		 Date currentDate = new Date();
          SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // You can adjust the format as needed
          String formattedDate = dateFormat.format(currentDate);
         
-        	ps = con1.prepareStatement("INSERT INTO transaction (userID,openamount, closingamount,transactiondate,status,Approvedby,Transactiontype,TransactionID) VALUES (?,?,?,?,0,Pending,Withdrawal,?)");
+        	ps = con1.prepareStatement("INSERT INTO transaction (userID,openamount, closingamount,transactiondate,status,Approvedby,Transactiontype,TransactionID,Amount) VALUES (?,?,?,?,0,'Pending','Withdrawal',?,?)");
         	ps.setString(1, userID);
         	ps.setString(2, openamount);
             ps.setString(3, Closingamount);
             ps.setString(4, formattedDate);
-            ps.setString(5, formattedDate);
-            ps.setString(6, WithdrawalTransactionID);
+            ps.setString(5, WithdrawalTransactionID);
+            ps.setString(6, Amount);
        
             int k = ps.executeUpdate();
             if(k>0) {

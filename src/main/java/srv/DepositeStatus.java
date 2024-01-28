@@ -40,7 +40,7 @@ public class DepositeStatus extends HttpServlet{
             String depositeid = request.getParameter("depositID");
             String ApprovedUsername = request.getParameter("username");
             
-            Connection conn = DBUtil.provideConnection();
+            
             PreparedStatement ps = null;
             PreparedStatement psUpdateBank = null;
             PreparedStatement ps1 = null;
@@ -48,7 +48,9 @@ public class DepositeStatus extends HttpServlet{
             Connection conn1 = DBUtil.provideConnection();
             
             PreparedStatement psUpdateBank1 = null;
-            
+            String openamount = BankdetailsDAO.getUserOpenAmount(userID);
+    		
+    		Connection conn = DBUtil.provideConnection();
 	try {
 		
 		/*
@@ -59,13 +61,12 @@ public class DepositeStatus extends HttpServlet{
 		 *if (updateResult1 > 0) {
 		 */
 		
-		
-		ps1 = conn.prepareStatement("INSERT INTO transaction (userID ,openamount ,closingamount ,transactiondate,Approvedby ,Transactiontype,status,TransactionID) VALUES(?,?,?,?,?,deposite,1,?)");
+		ps1 = conn.prepareStatement("INSERT INTO transaction (userID ,openamount ,closingamount ,transactiondate,Approvedby ,Transactiontype,status,TransactionID,Amount) VALUES(?,?,?,?,?,'Deposit',1,?,?)");
 			
-			String openamount = BankdetailsDAO.getUserOpenAmount(userID);
-			int tempopen = Integer.parseInt(openamount);
-			int tempamoyunt = Integer.parseInt(Amount);
-			int closeamot = tempopen+ tempamoyunt;
+		
+			double tempopen = Double.parseDouble(openamount);
+			double tempamoyunt = Double.parseDouble(Amount);
+			double closeamot = tempopen+ tempamoyunt;
 			String Closingamount = String.valueOf(closeamot);
 			 Date currentDate = new Date();
              SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // You can adjust the format as needed
@@ -77,6 +78,7 @@ public class DepositeStatus extends HttpServlet{
 			ps1.setString(4, formattedDate);
 			ps1.setString(5, ApprovedUsername);
 			ps1.setString(6, depositeid);
+			ps1.setString(7, Amount);
 			
 			int k1= ps1.executeUpdate();
 			if(k1>0) {
@@ -90,19 +92,42 @@ public class DepositeStatus extends HttpServlet{
         if (updateResult > 0) {
             
         	Connection con1 = DBUtil.provideConnection();
-        	int tempamount = Integer.parseInt(Amount);
-        	if(tempamount>=500)
+        	double tempamount = Double.parseDouble(Amount);
+        	if(tempamount>=500.00)
         	{
+        		double tempopen2 = Double.parseDouble(openamount);
+    			int tempamoyunt2 = Integer.parseInt(Amount);
+    			double closeamot2 = tempopen + tempamoyunt;
+    			String Closingamount2 = String.valueOf(closeamot);
+    			 Date currentDate2 = new Date();
+                 SimpleDateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd"); // You can adjust the format as needed
+                 String formattedDate2 = dateFormat.format(currentDate);
+                
         	    int count= DepositDAO.totalCountDeposites(userID);
         	    if(count==1)
         	    {
         	    	String reffereduserid = DepositDAO.referralID(userID);
+        	    	String openamount2 = BankdetailsDAO.getUserOpenAmount(reffereduserid);
+        	    	 
+          			Connection con = DBUtil.provideConnection();
         	    	int Tenper = (int) (0.1 * tempamount);
         	    	String Tenperamount = String.valueOf(Tenper);
-        	    	ps =  conn.prepareStatement("UPDATE customeraccdetails SET Amount = Amount + ? WHERE userID = ?");
+        	    	ps =  conn.prepareStatement("INSERT INTO transaction (userID ,openamount ,closingamount ,transactiondate,Approvedby ,Transactiontype,status,TransactionID,Amount,ReferralID) VALUES(?,?,?,?,'Pending','Bonus',0,?,?,?)");
+        	    			
+					/* "UPDATE customeraccdetails SET Amount = Amount + ? WHERE userID = ?"); */
+        	    	
+        	    	
+                     String randomAccountID = RandomAccountIDGenerator.generateRandomAccountID();
+                
         	    	status = " Added Successfully!";
-                    ps.setString(1, Tenperamount);
-                    ps.setString(2, reffereduserid);
+                    ps.setString(1, reffereduserid);
+                    ps.setString(2, openamount2);
+                    ps.setString(3, Closingamount2);
+                    ps.setString(4, formattedDate2);
+                    ps.setString(5, randomAccountID);
+                    ps.setString(5, Tenperamount);
+                    ps.setString(7, userID);
+                    
                     
                     int k = psUpdateBank.executeUpdate();
 
