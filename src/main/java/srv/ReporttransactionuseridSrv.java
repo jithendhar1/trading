@@ -1,3 +1,5 @@
+
+
 package srv;
 
 import java.io.IOException;
@@ -13,17 +15,17 @@ import javax.servlet.http.HttpServletResponse;
 import DAO.TransactionDAO;
 import beans.TransactionBean;
 
-@WebServlet("/ReportSrv")
-public class ReportSrv extends HttpServlet {
+@WebServlet("/ReporttransactionuseridSrv")
+public class ReporttransactionuseridSrv extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Get the selected transaction type from the request
-        String transactionType = request.getParameter("transactionType");
+        String UserID = request.getParameter("UserID");
 
         // Get the updated transactions based on the selected transaction type
-        List<TransactionBean> transactions = TransactionDAO.getTransactionsByTransactionType(transactionType);
+        List<TransactionBean> transactions = TransactionDAO.getTransactionsByUserID(UserID);
 
         // Prepare the HTML content for the updated table
         StringBuilder htmlContent = new StringBuilder();
@@ -45,38 +47,3 @@ public class ReportSrv extends HttpServlet {
         out.println(htmlContent.toString());
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
