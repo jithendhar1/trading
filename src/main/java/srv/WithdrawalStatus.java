@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import DAO.BankdetailsDAO;
+import DAO.CustomerDAO;
 import utility.DBUtil;
 
 @WebServlet("/WithdrawalStatus")
@@ -85,6 +87,15 @@ public class WithdrawalStatus extends HttpServlet{
 
     if (updateResult > 0) {
     	status="additing completed";
+    	  List<String> userInfo = CustomerDAO.getUserInfoByUsername(userID);
+  		String email = userInfo.get(0);
+  		String username = userInfo.get(1);
+  		
+  		WithdrawalApprovalMailLink.sendLinkEmail(email, userID, username);
+  		// Store the OTP in the session to verify it later
+  		//request.getSession().setAttribute("otp", otp);
+  		 request.getSession().setAttribute("email", email);
+  		 
 }}
 		
 	}catch (Exception e) {
