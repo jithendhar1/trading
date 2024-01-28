@@ -99,7 +99,7 @@ public class ROIDAO {
 
 		    try {
 		        connection = DBUtil.provideConnection();
-		        String query = "SELECT Amount FROM bankdetails WHERE userID = ?";
+		        String query = "SELECT Amount FROM customeraccdetails WHERE userID = ?";
 		        preparedStatement = connection.prepareStatement(query);
 		        preparedStatement.setString(1, userID);
 		        resultSet = preparedStatement.executeQuery();

@@ -102,7 +102,7 @@ for (Referrals tasks : tax) {
     <td><%=tasks.getReferredUserID()%></td>
     <td><%=tasks.getReferralDate()%></td>
     <td><%=tasks.getReferrerName() %></td>
-    <td><button></button></td>
+    <!-- <td><button></button></td> -->
     
     <%-- <td>
         <a href="withdrawal_edit.jsp?vehicleID=<%= tasks.getWithdrawalID()%>">Edit</a>

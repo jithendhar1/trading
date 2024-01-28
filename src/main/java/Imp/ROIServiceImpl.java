@@ -9,7 +9,7 @@ public class ROIServiceImpl {
 	
 	//TransactionID, userID, ROIAmount, ModifiedDate, OpenAmount, ClosingAmount
 	
-	public String addV(String userID,String  ROIAmount,String  ModifiedDate,String  OpenAmount,String  ClosingAmount) {
+	public String addV(String Approvedby,String userID,String  ROIAmount,String  ModifiedDate,String  OpenAmount,String  ClosingAmount,String TransactionID) {
 		
 		String Status1 = " Adding Failed!";
 
@@ -17,12 +17,14 @@ public class ROIServiceImpl {
         PreparedStatement ps = null;
 
         try {
-        	ps = con.prepareStatement("INSERT INTO roi (userID, Amount, ModifiedDate, OpenAmount, ClosingAmount) VALUES (?,?,?,?,?)");
+        	ps = con.prepareStatement("INSERT INTO transaction (userID,openamount, closingamount,transactiondate,status,Approvedby,Transactiontype,TransactionID,Amount) VALUES (?,?,?,?,1,?,'ROI',?,?)");
         	ps.setString(1, userID);
-        	ps.setString(2, ROIAmount);
-            ps.setString(3, ModifiedDate);
-            ps.setString(4, OpenAmount);
-            ps.setString(5, ClosingAmount);
+        	ps.setString(2, OpenAmount);
+        	ps.setString(3, ClosingAmount);
+        	ps.setString(4, ModifiedDate);
+        	ps.setString(5, Approvedby);
+        	ps.setString(6, TransactionID);
+        	ps.setString(7, ROIAmount);
            
            
             int k = ps.executeUpdate();
@@ -31,7 +33,7 @@ public class ROIServiceImpl {
             	 Status1 = "Added Successfully!";
 
                  // Now update the Amount in bankdetails
-                 String updateQuery = "UPDATE bankdetails SET Amount = ? WHERE userID = ?";
+                 String updateQuery = "UPDATE customeraccdetails SET Amount = ? WHERE userID = ?";
                  ps = con.prepareStatement(updateQuery);
                  
                  // Assuming ClosingAmount is the amount to be updated in bankdetails
