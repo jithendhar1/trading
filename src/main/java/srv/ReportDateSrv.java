@@ -36,7 +36,9 @@ public class ReportDateSrv extends HttpServlet {
             htmlContent.append("<td>").append(task.getTransactiondate()).append("</td>");
             htmlContent.append("<td>").append(task.getStatus()).append("</td>");
             htmlContent.append("<td>").append(task.getApprovedby()).append("</td>");
+            htmlContent.append("<td>").append(task.getTransactiontype()).append("</td>");
             htmlContent.append("<td>").append(task.getTransactionID()).append("</td>");
+            htmlContent.append("<td>").append(task.getAmount()).append("</td>");
             htmlContent.append("</tr>");
         }
 
