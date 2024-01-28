@@ -4,6 +4,10 @@
 <%@ page import="java.util.List" %>
 <%@page import="DAO.TransactionDAO"%>
 <%@page import="beans.TransactionBean"%>
+<%
+    // Getting the username from the session
+    String username = (String)session.getAttribute("username");
+%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -56,7 +60,7 @@
                 <div class="row align-items-center">
                 <div class="col">
 							<div id="welcomeMessage" style="text-align: center; margin-top: 20px; font-size: 24px;">
-                                Welcome  !
+                                Welcome  <%= username%>! 
                               </div>
 								<h3 class="page-title">About US </h3>
 								 <ul class="breadcrumb">

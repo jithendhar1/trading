@@ -4,6 +4,10 @@
 <%@ page import="java.util.List" %>
 <%@page import="DAO.TransactionDAO"%>
 <%@page import="beans.TransactionBean"%>
+<%
+    // Getting the username from the session
+    String username = (String)session.getAttribute("username");
+%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -56,7 +60,7 @@
                 <div class="row align-items-center">
                 <div class="col">
 							<div id="welcomeMessage" style="text-align: center; margin-top: 20px; font-size: 24px;">
-                                Welcome  !
+                                Welcome <%= username%>! 
                               </div>
 								<h3 class="page-title">Report</h3>
 								 <ul class="breadcrumb">
@@ -74,7 +78,7 @@
 					
 						
 <label for="transactionType">Transaction Type:</label>
-<select  name="transactionType" id="transactionType" onchange="updateDropdown('type')">
+<select style="width:120px;" class="input" name="transactionType" id="transactionType" onchange="updateDropdown('type')">
    <option >Select</option>
     <option value="deposit">Deposit</option>
     <option value="roi">ROI</option>
@@ -84,8 +88,8 @@
     
 </select>
 					
-<label for="transactiondate">Transaction Date:</label>
-<select  name="transactiondate" id="transactiondate" onchange="updateDropdown('date')">
+<label style="margin-left:20px;" for="transactiondate">Transaction Date:</label>
+<select style="width:120px;" class="input" name="transactiondate" id="transactiondate" onchange="updateDropdown('date')">
    <option >Select</option>
     <option value="yearly">Yearly</option>
      <option value="halfyearly">Halferly</option>
@@ -96,8 +100,8 @@
 
 
 
-<label for="UserID"> UserID :</label>
-<select id="UserID" name="UserID" onchange="updateDropdown('userID')">
+<label style="margin-left:20px;" for="UserID"> UserID :</label>
+<select style="width:120px;" class="input" id="UserID" name="UserID" onchange="updateDropdown('userID')">
     <option value="Select">Select</option>
     <%
         List<TransactionBean> transactions = TransactionDAO.getAllTransactions();
@@ -109,11 +113,11 @@
     %>
 </select>
 
-<label for="Date">Date :</label>
-<input  id="Date" name="Date" type="date" onchange="updateDropdown('customDate')"><br>
+<label style="margin-left:20px;" for="Date">Date :</label>
+<input style="width:120px;" class="input"  id="Date" name="Date" type="date" onchange="updateDropdown('customDate')"><br>
 	
 
-
+<br>
                 <table>
                     <thead>
                         <tr>
@@ -124,6 +128,8 @@
                             <th>status</th>  
                             <th>Approved by</th>
                             <th>TransactionID</th>  
+                             <th>Transaction type </th>
+                            <th>Amount</th>  
                         </tr>
                     </thead>
                         <tbody id="transactionTableBody">
@@ -163,6 +169,8 @@
                                 <td><%=tasks.getStatus() %></td>
                                 <td><%=tasks.getApprovedby() %></td>
                                 <td><%=tasks.getTransactionID() %></td>
+                                 <td><%=tasks.getTransactiontype() %></td>
+                                <td><%=tasks.getAmount() %></td>
                             </tr>
                         <%
                             }

@@ -44,8 +44,9 @@ public class TransactionDAO {
 	            transaction.setTransactiondate(resultSet.getString("transactiondate"));
 	            transaction.setStatus(resultSet.getString("status"));
 	            transaction.setApprovedby(resultSet.getString("Approvedby"));
+	            transaction.setTransactiontype(resultSet.getString("Transactiontype"));
 	            transaction.setTransactionID(resultSet.getString("TransactionID"));
-	           // transaction.setAmount(resultSet.getString("Amount"));
+	            transaction.setAmount(resultSet.getString("Amount"));
 	            // Add the transaction to the list
 	            transactions.add(transaction);
 	        }
@@ -113,8 +114,9 @@ public class TransactionDAO {
 		            transaction.setTransactiondate(resultSet.getString("transactiondate"));
 		            transaction.setStatus(resultSet.getString("status"));
 		            transaction.setApprovedby(resultSet.getString("Approvedby"));
+		            transaction.setTransactiontype(resultSet.getString("Transactiontype"));
 		            transaction.setTransactionID(resultSet.getString("TransactionID"));
-		            //transaction.setAmount(resultSet.getString("Amount"));
+		            transaction.setAmount(resultSet.getString("Amount"));
 		            // Add the transaction to the list
 		            transactions.add(transaction);
 	        }
@@ -160,8 +162,9 @@ public class TransactionDAO {
 			            transaction.setTransactiondate(resultSet.getString("transactiondate"));
 			            transaction.setStatus(resultSet.getString("status"));
 			            transaction.setApprovedby(resultSet.getString("Approvedby"));
+			            transaction.setTransactiontype(resultSet.getString("Transactiontype"));
 			            transaction.setTransactionID(resultSet.getString("TransactionID"));
-			            //transaction.setAmount(resultSet.getString("Amount"));
+			            transaction.setAmount(resultSet.getString("Amount"));
 			            // Add the transaction to the list
 			            AllTransactions.add(transaction);
 	            }
@@ -208,8 +211,9 @@ public class TransactionDAO {
 	             transaction.setTransactiondate(resultSet.getString("transactiondate"));
 	             transaction.setStatus(resultSet.getString("status"));
 	             transaction.setApprovedby(resultSet.getString("Approvedby"));
+	             transaction.setTransactiontype(resultSet.getString("Transactiontype"));
 	             transaction.setTransactionID(resultSet.getString("TransactionID"));
-	             // transaction.setAmount(resultSet.getString("Amount"));
+	              transaction.setAmount(resultSet.getString("Amount"));
 	             // Add the transaction to the list
 	             transactions.add(transaction);
 	         }
@@ -254,8 +258,9 @@ public class TransactionDAO {
 	             transaction.setTransactiondate(resultSet.getString("transactiondate"));
 	             transaction.setStatus(resultSet.getString("status"));
 	             transaction.setApprovedby(resultSet.getString("Approvedby"));
+	             transaction.setTransactiontype(resultSet.getString("Transactiontype"));
 	             transaction.setTransactionID(resultSet.getString("TransactionID"));
-	             // transaction.setAmount(resultSet.getString("Amount"));
+	              transaction.setAmount(resultSet.getString("Amount"));
 	             // Add the transaction to the list
 	             transactions.add(transaction);
 	         }
