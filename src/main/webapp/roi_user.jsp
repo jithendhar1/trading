@@ -3,12 +3,22 @@
     pageEncoding="ISO-8859-1"%>
 <%@ page import="Imp.ROIServiceImpl" %>
 <%@ page import="beans.ROIBean" %>
+<%@ page import="beans.TransactionBean" %>
 <%@ page import="java.util.List" %>
 <%@page import="DAO.ROIDAO"%>
+<%@page import="DAO.CustomerDAO"%>
 <%
     // Getting the username from the session
-    String username = (String)session.getAttribute("username");
-%>
+    String username = null;
+    String uid = request.getParameter("userid");
+if (uid != null) {
+	String uid2 = CustomerDAO.getUsernameByUserID(uid);
+	  username = uid2;
+   
+} else {
+	 username = (String)session.getAttribute("username");
+}
+   %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -86,18 +96,18 @@
 									</thead>
 <%
 
-  List<ROIBean>  tax = ROIDAO.getROIByUsername(username);
+  List<TransactionBean>  tax = ROIDAO.getROIByUsername(username);
 
-for (ROIBean tasks : tax) {
+for (TransactionBean tasks : tax) {
 	 
 %>
 <tr>
     <td><%=tasks.getTransactionID() %></td>
    <td><%=tasks.getUserID() %></td>
-   <td><%=tasks.getROIAmount() %></td>
-   <td><%=tasks.getModifiedDate() %></td>
-   <td><%=tasks.getOpenAmount() %></td>
-   <td><%=tasks.getClosingAmount() %></td>
+   <td><%=tasks.getAmount()%></td>
+   <td><%=tasks.getTransactiondate()%></td>
+   <td><%=tasks.getOpenamount()%></td>
+   <td><%=tasks.getClosingamount()%></td>
    <%--  <td>
         <a href="deposit_edit.jsp?vehicleID=<%= tasks.getTransactionID()%>">Edit</a>
     </td>

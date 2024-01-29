@@ -87,7 +87,7 @@ public class WithdrawalStatus extends HttpServlet{
 
     if (updateResult > 0) {
     	status="additing completed";
-    	  List<String> userInfo = CustomerDAO.getUserInfoByUsername(userID);
+    	List<String> userInfo = CustomerDAO.getUserInfoByUsername(userID);
   		String email = userInfo.get(0);
   		String username = userInfo.get(1);
   		
@@ -96,6 +96,7 @@ public class WithdrawalStatus extends HttpServlet{
   		//request.getSession().setAttribute("otp", otp);
   		 request.getSession().setAttribute("email", email);
   		 
+  		response.sendRedirect("withdrawal_user.jsp");
 }}
 		
 	}catch (Exception e) {

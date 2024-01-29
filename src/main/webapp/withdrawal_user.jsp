@@ -4,10 +4,19 @@
 <%@ page import="beans.TransactionBean" %>
 <%@ page import="java.util.List" %>
 <%@page import="DAO.WithdrawalDAO"%>
+<%@page import="DAO.CustomerDAO"%>
 <%
     // Getting the username from the session
-    String username = (String)session.getAttribute("username");
-%>
+    String username = null;
+    String uid = request.getParameter("userid");
+if (uid != null) {
+	String uid2 = CustomerDAO.getUsernameByUserID(uid);
+	  username = uid2;
+   
+} else {
+	 username = (String)session.getAttribute("username");
+}
+   %>
 <!DOCTYPE html>
 <html lang="en">
     <head>

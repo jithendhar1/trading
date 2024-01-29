@@ -137,21 +137,34 @@ public class DepositeStatus extends HttpServlet{
                     	status = " updating bankdetails";
                         /*response.sendRedirect("deposit_user.jsp");*/
                     	
-                    	 List<String> userInfo = CustomerDAO.getUserInfoByUsername(userID);
-                 		String email = userInfo.get(0);
-                 		String username = userInfo.get(1);
-                 		
-                 		DepositApprovalMailLink.sendLinkEmail(email, userID, username);
-                 		// Store the OTP in the session to verify it later
-                 		//request.getSession().setAttribute("otp", otp);
-                 		 request.getSession().setAttribute("email", email);
-                 		 
-
+                    	 List<String> userInfo = CustomerDAO.getUserInfoByUsername(reffereduserid);
+                  		String email = userInfo.get(0);
+                  		String username = userInfo.get(1);
+                  		
+                  		DepositApprovalMailLink.sendLinkEmail(email, userID, username);
+                  		// Store the OTP in the session to verify it later
+                  		//request.getSession().setAttribute("otp", otp);
+                  		 request.getSession().setAttribute("email", email);
+                  		response.sendRedirect("referrals_user.jsp");
                     }
             		}
+        	   
+         		 
         	}
-            response.sendRedirect("deposit_user.jsp");
+        	
+
+          
         }
+        
+        List<String> userInfo = CustomerDAO.getUserInfoByUsername(userID);
+ 		String email = userInfo.get(0);
+ 		String username = userInfo.get(1);
+ 		
+ 		DepositApprovalMailLink.sendLinkEmail(email, userID, username);
+ 		// Store the OTP in the session to verify it later
+ 		//request.getSession().setAttribute("otp", otp);
+ 		 request.getSession().setAttribute("email", email);
+ 		response.sendRedirect("deposit_user.jsp");
 		}
 		
 	}catch (Exception e) {

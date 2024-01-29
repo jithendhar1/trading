@@ -203,7 +203,7 @@ public class ReffertalDAO {
 		            String userID = userResultSet.getString("userID");
 
 		            // Step 2: Get the total count of withdrawals based on the obtained userID
-		            String countQuery = "SELECT COUNT(*) AS count FROM transaction WHERE userID = ? AND Transactiontype ='Referral'";
+		            String countQuery = "SELECT COUNT(*) AS count FROM referrals WHERE ReferredUserID = ?";
 
 		            PreparedStatement countStatement = connection.prepareStatement(countQuery);
 		            countStatement.setString(1, userID);
