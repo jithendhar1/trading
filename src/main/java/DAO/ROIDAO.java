@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import beans.ROIBean;
+import beans.TransactionBean;
 import utility.DBUtil;
 
 public class ROIDAO {
@@ -123,8 +124,8 @@ public class ROIDAO {
 		    return amount;
 		}
 
-	  public static List<ROIBean> getROIByUsername(String username) {
-		    List<ROIBean> userROI = new ArrayList<>();
+	  public static List<TransactionBean> getROIByUsername(String username) {
+		    List<TransactionBean> userROI = new ArrayList<>();
 		    Connection connection = null;
 		    PreparedStatement userStatement = null;
 		    PreparedStatement depositStatement = null;
@@ -133,56 +134,61 @@ public class ROIDAO {
 
 		    try {
 		    	connection = DBUtil.provideConnection();
-		    	/* if ("Admin".equals(username)) {
+		    	if ("Admin".equals(username)) {
 			            // If the username is Admin, use a different query
-			            String adminQuery = "SELECT TransactionID, userID, Amount,ModifiedDate,OpenAmount,ClosingAmount FROM roi";
+			            String adminQuery = "SELECT TransactionID, userID, Amount,transactiondate,OpenAmount,ClosingAmount FROM transaction where Transactiontype='ROI'";
 			            depositStatement = connection.prepareStatement(adminQuery);
 			        }
-		    	 else {*/
+		    	 else {
 			            // For other users, get userID from userDB based on the provided username
-			        
-
-			                // Get all deposits based on the obtained userID
-			                String depositQuery = "SELECT TransactionID, userID,Amount, ModifiedDate, OpenAmount, ClosingAmount FROM roi";
-			                depositStatement = connection.prepareStatement(depositQuery);
-			             
+		    		  String userQuery = "SELECT userID FROM users WHERE username = ?";
+			            userStatement = connection.prepareStatement(userQuery);
+			            userStatement.setString(1, username);
+			            userResultSet = userStatement.executeQuery();
 			            
-			        
-
+			            if (userResultSet.next()) {
+			                String userID = userResultSet.getString("userID");
+			                // Get all deposits based on the obtained userID
+			                String depositQuery = "SELECT TransactionID, userID,Amount, transactiondate, OpenAmount, ClosingAmount FROM transaction where Transactiontype='ROI' AND userID=?";
+			                depositStatement = connection.prepareStatement(depositQuery);
+			                depositStatement.setString(1, userID);
+			            }
+		    	         
+		               
+			        }
 		    	 depositResultSet = depositStatement.executeQuery();
 
 			        while (depositResultSet.next()) {
-		            	ROIBean deposit = new ROIBean();
+		            	TransactionBean deposit = new TransactionBean();
 		                deposit.setTransactionID(depositResultSet.getString("TransactionID"));
 		                deposit.setUserID(depositResultSet.getString("userID"));
-		                deposit.setROIAmount(depositResultSet.getString("Amount"));
-		                deposit.setModifiedDate(depositResultSet.getString("ModifiedDate"));
-		                deposit.setOpenAmount(depositResultSet.getString("OpenAmount"));
-		                deposit.setClosingAmount(depositResultSet.getString("ClosingAmount"));
+		                deposit.setAmount(depositResultSet.getString("Amount"));
+		                deposit.setTransactiondate(depositResultSet.getString("transactiondate"));
+		                deposit.setOpenamount(depositResultSet.getString("OpenAmount"));
+		                deposit.setClosingamount(depositResultSet.getString("ClosingAmount"));
 		                userROI.add(deposit);
-		               
 			        }
 
-			    } catch (Exception e) {
-			        // Handle exceptions
-			        e.printStackTrace();
-			    } finally {
-			        // Close database resources
-			        try {
-			            if (depositResultSet != null) depositResultSet.close();
-			            if (depositStatement != null) depositStatement.close();
-			            if (userResultSet != null) userResultSet.close();
-			            if (userStatement != null) userStatement.close();
-			            if (connection != null) connection.close();
-			        } catch (Exception e) {
-			            // Handle exceptions
-			            e.printStackTrace();
-			        }
-			    }
+		    } catch (Exception e) {
+		        // Handle exceptions
+		        e.printStackTrace();
+		    } finally {
+		        // Close database resources
+		        try {
+		            if (depositResultSet != null) depositResultSet.close();
+		            if (depositStatement != null) depositStatement.close();
+		            if (userResultSet != null) userResultSet.close();
+		            if (userStatement != null) userStatement.close();
+		            if (connection != null) connection.close();
+		        } catch (Exception e) {
+		            // Handle exceptions
+		            e.printStackTrace();
+		        }
+		    }
 
-			    return userROI;
-			}
-
+		    return userROI;
+		}
+	  
 	  public static int totalCountByUsername(String username) {
 		    int count = 0;
 		    Connection connection = null;
