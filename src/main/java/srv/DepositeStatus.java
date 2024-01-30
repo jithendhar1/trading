@@ -35,7 +35,8 @@ public class DepositeStatus extends HttpServlet{
 
 	private void commonLogic(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String status="Adding fail";
+		
+		 String status ="Adding fail";
   
             String userID = request.getParameter("userID");         
             String Amount = request.getParameter("amount");
@@ -47,22 +48,18 @@ public class DepositeStatus extends HttpServlet{
             PreparedStatement psUpdateBank = null;
             PreparedStatement ps1 = null;
             
-            Connection conn1 = DBUtil.provideConnection();
+        //    Connection conn1 = DBUtil.provideConnection();
             
-            PreparedStatement psUpdateBank1 = null;
+     //       PreparedStatement psUpdateBank1 = null;
             String openamount = BankdetailsDAO.getUserOpenAmount(userID);
-    		
+            String reffereduserid = DepositDAO.referralID(userID);
+	    	String openamount2 = BankdetailsDAO.getUserOpenAmount(reffereduserid);
+	    	int count= DepositDAO.totalCountDeposites(userID);
     		Connection conn = DBUtil.provideConnection();
+    		
 	try {
 		
-		/*
-		 * psUpdateBank1 = conn.
-		 * prepareStatement("update deposit set status=1 where DepositTransactionID=?");
-		 * psUpdateBank1.setString(1, depositeid); int updateResult1 = psUpdateB
-		 *ank1.executeUpdate();
-		 *if (updateResult1 > 0) {
-		 */
-		
+			
 		ps1 = conn.prepareStatement("INSERT INTO transaction (userID ,openamount ,closingamount ,transactiondate,Approvedby ,Transactiontype,status,TransactionID,Amount) VALUES(?,?,?,?,?,'Deposit',1,?,?)");
 			
 		
@@ -93,32 +90,28 @@ public class DepositeStatus extends HttpServlet{
 
         if (updateResult > 0) {
             
-        	Connection con1 = DBUtil.provideConnection();
+        //	Connection con1 = DBUtil.provideConnection();
         	double tempamount = Double.parseDouble(Amount);
         	if(tempamount>=500.00)
         	{
-        		double tempopen2 = Double.parseDouble(openamount);
-    			int tempamoyunt2 = Integer.parseInt(Amount);
-    			double closeamot2 = tempopen + tempamoyunt;
-    			String Closingamount2 = String.valueOf(closeamot);
-    			 Date currentDate2 = new Date();
-                 SimpleDateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd"); // You can adjust the format as needed
-                 String formattedDate2 = dateFormat.format(currentDate);
+        		double tempopen2 = Double.parseDouble(openamount2);
+    	
+        		String formattedDate2 = dateFormat.format(currentDate);
                 
-        	    int count= DepositDAO.totalCountDeposites(userID);
+        	    
         	    if(count==1)
         	    {
-        	    	String reffereduserid = DepositDAO.referralID(userID);
-        	    	String openamount2 = BankdetailsDAO.getUserOpenAmount(reffereduserid);
-        	    	 
-          			Connection con = DBUtil.provideConnection();
+          		//	Connection con = DBUtil.provideConnection();
         	    	int Tenper = (int) (0.1 * tempamount);
+        	    	if (!(Tenper > 500.00)) {
+        	    	    Tenper = 500;
+        	    	}
+        	    	 double closeamot2 = tempopen2 +Tenper;
+        	    	 String Closingamount2 = String.valueOf(closeamot2);
         	    	String Tenperamount = String.valueOf(Tenper);
         	    	ps =  conn.prepareStatement("INSERT INTO transaction (userID ,openamount ,closingamount ,transactiondate,Approvedby ,Transactiontype,status,TransactionID,Amount,ReferralID) VALUES(?,?,?,?,'Pending','Bonus',0,?,?,?)");
         	    			
-					/* "UPDATE customeraccdetails SET Amount = Amount + ? WHERE userID = ?"); */
-        	    	
-        	    	
+			
                      String randomAccountID = RandomAccountIDGenerator.generateRandomAccountID();
                 
         	    	status = " Added Successfully!";
@@ -127,11 +120,11 @@ public class DepositeStatus extends HttpServlet{
                     ps.setString(3, Closingamount2);
                     ps.setString(4, formattedDate2);
                     ps.setString(5, randomAccountID);
-                    ps.setString(5, Tenperamount);
+                    ps.setString(6, Tenperamount);
                     ps.setString(7, userID);
                     
                     
-                    int k = psUpdateBank.executeUpdate();
+                    int k = ps.executeUpdate();
 
                     if (k > 0) {
                     	status = " updating bankdetails";
@@ -143,9 +136,9 @@ public class DepositeStatus extends HttpServlet{
                   		
                   		DepositApprovalMailLink.sendLinkEmail(email, userID, username);
                   		// Store the OTP in the session to verify it later
-                  		//request.getSession().setAttribute("otp", otp);
+                  		
                   		 request.getSession().setAttribute("email", email);
-                  		response.sendRedirect("referrals_user.jsp");
+                  	
                     }
             		}
         	   
@@ -161,9 +154,7 @@ public class DepositeStatus extends HttpServlet{
  		String username = userInfo.get(1);
  		
  		DepositApprovalMailLink.sendLinkEmail(email, userID, username);
- 		// Store the OTP in the session to verify it later
- 		//request.getSession().setAttribute("otp", otp);
- 		 request.getSession().setAttribute("email", email);
+ 	request.getSession().setAttribute("email", email);
  		response.sendRedirect("deposit_user.jsp");
 		}
 		

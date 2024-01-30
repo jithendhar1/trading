@@ -35,13 +35,13 @@ response.sendRedirect("login.jsp"); // Change "login.jsp" to your actual login p
     <div class="header">
         <!-- Logo -->
         <div class="header-left">
-        <a href="index.jsp" class="logo">
+       <!--  <a href="index.jsp" class="logo"> -->
         <%-- <%
        List<CompanySettingsBean> company = csDAO.getAllCS();
         
         for(CompanySettingsBean com:company){
         %> --%>
-          <img src="<%-- <%=com.getlogoUrl(request)%> --%>assets/logo.png" width="110" height="58" alt="">
+          <img src="assets/WhatsApp Image 2024-01-29 at 19.01.35_802bac3a.jpg" width="110" height="58" alt="">
             </a>
             <%} %>
         </div>

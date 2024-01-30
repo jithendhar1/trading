@@ -74,7 +74,9 @@ public class WithdrawalDAO {
 		        ResultSet rs = null;
 			 try {
 				 connection = DBUtil.provideConnection();
-			   String query = "select count(*) as count from transaction where Transactiontype ='Withdrawal'";
+			   String query = "SELECT  count(*) as count   FROM "
+			   		+ "			   		+ \"(SELECT  TransactionID, transactiondate, Amount, userID  ,   max(status) status  FROM trading.transaction"
+			   		+ "			   		+ \"where Transactiontype='Withdrawal' group by userid,  transactiondate,amount) test";
 			 ps = connection.prepareStatement(query);
 			 rs = ps.executeQuery();
 			 while (rs.next()) {
@@ -106,7 +108,9 @@ public class WithdrawalDAO {
 		        // Step 1: Get userID from userDB based on the provided username
 		        if ("Admin".equals(username)) {
 		            // If the username is Admin, use a different query
-		            String adminQuery = "SELECT TransactionID, transactiondate, Amount,status, userID FROM transaction where Transactiontype='Withdrawal'";
+		            String adminQuery = "\"SELECT  TransactionID, transactiondate, Amount, userID  ,   max(status) status  FROM trading.transaction\\r\\n\"\r\n"
+		            		+ "		            		+ \"where Transactiontype='Withdrawal'\\r\\n\"\r\n"
+		            		+ "		            		+ \"group by userid, Transactiontype, transactiondate,amount";
 		            depositStatement = connection.prepareStatement(adminQuery);
 		        } else {
 		            // For other users, get userID from userDB based on the provided username
@@ -177,7 +181,8 @@ public class WithdrawalDAO {
 		            String userID = userResultSet.getString("userID");
 
 		            // Step 2: Get the total count of withdrawals based on the obtained userID
-		            String countQuery = "SELECT COUNT(*) AS count FROM  transaction WHERE userID = ?,Transactiontype ='Withdrawal'";
+		            String countQuery = "SELECT  count(*) as count   FROM (SELECT  TransactionID, transactiondate, Amount, userID  ,   max(status) status  FROM trading.transaction"
+		            		+ 		            	"where Transactiontype='Withdrawal' group by userid,  transactiondate,amount) test";
 		            PreparedStatement countStatement = connection.prepareStatement(countQuery);
 		            countStatement.setString(1, userID);
 		            ResultSet countResultSet = countStatement.executeQuery();

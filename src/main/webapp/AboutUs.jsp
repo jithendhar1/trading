@@ -64,7 +64,8 @@
                               </div>
 								<h3 class="page-title">About US </h3>
 								 <ul class="breadcrumb">
-									<li class="breadcrumb-item"><a href="admin_dashboard.jsp">Dashboard</a></li>
+								<li class="breadcrumb-item"><a
+									href="<%=(username.equals("Admin")) ? "admin_dashboard.jsp" : "user.jsp"%>">Dashboard</a></li>
 									<li class="breadcrumb-item active">About Us</li>
 								</ul>
 							</div>
@@ -94,19 +95,29 @@
                            <li><i class="ri-check-double-line"></i> Risk Management </li> 
                       </ul>
                   </div>
+               
+                  
                   <div class="col-lg-6 order-1 order-lg-2 text-center" style="transition: transform 0.3s; display: flex; justify-content: center; align-items: center;">
                       <br> <br> <br><img src="assets/profiles/trade.jpg" alt="" class="img-fluid" style="max-width: 350px; height: 350px;">
                   </div>
+                     
               </div>
           </div>
       </section>
   </main>
+  <br><div>
+	<h3 class="page-title">Contact US </h3><br>
+	<div style="margin-left: 60px;">
+	 <p>Email       : XMS1SUPP@GMAIL.COM</p>
+	 <p>Company name: XM-S1</p>
+	 </div>
+  </div>
 	
 								</div>
 						</div>
 					</div>
 					  <div>
-               <jsp:include page="footer.jsp" />
+            <%--    <jsp:include page="footer.jsp" /> --%>
 				  </div>
         <script src="js/jquery-3.2.1.min.js"></script>
 
