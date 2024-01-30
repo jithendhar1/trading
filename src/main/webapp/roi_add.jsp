@@ -43,74 +43,66 @@
     <link rel="stylesheet" href="css/style.css">
     
     <!-- Table styles CSS -->
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/tstyles.css">
     
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
    
-    <script src="js/html5shiv.min.js"></script>
-    <script src="js/respond.min.js"></script>
+ <!--    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script> -->
    
     <title>Leave List</title>
-      <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Get references to the input fields
-            var roiaAmountInput = document.querySelector('input[name="ROIAmount"]');
-            var openAmountInput = document.querySelector('input[name="OpenAmount"]');
-            var closingAmountInput = document.querySelector('input[name="ClosingAmount"]');
+   
+    
+    
+   <script>
+    function submitForm(event) {
+        event.preventDefault();  // Prevent the form from submitting normally
 
-            // Add event listeners to ROIAmount and OpenAmount inputs
-            roiaAmountInput.addEventListener("input", updateClosingAmount);
-            openAmountInput.addEventListener("input", updateClosingAmount);
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', './AddROISrv', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-            // Function to calculate and update ClosingAmount
-            function updateClosingAmount() {
-                var roiaAmount = parseFloat(roiaAmountInput.value) || 0;
-                var openAmount = parseFloat(openAmountInput.value) || 0;
-                var closingAmount = roiaAmount * openAmount;
-
-                // Update ClosingAmount input value
-                closingAmountInput.value = closingAmount.toFixed(2); // You can adjust the number of decimal places as needed
-            }
-
-            // Fetch OpenAmount initially
-            fetchOpenAmount();
-        });
-
-        function fetchOpenAmount() {
-            var userID = document.getElementById('selectedEmployee').value;
-
-            // Make an AJAX request to fetch the OpenAmount based on userID
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', '/trading/UseridOpenAmtservlet?userID=' + userID, true);
-
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4) {
-                    if (xhr.status === 200) {
-                        // Update the OpenAmount field with the fetched value
-                        var openAmountInput = document.getElementById('OpenAmount');
-                        openAmountInput.value = xhr.responseText;
-
-                        // Trigger the closing amount update
-                        updateClosingAmount();
-                    } else {
-                        console.log("Error fetching OpenAmount. Status: " + xhr.status);
-                    }
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    handleResponse(xhr.responseText);
+                } else {
+                    console.log("Error submitting the form. Status: " + xhr.status);
                 }
-            };
+            }
+        };
 
-            xhr.send();
+        var formData = new FormData(document.querySelector('form'));
+        var serializedData = new URLSearchParams(formData).toString();
+
+        xhr.send(serializedData);
+    }
+
+    function handleResponse(response) {
+        var responseObject = JSON.parse(response);
+
+        if (responseObject.status === "success") {
+            alert(responseObject.message);
+        } else {
+            if (responseObject.message.includes("already added")) {
+                // Show a specific alert when ROI is already added
+                alert("ROI Amount is already added for today.");
+            } else {
+                // Handle other failure cases
+                alert("An error occurred: " + responseObject.message);
+            }
         }
-    </script>
-    
-    
-    
+    }
+</script>
+
+
  
     
 </head>
 <body>
 
 
-<form action="./AddROISrv" method="post">
+<form action="./AddROISrv" method="post" onsubmit="submitForm(event)">
 <div id="addroi" class="modal custom-modal fade" role="dialog">
  <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -123,11 +115,6 @@
             </div>
             
             <div class="modal-body">
- 
-        <!-- <div class="form-group">
-            <label for="TransactionID">TransactionID<span class="text-danger">*</span></label>
-            <input id="TransactionID" name="TransactionID" class="form-control" type="text">    
-        </div> -->
         <div class="form-group">
                         <label for="DepositTransactionID">ROI TransactionID <span class="text-danger">*</span></label>
                         <%-- Use the scriptlet to generate a random account ID --%>
@@ -137,99 +124,11 @@
                         <input readonly id="DepositTransactionID" name="TransactionID" class="form-control" type="text" value="<%= randomAccountID %>">
                     </div>
    
-    <% String x=  CustomerDAO.getUserIDByUsername(username);%>
- 
-        <div class="form-group">
-            <label for="userID" class="col-form-label">userID <span class="text-danger">*</span></label>
-<%--             <input id="userID"  name="userID"  required class="form-control" type="text" value="<%= x %>" onchange="fetchOpenAmount();">
- --%>            <select id="selectedEmployee" name="userID" class="form-control" onchange="fetchOpenAmount();">
-            <%
-						List<CustomerBean> dept = ReffertalDAO.getAllEmployees();
-						for(CustomerBean dep: dept)
-						{
-						%>
-                       <option><%= dep.getUserID()%></option>
-                    <%
-      					}
-				     %>                       
-        </select>
-        </div>
-
-
-   <!-- /*  function fetchOpenAmount() {
-        var userID = document.getElementById('userID').value;
-		console.log("chintu");
-        // Make an AJAX request to fetch the OpenAmount based on userID
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', '/trading/UseridOpenAmtservlet?userID=' + userID, true);
-
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                // Update the OpenAmount field with the fetched value
-                document.getElementById('OpenAmount').value = xhr.responseText;
-            }
-        };
-
-        xhr.send();
-    } */
-     -->
-   <!--  <script>
-    function fetchOpenAmount() {
-        var userID = document.getElementById('userID').value;
-        console.log("UserID: " + userID); // Debugging statement
-
-        // Make an AJAX request to fetch the OpenAmount based on userID
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', '/trading/UseridOpenAmtservlet?userID=' + userID, true);
-
-        // Add the onreadystatechange function here
-        xhr.onreadystatechange = function () {
-            console.log("ReadyState: " + xhr.readyState + ", Status: " + xhr.status); // Debugging statement
-            if (xhr.readyState === 4) {
-                console.log("Response: " + xhr.responseText); // Debugging statement
-                if (xhr.status === 200) {
-                    // Update the OpenAmount field with the fetched value
-                    var openAmountInput = document.getElementById('OpenAmount');
-                    openAmountInput.value = xhr.responseText;
-
-                    // Debugging statement
-                    console.log("OpenAmount Updated: " + openAmountInput.value);
-                } else {
-                    console.log("Error fetching OpenAmount. Status: " + xhr.status);
-                }
-            }
-        };
-
-        xhr.send();
-    }
-</script> -->
-    
-        <div class="form-group">
+    <div class="form-group">
             <label class="col-form-label">ROIAmount <span class="text-danger">*</span></label>
             <input name="ROIAmount" required class="form-control" type="text">
         </div>
   
-
- 
-        <div class="form-group">
-            <label class="col-form-label">ModifiedDate <span class="text-danger">*</span></label>
-            <input name="ModifiedDate" required class="form-control" type="date">
-        </div>
-
-     
-       <div class="form-group">
-    <label class="col-form-label">OpenAmount <span class="text-danger">*</span></label>
-    <input id="OpenAmount" readonly name="OpenAmount" required class="form-control" type="text">
-</div>
-
-  
-
- 
-        <div class="form-group">
-            <label class="col-form-label">ClosingAmount <span class="text-danger">*</span></label>
-            <input name="ClosingAmount" readonly required class="form-control" type="text">
-        </div>
-<input name="Approvedby" type="text" value="<%=username%>" hidden>
  <div class="submit-section">
     <button type="submit" class="btn btn-primary submit-btn">Submit</button>
   </div>

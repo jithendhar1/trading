@@ -92,13 +92,12 @@ if (uid != null) {
 									<thead>
 										<tr>
 							
-											<th>WithdrawalTransactionID </th>
-									        <th>WithdrawalDate</th>
+											<th>Transaction ID </th>
+									        <th  style="width:160px;">Withdrawal Date</th>
 									        <th>Amount</th>
 									        <th>userID</th>
 									        <th>Status</th>
-									        <!-- <th>Edit</th>
-									         <th>Delete</th>  -->   
+									      
 										</tr>
 									</thead>
 <%
@@ -109,8 +108,8 @@ for (TransactionBean tasks : tax) {
 	 
 %>
 <tr>
-    <td style="width:190px;"><%=tasks.getTransactionID()%></td>
-    <td><%=tasks.getTransactiondate()%></td>
+    <td style="width:140px;"><%=tasks.getTransactionID()%></td>
+	<td  style="width:170px;"><%=tasks.getTransactiondate()%></td>
     <td><%=tasks.getAmount()%></td>
     <td><%=tasks.getUserID()%></td>
     
@@ -127,11 +126,11 @@ for (TransactionBean tasks : tax) {
 <%} else{%>
 <td>
     <form action="./WithdrawalStatus" method="post" onsubmit="return disableButton()">
-    	<input type="text" name="WithdrawalTransactionID" value="<%=tasks.getTransactionID()%>" hidden>
-    	<input type="text" name="amount" value="<%=tasks.getAmount()%>" hidden>
-    	<input type="text" name="userID" value="<%=tasks.getUserID()%>" hidden>
-    		<input type="text" name="username" value="<%=username%>" hidden>
-        <!-- <button type="submit" name="status" id="approveButton" value="1">Approve</button> -->
+    	<input type="hidden" name="WithdrawalTransactionID" value="<%=tasks.getTransactionID()%>" hidden>
+    	<input type="hidden" name="amount" value="<%=tasks.getAmount()%>" >
+    	<input type="hidden" name="userID" value="<%=tasks.getUserID()%>" >
+    		<input type="hidden" name="username" value="<%=username%>" >
+ 
         <button type="submit" name="status" value="1" <% if ("1".equals(status)) { %>disabled<% } %>>Approved</button>
     </form>
     
@@ -141,13 +140,7 @@ for (TransactionBean tasks : tax) {
 <%} %>
     
     
-    <%-- <td>
-        <a href="withdrawal_edit.jsp?vehicleID=<%= tasks.getWithdrawalID()%>">Edit</a>
-    </td>
-    <td>
-        <a href="DeleteVechicleSrv?VehicleID=<%= tasks.getWithdrawalID()%>">Delete</a> 
-    </td> --%>
-</tr>
+ </tr>
 <%
 }
 %>
@@ -193,9 +186,6 @@ for (TransactionBean tasks : tax) {
 		
 		
 		<script src="js/select2.min.js"></script>
-
-		
-		<!-- <script src="js/app.js"></script> -->
 
 
     </body>

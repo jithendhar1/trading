@@ -85,10 +85,10 @@
 									<thead>
 										<tr>
 								
-											<th>ReferrerUserID</th>
-									        <th>ReferredUserID in</th>
-									        <th>ReferralDate</th>
-									        <th>ReferrerName</th>					            
+											<th style="width:200px;">Referrer UserName</th>
+									        <th>Referred UserID</th>
+									        <th>Referral Date</th>
+									        <th>Referrer Name</th>					            
 										</tr>
 									</thead>
 <%
@@ -98,7 +98,7 @@ for (Referrals tasks : tax) {
 	
 %>
 <tr>
-    <td><%=tasks.getReferrerUserID()%></td>
+    <td style="width:200px;"><%=username%></td>
     <td><%=tasks.getReferredUserID()%></td>
     <td><%=tasks.getReferralDate()%></td>
     <td><%=tasks.getReferrerName() %></td>

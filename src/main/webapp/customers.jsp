@@ -3,7 +3,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="beans.CustomerBean" %>
 <%@ page import="java.util.List" %>
-
+<%
+    // Getting theusername from the session
+    String username = (String)session.getAttribute("username");
+%>
 <%-- <%
 HttpSession sdsession = request.getSession(true);
 
@@ -188,37 +191,8 @@ if (newRecordsPerPageParam != null) {
 
             String usernameFilter = request.getParameter("username");
             String idFilter = request.getParameter("UserID");
-        
-            	
-		    List<CustomerBean> employees;
-          
-		    String whereClause = ""; // Initialize an empty whereClause
-
-            if (usernameFilter != null && !usernameFilter.isEmpty()) {
-                whereClause = "username like  '%"+ usernameFilter + "%'";
-            }
-
-            if (idFilter != null && !idFilter.isEmpty()) {
-                if (!whereClause.isEmpty()) {
-                    whereClause += " or ";
-                }
-                whereClause += "UserID = '" + idFilter + "'";
-            }
+               List<CustomerBean> employees = CustomerDAO.getFilteredCustomers("", start, limit);
             
-          //page
-            int recordcount= CustomerDAO.totalCount();
-
-           noOfPages = (int) Math.ceil((double) recordcount / limit);
-           //pagee
-          
-
-            if (!whereClause.isEmpty()) {
-                // Apply the whereClause condition
-                employees = CustomerDAO.getFilteredCustomers(whereClause, start, limit);
-            } else {
-                // Retrieve all data based on the limit
-                employees = CustomerDAO.getFilteredCustomers("", start, limit);
-            }
             for (CustomerBean employee : employees) {
         %>
         <tr>
@@ -228,14 +202,7 @@ if (newRecordsPerPageParam != null) {
     <td><%= employee.getLastname()%></td>
     <td style="width:330px;"><%= employee.getEmail()%></td>
     <td><%= employee.getPhno() %></td>
-    <%-- <td>
-      <a class="edit" href="editEmployee.jsp?id=<%= employee.getUserID()%>">Edit</a>
-    </td>
-		    <td>
-		 
-		 <a class="delete" href="DeleteEmployeeSrv?id=<%= employee.getUserID()%>">Delete</a>
-		 
-		    </td> --%>
+
 		</tr>
 		       
 		        <%

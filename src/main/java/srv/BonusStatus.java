@@ -61,16 +61,18 @@ public class BonusStatus extends HttpServlet{
         psUpdateBank = conn.prepareStatement("INSERT INTO transaction (userID ,openamount ,closingamount ,transactiondate,Approvedby ,Transactiontype,status,TransactionID,Amount,ReferralID) VALUES(?,?,?,?,?,'Bonus',1,?,?,?)");
         double tempopen = Double.parseDouble(openamount);
 		double tempamoyunt = Double.parseDouble(Amount);
-		double closeamot = tempopen -tempamoyunt;
+		double closeamot = tempopen +tempamoyunt;
 		String Closingamount = String.valueOf(closeamot);
-		Date currentDate = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // You can adjust the format as needed
-        String formattedDate = dateFormat.format(currentDate);
+		SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		// You can adjust the format as needed
+				 Date currentDate = new Date();
+				 String formattedDateTime = dateTimeFormat.format(currentDate);
+		
 				
         psUpdateBank.setString(1, userID);
         psUpdateBank.setString(2, openamount);
         psUpdateBank.setString(3, Closingamount);
-        psUpdateBank.setString(4, formattedDate);
+        psUpdateBank.setString(4, formattedDateTime);
         psUpdateBank.setString(5, ApprovedUsername);
         psUpdateBank.setString(6, TransactionID);
         psUpdateBank.setString(7, Amount);

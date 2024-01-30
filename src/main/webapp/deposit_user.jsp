@@ -116,13 +116,12 @@ if (uid != null) {
 						<tr>
 
 
-							<th>DepositTransactionID</th>
-							<th>DepositDate</th>
+							<th>Transaction ID</th>
+							<th  style="width:160px;">Deposit Date</th>
 							<th>Amount</th>
 							<th>userID</th>
 							<th>Status</th>
 
-							<!--   <th>Delete</th>     -->
 						</tr>
 					</thead>
 
@@ -133,9 +132,9 @@ if (uid != null) {
 					for (TransactionBean tasks : tax) {
 					%>
 					<tr>
-						<%-- td><%=tasks.getDepositID() %></td> --%>
-						<td style="width:170px;"><%=tasks.getTransactionID()%></td>
-						<td><%=tasks.getTransactiondate()%></td>
+					
+						<td style="width:140px;"><%=tasks.getTransactionID()%></td>
+						<td  style="width:170px;"><%=tasks.getTransactiondate()%></td>
 						<td><%=tasks.getAmount()%></td>
 						<td><%=tasks.getUserID()%></td>
 						<%
@@ -154,15 +153,16 @@ if (uid != null) {
 						} else {
 						%>
 						<td>
-							<form action="./DepositeStatus" method="post"
-								onsubmit="return disableButton()">
+						
+							<form action="./DepositeStatus" method="post" >
 								<input type="hidden" name="depositID"
 									value="<%=tasks.getTransactionID()%>"> <input
 									type="hidden" name="amount" value="<%=tasks.getAmount()%>">
 								<input type="hidden" name="userID"
 									value="<%=tasks.getUserID()%>"> <input type="hidden"
 									name="username" value="<%=username%>">
-								<%
+									  <button type="submit" name="status" value="1" <% if ("1".equals(status)) { %>disabled<% } %>>Approved</button>
+								<%-- <%
 								if ("1".equals(status)) {
 								%>
 
@@ -173,7 +173,7 @@ if (uid != null) {
 								<button type="submit" name="status">pending</button>
 								<%
 								}
-								%>
+								%> --%>
 							</form>
 
 						</td>
@@ -193,10 +193,10 @@ if (uid != null) {
 	</div>
 
 	<jsp:include page="deposit_add.jsp" />
-	<!--   <script src="js/jquery-3.2.1.min.js"></script>  -->
+	
 	<script src="js/popper.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
-	<!-- <script src="js/jquery.slimscroll.min.js"></script> -->
+	
 	<script src="js/select2.min.js"></script>
 
 

@@ -74,10 +74,12 @@ public class WithdrawalDAO {
 		        ResultSet rs = null;
 			 try {
 				 connection = DBUtil.provideConnection();
-			   String query = "SELECT  count(*) as count   FROM "
-			   		+ "			   		+ \"(SELECT  TransactionID, transactiondate, Amount, userID  ,   max(status) status  FROM trading.transaction"
-			   		+ "			   		+ \"where Transactiontype='Withdrawal' group by userid,  transactiondate,amount) test";
-			 ps = connection.prepareStatement(query);
+				 String query = "SELECT COUNT(*) AS count FROM (SELECT TransactionID, transactiondate, Amount, userID, MAX(status) AS status " +
+			               "FROM trading.transaction " +
+			               "WHERE Transactiontype='Withdrawal' " +
+			               "GROUP BY userid, DATE(transactiondate), amount) AS test";
+
+		ps = connection.prepareStatement(query);
 			 rs = ps.executeQuery();
 			 while (rs.next()) {
 			 count = rs.getInt("count");
@@ -108,10 +110,12 @@ public class WithdrawalDAO {
 		        // Step 1: Get userID from userDB based on the provided username
 		        if ("Admin".equals(username)) {
 		            // If the username is Admin, use a different query
-		            String adminQuery = "\"SELECT  TransactionID, transactiondate, Amount, userID  ,   max(status) status  FROM trading.transaction\\r\\n\"\r\n"
-		            		+ "		            		+ \"where Transactiontype='Withdrawal'\\r\\n\"\r\n"
-		            		+ "		            		+ \"group by userid, Transactiontype, transactiondate,amount";
-		            depositStatement = connection.prepareStatement(adminQuery);
+		        	String adminQuery = "SELECT TransactionID, transactiondate, Amount, userID, MAX(status) AS status " +
+		                    "FROM trading.transaction " +
+		                    "WHERE Transactiontype='Withdrawal' " +
+		                    "GROUP BY userid, Transactiontype, date(transactiondate), amount";
+		depositStatement = connection.prepareStatement(adminQuery);
+
 		        } else {
 		            // For other users, get userID from userDB based on the provided username
 		            String userQuery = "SELECT userID FROM users WHERE username = ?";
@@ -123,7 +127,10 @@ public class WithdrawalDAO {
 		                String userID = userResultSet.getString("userID");
 
 		                // Get all deposits based on the obtained userID
-		                String depositQuery = "SELECT TransactionID, transactiondate, Amount,status, userID FROM transaction WHERE userID = ? AND Transactiontype='Withdrawal'";
+		                String depositQuery = "SELECT TransactionID, transactiondate, Amount, userID, MAX(status) AS status " 
+		                		+" FROM trading.transaction "
+		                		+" WHERE Transactiontype='Withdrawal' AND userid=? "
+		                		+ " GROUP BY userid, Transactiontype, date(transactiondate), amount";
 		                depositStatement = connection.prepareStatement(depositQuery);
 		                depositStatement.setString(1, userID);
 		            }
@@ -181,8 +188,9 @@ public class WithdrawalDAO {
 		            String userID = userResultSet.getString("userID");
 
 		            // Step 2: Get the total count of withdrawals based on the obtained userID
-		            String countQuery = "SELECT  count(*) as count   FROM (SELECT  TransactionID, transactiondate, Amount, userID  ,   max(status) status  FROM trading.transaction"
-		            		+ 		            	"where Transactiontype='Withdrawal' group by userid,  transactiondate,amount) test";
+		            String countQuery = "SELECT COUNT(*) AS count FROM (SELECT TransactionID, transactiondate, Amount, userID, MAX(status) AS status FROM trading.transaction " +
+		                    "WHERE Transactiontype = 'Withdrawal' AND userid = ? GROUP BY userid, date(transactiondate), amount) test";
+
 		            PreparedStatement countStatement = connection.prepareStatement(countQuery);
 		            countStatement.setString(1, userID);
 		            ResultSet countResultSet = countStatement.executeQuery();
@@ -222,7 +230,7 @@ public class WithdrawalDAO {
 		        connection = DBUtil.provideConnection();
 		      
 		            // Step 2: Get the total count of withdrawals based on the obtained userID
-		            String countQuery = "SELECT Amount FROM bankdetails WHERE userID = ?";
+		            String countQuery = "SELECT Amount FROM customeraccdetails WHERE userID = ?";
 		             userStatement = connection.prepareStatement(countQuery);
 		             userStatement.setString(1, userID);
 		            ResultSet countResultSet = userStatement.executeQuery();
@@ -258,7 +266,7 @@ public class WithdrawalDAO {
 		        ResultSet rs = null;
 			 try {
 				 connection = DBUtil.provideConnection();
-			   String query = "select count(*) as count from withdrawal where userID=?";
+			   String query = "select count(*) as count from transaction where userID=? AND Transactiontype='Withdrawal' AND MONTH(transactiondate)=MONTH(CURDATE()) AND status = 1";
 			    ps = connection.prepareStatement(query);
 	            ps.setString(1, userID);
 	             rs = ps.executeQuery();
