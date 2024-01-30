@@ -62,7 +62,10 @@ public class ReffertalDAO {
 	        ResultSet rs = null;
 		 try {
 			 connection = DBUtil.provideConnection();
-		   String query = "select count(*) as count from transaction where Transactiontype='Referral'";
+			 String query = "SELECT  count(*) as count   FROM "
+		   		+ "			   		+ \"(SELECT  TransactionID, transactiondate, Amount, userID  ,   max(status) status  FROM trading.transaction"
+		   		+ "			   		+ \"where Transactiontype='Referral' group by userid,  transactiondate,amount) test";
+		   
 		 ps = connection.prepareStatement(query);
 		 rs = ps.executeQuery();
 		 while (rs.next()) {

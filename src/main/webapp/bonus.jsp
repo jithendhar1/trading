@@ -99,6 +99,7 @@ for (TransactionBean tasks : tax) {
 <tr>
     <td><%=tasks.getUserID()%></td>
     <td><%=tasks.getTransactiondate()%></td>
+    <td><%=tasks.getStatus() %></td>
     <td><%=tasks.getTransactionID()%></td>
     <td><%=tasks.getAmount() %></td>
     <td><%=tasks.getReferralID() %></td>
@@ -118,9 +119,21 @@ for (TransactionBean tasks : tax) {
     	<input type="text" name="userID" value="<%=tasks.getUserID()%>" hidden>
     	<input type="text" name="TransactionDate" value="<%=tasks.getTransactiondate()%>" hidden>
     	<input type="text" name="TransactionID" value="<%=tasks.getTransactionID()%>" hidden>
-    	<input type="text" name="Amount" value="<%=tasks.getAmount()%>" hidden>
+    	<input type="text" name="amount" value="<%=tasks.getAmount()%>" hidden>
     	<input type="text" name="ReferralID" value="<%=tasks.getReferralID()%>" hidden>
-        <button type="submit" name="status" id="approveButton" value="1">Approve</button>
+    		<input type="text" name="username" value="<%=username%>" hidden>
+        <%
+								if ("1".equals(status)) {
+								%>
+
+								<button type="submit" name="status" disabled>Approved</button>
+								<%
+								} else {
+								%>
+								<button type="submit" name="status">pending</button>
+								<%
+								}
+								%>
     </form>
     
   

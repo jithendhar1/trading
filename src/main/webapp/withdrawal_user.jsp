@@ -109,7 +109,7 @@ for (TransactionBean tasks : tax) {
 	 
 %>
 <tr>
-    <td><%=tasks.getTransactionID()%></td>
+    <td style="width:190px;"><%=tasks.getTransactionID()%></td>
     <td><%=tasks.getTransactiondate()%></td>
     <td><%=tasks.getAmount()%></td>
     <td><%=tasks.getUserID()%></td>
@@ -131,7 +131,8 @@ for (TransactionBean tasks : tax) {
     	<input type="text" name="amount" value="<%=tasks.getAmount()%>" hidden>
     	<input type="text" name="userID" value="<%=tasks.getUserID()%>" hidden>
     		<input type="text" name="username" value="<%=username%>" hidden>
-        <button type="submit" name="status" id="approveButton" value="1">Approve</button>
+        <!-- <button type="submit" name="status" id="approveButton" value="1">Approve</button> -->
+        <button type="submit" name="status" value="1" <% if ("1".equals(status)) { %>disabled<% } %>>Approved</button>
     </form>
     
   
@@ -185,7 +186,7 @@ for (TransactionBean tasks : tax) {
 
 		
         <script src="js/popper.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
+        <script src="js/bootstrap.min.js"></script> 
 
 		
 		<script src="js/jquery.slimscroll.min.js"></script>

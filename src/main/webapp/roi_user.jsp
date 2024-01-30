@@ -75,9 +75,11 @@ if (uid != null) {
 									<li class="breadcrumb-item active">ROI</li>
 								</ul> 
 							</div>
-							<div class="col-auto float-right ml-auto">
-							<a href="#" class="btn add-btn" data-toggle="modal" data-target="#addroi"><i class="fa fa-plus"></i> Add ROI</a>
-							</div>
+							<% if (username.equals("Admin")) { %>
+					            <div class="col-auto float-right ml-auto">
+					                <a href="#" class="btn add-btn" data-toggle="modal" data-target="#addroi"><i class="fa fa-plus"></i> Add ROI</a>
+					            </div>
+					        <% } %>
 						</div>
 					</div>
 					

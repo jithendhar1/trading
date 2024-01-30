@@ -1,7 +1,6 @@
 package srv;
 
 import java.util.Properties;
-import java.util.Random;
 
 import javax.mail.Authenticator;
 import javax.mail.Message;
@@ -12,9 +11,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import DAO.EmailDao;
-
-public class ReferalLinkGenarate {
+public class ReferralBonusMailLink {
 
 	private static final String FROM_EMAIL = "shaiknazma473@gmail.com"; // Replace with your Gmail address
 	private static final String FROM_PASSWORD = "mgnu dsuv psry clud"; // Replace with your Gmail app password
@@ -24,8 +21,8 @@ public class ReferalLinkGenarate {
 		/* String otp = generateOTP(toEmail); */
 		String subject = "Trade System Referral Program.";
 		String body = "Hi"+  ReferrerName + '\n'
-				+ "Please find the reference link for registering in our trading system. "
-				+ "http://localhost:8083/trading/registration.jsp?userid="+ReferredUserID;
+				+ "Please find the Referral Status Pending link for Amount in our trading system. "
+				+ "http://localhost:8083/trading/referrals_user.jsp?userid="+ReferredUserID;
 		sendEmail(toEmail, subject, body);
 		return ;
 	}

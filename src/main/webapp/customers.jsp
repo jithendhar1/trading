@@ -147,57 +147,9 @@ if (newRecordsPerPageParam != null) {
 								</ul>
 							</div>
                         </div>
-<<<<<<< HEAD
-                         <div class="col-auto float-right ml-auto">
-<!--                         <a href="#" class="btn add-btn" data-toggle="modal" data-target="#deleteEmployee"><i class="fa fa-plus"></i>Delete </a> -->
-<!--                                 <a href="#" class="btn add-btn" data-toggle="modal" data-target="#editEmployee"><i class="fa fa-plus"></i>Edit </a> -->
-                             	<!-- XXXXXXXXXXXXXXX<a href="#" class="Addbutton" data-toggle="modal" data-target="#addemployee"><i class="fa fa-plus"></i> Add Employee</a><div class="view-icons"> -->
-                                <!-- <a href="employee.jsp" title="Grid View" class="grid-view btn btn-link active"><i class="fa fa-th"></i></a>
-=======
-                        <!--  <div class="col-auto float-right ml-auto">
-                        <a href="#" class="btn add-btn" data-toggle="modal" data-target="#deleteEmployee"><i class="fa fa-plus"></i>Delete </a>
-                                <a href="#" class="btn add-btn" data-toggle="modal" data-target="#editEmployee"><i class="fa fa-plus"></i>Edit </a>
-                             	<a href="#" class="Addbutton" data-toggle="modal" data-target="#addemployee"><i class="fa fa-plus"></i> Add User</a><div class="view-icons">
-                                <a href="employee.jsp" title="Grid View" class="grid-view btn btn-link active"><i class="fa fa-th"></i></a>
->>>>>>> branch 'master' of https://github.com/jithendhar1/trading.git
-                                <a href="employees-list.jsp" title="Tabular View" class="list-view btn btn-link"><i class="fa fa-bars"></i></a>
-                            </div>
-                        </div> -->
-                        </div>
-                        </div>
-          <!-- Search form -->
 
-     	<%-- <form action="./EmployeeSearchServlet" method="post" >
-  		    <div style="margin-left:3px;" class="row filter-row">
-  		     <div class="col-sm-6 col-md-3" id = "flag">
-                 <label>Records per page:</label>
-			       <select class="record" id="recordsPerPage" onchange="changeRecordsPerPage()">
-					    <option value="10">10</option>
-					</select>
-			    </div>
-  		    
-			    <div class="col-sm-6 col-md-3">  
-				 <div class="custom-input-field form-group form-focus d-flex align-items-center">
-				 <label>Username</label>
-					<input class="input" name="username" id="username" type="text" class="form-control floating">					
-				 </div>
-				</div>
-			    
-			    <div class="col-sm-6 col-md-3">  
-				<div class="custom-input-field form-group form-focus d-flex align-items-center">
-				<label>Employee ID</label>
-					<input class="input" name="Employee_Id" id="id" type="text" class="form-control floating">
-				</div>
-				</div>
-				
-				 <div class="col-sm-6 col-md-3">
-				    <input class="search" type="submit" value="SEARCH">
-				</div>
-                
-			     <input type="hidden"  name="start" value="<%= currentPage %>">
-       	 			<input type="hidden"  name="limit" value="<%= newRecordsPerPage %>">
-	                
-			        </form>  --%>
+                         <div class="col-auto float-right ml-auto">
+
 			         </div> 
 			          <div class="table-container" style="height: 400px; overflow-y: auto;">
      
@@ -208,7 +160,7 @@ if (newRecordsPerPageParam != null) {
       <th>Username</th>
       <th>First Name</th>
       <th>Last Name</th>
-      <th>Email</th>
+      <th style="width:330px;">Email</th>
       <th>Phone</th>
      <!--  <th>Edit</th>
       <th>Delete</th> -->
@@ -270,11 +222,11 @@ if (newRecordsPerPageParam != null) {
             for (CustomerBean employee : employees) {
         %>
         <tr>
-     <td><%= employee.getUserID()%></td>
+    <td><%= employee.getUserID()%></td>
     <td><%= employee.getUsername() %></td>
     <td><%= employee.getFirstname()%></td>
     <td><%= employee.getLastname()%></td>
-    <td><%= employee.getEmail()%></td>
+    <td style="width:330px;"><%= employee.getEmail()%></td>
     <td><%= employee.getPhno() %></td>
     <%-- <td>
       <a class="edit" href="editEmployee.jsp?id=<%= employee.getUserID()%>">Edit</a>

@@ -7,6 +7,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import DAO.CustomerDAO;
 import Imp.CustomerImp;
 import utility.DBUtil;
 
@@ -15,6 +17,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @WebServlet("/AddUser")
 public class AddCustomerSrv extends HttpServlet {
@@ -73,14 +76,20 @@ public class AddCustomerSrv extends HttpServlet {
                       	ps =  con.prepareStatement("INSERT INTO CustomerAccdetails (userID , userName,Amount ,AcountNumber)VALUES(?,?,0,?)");
                       	status = " Added Successfully!";
                           ps.setString(1, userID);
+           
                           ps.setString(2, username);
                           ps.setString(3, formattedDate);
                           int updateResult = ps.executeUpdate();
 
                           if (updateResult > 0) {
+                        	  
                         	  status = " updating bankdetails";
+                        	  
                               response.sendRedirect("login.jsp");
                           }
+                      
+                   		RegistrationMailLink.sendLinkEmail(email, userID, username);
+                   	request.getSession().setAttribute("email", email);
                   		}
                   	}catch (Exception e) {
                   		e.printStackTrace();

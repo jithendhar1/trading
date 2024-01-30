@@ -37,9 +37,12 @@
                                 <label>Email</label>
                                 <input class="form-control" id="username"  name="username" required type="text">
                             </div>
+                            
                             <% if (request.getAttribute("wrongusername") != null) { %>
                                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <strong>Oh Snapp!🙃</strong> Alert <b class="alert-link">UserName:</b> You entered a wrong UserName.
+                                    <strong>Oh Snapp!🙃</strong> Alert 
+                                    <b class="alert-link">UserName:</b> 
+                                    You entered a wrong UserName.
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -56,7 +59,9 @@
                             </div>
                             <% if (request.getAttribute("wrongpassword") != null) { %>
                                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <strong>Oh Snapp!😕</strong> Alert <b class="alert-link">Password:</b> You entered wrong password.
+                                    <strong>Oh Snapp!😕</strong> Alert 
+                                    <b class="alert-link">Password:</b>
+                                     You entered wrong password.
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -65,10 +70,7 @@
                             }
                             %>
                            
-                                     <!-- <div class="row">              
-								      <button class="btn btn-primary account-btn" name="login" type="submit" style="width:100px; height:50px;">Login</button>
-                                       <a href="registration.jsp" class="btn btn-secondary account-btn" style="width: 100px; height: 50px; margin-left: 10px;">Register</a>
-								   </div> -->
+ 
 								   <!-- Existing code ... -->
 								<div class="form-group text-center">
 								    <div class="row justify-content-center">
@@ -79,27 +81,24 @@
 								            <a href="registration.jsp" class="btn btn-secondary account-btn" style="width: 150px; height: 50px; margin-left: 10px;">Register</a>
 								        </div>
 								    </div>
-								   
-								</div>
+							</div>
 								<!-- Existing code ... -->
 								   
 								    <div class="col-auto pt-2">
 								        <a class="text-muted float-right" style="margin-left: 120px;" href="forgot-password.jsp">Forgot password?</a>
 								    </div>
+								    
+					          </form>
 								</div>
 
 							</div>
                             
-                           <!--  <div class="account-footer">
-                                <p>Having Trouble? report an issue on GitHub <a target="_blank" href="https://github.com/MusheAbdulHakim/Smarthr---hr-payroll-project-employee-management-System/issues">GitHub issues</a></p>
-                            </div> -->
-                        </form>
+                
                         <!-- /Account Form -->
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+
     <!-- /Main Wrapper -->
     
     <script>

@@ -142,31 +142,31 @@ boolean isReferredUser = (ReferredUserID != null && !ReferredUserID.isEmpty());
             </div>
             <span id="passwordError" style="color: red;"></span>
             
-           
+   <% if (ReferredUserID != null) { %>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>referral<span class="text-danger">*</span></label>
             
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>referral<span class="text-danger">*</span></label>
-                    
-                    <select id="selectedEmployee" name="ReferrerUserID" class="form-control">
-            <%
-						List<CustomerBean> dept = ReffertalDAO.getAllEmployees();
-						String Userid = CustomerDAO.getUserIDByUsername(username);
-						%>
-                        <option>Select Name</option>
-            <%
-                                        for (CustomerBean dep : dept) {
-                                            // If ReferredUserID has a value, auto-select the matching option
-                                            boolean isSelected = isReferredUser && dep.getUserID().equals(ReferredUserID);
-                                    %>
-                                        <option value="<%=dep.getUserID()%>"  <%= isSelected ? "selected" : "" %>><%= dep.getUsername()%></option>
-                                    <%
-                                        }
-                                    %>                      
-        </select>
-                </div>
-            </div>
-       
+            <select id="selectedEmployee" name="ReferrerUserID" class="form-control">
+                <% 
+                    List<CustomerBean> dept = ReffertalDAO.getAllEmployees();
+                    String Userid = CustomerDAO.getUserIDByUsername(username);
+                %>
+                <option>Select Name</option>
+                <%
+                    for (CustomerBean dep : dept) {
+                        // If ReferredUserID has a value, auto-select the matching option
+                        boolean isSelected = isReferredUser && dep.getUserID().equals(ReferredUserID);
+                %>
+                        <option value="<%=dep.getUserID()%>" <%= isSelected ? "selected" : "" %>><%= dep.getUsername()%></option>
+                <%
+                    }
+                %>                      
+            </select>
+        </div>
+    </div>
+<% } %>
+
         </div>
         <div class="col-md-6">
             <button style="margin-left: 160px;" type="submit" class="btn btn-success">Register</button>

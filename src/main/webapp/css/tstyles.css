@@ -1,15 +1,42 @@
-table {
+/* table {
             width: 100%;
             border-collapse: collapse;
-            background-color: white; /* Set the background color to white */
+            background-color: white; Set the background color to white
         }
 
         th, td {
-            border: 1px solid black; /* Set black solid border for th and td */
+            border: 1px solid black; Set black solid border for th and td
             padding: 8px;
             text-align: left;
         }
         
         .hidden {
 		    display: none;
-		}
+		} */
+table {
+  border-collapse: collapse; /* Use collapse instead of separate */
+  width: 80%;
+  margin: 0 auto;
+}
+
+tr {
+  display: block; /* Use display block to enable border-radius */
+  border-bottom: 1px solid #ddd;
+  border-radius: 10px; /* Add rounded border to tr elements */
+  background-color: #f0f0f0;
+  margin-top: 10px;
+}
+
+th, td {
+ width: 150px; /* Set your desired fixed width */
+  padding: 10px;
+  text-align: left;
+}
+
+tr:nth-child(odd) {
+  background-color: lightgray;
+}
+
+tr:hover {
+  background-color: #D6EEEE;
+}
