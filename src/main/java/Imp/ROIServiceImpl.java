@@ -1,7 +1,11 @@
 package Imp;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import com.mysql.jdbc.Statement;
+
 import utility.DBUtil;
 
 public class ROIServiceImpl {
@@ -9,55 +13,57 @@ public class ROIServiceImpl {
 	
 	//TransactionID, userID, ROIAmount, ModifiedDate, OpenAmount, ClosingAmount
 	
-	public String addV(String Approvedby,String userID,String  ROIAmount,String  ModifiedDate,String  OpenAmount,String  ClosingAmount,String TransactionID) {
-		
-		String Status1 = " Adding Failed!";
+	public String addV(String Approvedby, String ROIAmount, String ModifiedDate, String OpenAmount, String ClosingAmount, String TransactionID) {
+	    String Status1 = "Adding Failed!";
+	    Connection con = DBUtil.provideConnection();
 
-        Connection con = DBUtil.provideConnection();
-        PreparedStatement ps = null;
+	    String countQuery = "SELECT COUNT(*) AS rowCount FROM transaction WHERE Transactiontype ='ROI' AND DATE(TransactionDate) = CURDATE()";
 
-        try {
-        	ps = con.prepareStatement("INSERT INTO transaction (userID,openamount, closingamount,transactiondate,status,Approvedby,Transactiontype,TransactionID,Amount) VALUES (?,?,?,?,1,?,'ROI',?,?)");
-        	ps.setString(1, userID);
-        	ps.setString(2, OpenAmount);
-        	ps.setString(3, ClosingAmount);
-        	ps.setString(4, ModifiedDate);
-        	ps.setString(5, Approvedby);
-        	ps.setString(6, TransactionID);
-        	ps.setString(7, ROIAmount);
-           
-           
-            int k = ps.executeUpdate();
+	    try (PreparedStatement countPs = con.prepareStatement(countQuery)) {
+	        ResultSet resultSet = countPs.executeQuery();
 
-            if (k > 0) {
-            	 Status1 = "Added Successfully!";
+	        if (resultSet.next()) {
+	            int count = resultSet.getInt("rowCount");
 
-                 // Now update the Amount in bankdetails
-                 String updateQuery = "UPDATE customeraccdetails SET Amount = ? WHERE userID = ?";
-                 ps = con.prepareStatement(updateQuery);
-                 
-                 // Assuming ClosingAmount is the amount to be updated in bankdetails
-                 ps.setString(1, ClosingAmount);
-                 ps.setString(2, userID);
+	            if (count > 0) {
+	                String successMessage = "ROI is already added for today";
+	                // response.getWriter().write(successMessage);
+	                return successMessage;
+	            } else {
+	                String insertNewRecordQuery = "INSERT INTO transaction (userID, openamount, closingamount, transactiondate, status, Approvedby, Transactiontype, TransactionID, Amount) " +
+	                        "SELECT userid, amount AS openamount, amount + (amount * ?)/100 AS closingamount, ?, 1, ?, 'ROI', ?, ? FROM customeraccdetails";
 
-                 int updateResult = ps.executeUpdate();
+	                try (PreparedStatement insertPs = con.prepareStatement(insertNewRecordQuery)) {
+	                    insertPs.setString(1, ROIAmount);
+	                    insertPs.setString(2, ModifiedDate);
+	                    insertPs.setString(3, Approvedby);
+	                    insertPs.setString(4, TransactionID);
+	                    insertPs.setString(5, ROIAmount);
 
-                 if (updateResult > 0) {
-                     Status1 += " Amount in bankdetails updated Successfully!";
-                 } else {
-                     Status1 += " Failed to update Amount in bankdetails.";
-                 }
-             }
-         } catch (SQLException e) {
-             Status1 = "Error: " + e.getMessage();
-             e.printStackTrace();
-         } finally {
-             DBUtil.closeConnection(con);
-             DBUtil.closeConnection(ps);
-         }
+	                    // Execute the INSERT statement
+	                    int rowsAffected = insertPs.executeUpdate();
 
-         return Status1;
+	                    if (rowsAffected > 0) {
+	                       Status1="Record inserted successfully";
+	                    } else {
+	                        System.out.println("Failed to insert the record.");
+	                    }
+
+	                } catch (SQLException e) {
+	                    e.printStackTrace();
+	                }
+	                
+	            }
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return "{ \"status\": \"" + (Status1.contains("Failed") ? "failure" : "success") + "\", \"message\": \"" + Status1 + "\" }";
 	}
+
+
 	
 	
 	public String editV(String TransactionID,String userID,String  ROIAmount,String  ModifiedDate,String  OpenAmount,String  ClosingAmount)  {

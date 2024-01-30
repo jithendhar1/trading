@@ -38,14 +38,15 @@ public class DepositServiceImpl {
 			int tempamoyunt = Integer.parseInt(Amount);
 			double closeamot = tempopen + tempamoyunt;
 			String Closingamount = String.valueOf(closeamot);
-			 Date currentDate = new Date();
-             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // You can adjust the format as needed
-             String formattedDate = dateFormat.format(currentDate);
+			SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			// You can adjust the format as needed
+					 Date currentDate = new Date();
+					 String formattedDateTime = dateTimeFormat.format(currentDate);
 			
 			ps.setString(1, userID);
 			ps.setString(2, openamount);
 			ps.setString(3, Closingamount);
-			ps.setString(4, formattedDate);
+			ps.setString(4, formattedDateTime);
 			ps.setString(5, DepositTransactionID);
 			ps.setString(6, Amount);
 			int k = ps.executeUpdate();

@@ -117,6 +117,7 @@ boolean isReferredUser = (ReferredUserID != null && !ReferredUserID.isEmpty());
                 <div class="form-group">
                     <label>Email <span class="text-danger">*</span></label>
                     <input name="email" class="form-control" type="text">
+                    <font color="red"><%= request.getAttribute("warningMessage") %></font>
                 </div>
             </div>
            

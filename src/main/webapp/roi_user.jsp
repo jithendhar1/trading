@@ -86,10 +86,10 @@ if (uid != null) {
 								<table>
 									<thead>
 										<tr>
-											<th>TransactionID</th>
-											<th>userID </th>
-									        <th>ROIAmount</th>
-									        <th>Date</th>
+											<th>Transaction ID</th>
+											<th>user ID </th>
+									        <th>ROI Amount</th>
+									        <th style="width: 160px;">Date</th>
 									        <th>OpenAmount</th>
 									        <th>ClosingAmount</th>
 									        <!-- <th>Edit</th>
@@ -107,7 +107,7 @@ for (TransactionBean tasks : tax) {
     <td><%=tasks.getTransactionID() %></td>
    <td><%=tasks.getUserID() %></td>
    <td><%=tasks.getAmount()%></td>
-   <td><%=tasks.getTransactiondate()%></td>
+   <td style="width: 160px;"><%=tasks.getTransactiondate()%></td>
    <td><%=tasks.getOpenamount()%></td>
    <td><%=tasks.getClosingamount()%></td>
    <%--  <td>

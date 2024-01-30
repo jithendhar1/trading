@@ -1,5 +1,7 @@
 package srv;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -26,21 +28,27 @@ public class AddROISrv extends HttpServlet {
         String TransactionID = request.getParameter("TransactionID");
         String Approvedby = request.getParameter("Approvedby");
         String ROIAmount = request.getParameter("ROIAmount");
-        String ModifiedDate = request.getParameter("ModifiedDate");
+        
+        SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		// You can adjust the format as needed
+				 Date currentDate = new Date();
+				 String formattedDateTime = dateTimeFormat.format(currentDate);
+		
+      
         String OpenAmount = request.getParameter("OpenAmount");
         String ClosingAmount = request.getParameter("ClosingAmount");
         
         ROIServiceImpl add = new ROIServiceImpl();
-        status = add.addV(Approvedby,userID, ROIAmount, ModifiedDate, OpenAmount, ClosingAmount,TransactionID);
+        status= add.addV(Approvedby, ROIAmount, formattedDateTime, OpenAmount, ClosingAmount, TransactionID);
 
-        List<String> userInfo = CustomerDAO.getUserInfoByUsername(userID);
-		String email = userInfo.get(0);
-		String username = userInfo.get(1);
-		
-		RoiApprovalMailLink.sendLinkEmail(email, userID, username);
-		// Store the OTP in the session to verify it later
-		//request.getSession().setAttribute("otp", otp);
-		 request.getSession().setAttribute("email", email);
+		/*
+		 * List<String> userInfo = CustomerDAO.getUserInfoByUsername(userID); String
+		 * email = userInfo.get(0); String username = userInfo.get(1);
+		 * 
+		 * RoiApprovalMailLink.sendLinkEmail(email, userID, username); // Store the OTP
+		 * in the session to verify it later //request.getSession().setAttribute("otp",
+		 * otp); request.getSession().setAttribute("email", email);
+		 */
 
     	   RequestDispatcher rd = request.getRequestDispatcher("roi_user.jsp?message=" + status);
     rd.forward(request, response);

@@ -51,7 +51,7 @@ public class BonusDAO {
 		        // Step 1: Get userID from userDB based on the provided username
 		        if ("Admin".equals(username)) {
 		            // If the username is Admin, use a different query
-		            String adminQuery = "SELECT  UserID, transactiondate, TransactionID,Amount, ReferralID  ,   max(status) status  FROM trading.transaction where Transactiontype='Bonus' group by userid, Transactiontype, transactiondate,amount";
+		            String adminQuery = "SELECT  UserID, transactiondate, TransactionID,Amount, ReferralID  ,   max(status) status  FROM trading.transaction where Transactiontype='Bonus' group by userid, Transactiontype, date(transactiondate),amount";
 		            depositStatement = connection.prepareStatement(adminQuery);
 		        } else {
 		            // For other users, get userID from userDB based on the provided username
@@ -66,7 +66,7 @@ public class BonusDAO {
 		                String userID = userResultSet.getString("userID");
 
 		                // Get all deposits based on the obtained userID
-		                String depositQuery = "SELECT UserID, transactiondate,status, TransactionID, Amount,ReferralID FROM transaction where Transactiontype='Bonus' And userID = ?";
+		                String depositQuery = "SELECT  UserID, transactiondate, TransactionID,Amount, ReferralID  ,   max(status) status  FROM trading.transaction where Transactiontype='Bonus' AND userID = ? group by userid, Transactiontype, date(transactiondate),amount ";
 		                depositStatement = connection.prepareStatement(depositQuery);
 		                depositStatement.setString(1, userID);
 		            }}
