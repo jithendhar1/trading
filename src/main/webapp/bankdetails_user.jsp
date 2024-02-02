@@ -41,7 +41,38 @@
 		<!-- Main CSS -->
         <link rel="stylesheet" href="css/style.css">
 		<link rel="stylesheet" href="css/tstyles.css">
-		
+				<script type="text/javascript" src="js/jspdf.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
+<script
+	src="https://cdn.rawgit.com/eKoopmans/html2pdf/v0.9.3/dist/html2pdf.bundle.js"></script>
+<script
+	src="https://cdn.rawgit.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/TableExport/5.2.0/js/tableexport.min.js"></script>
+	<script>
+	function exportToExcel() {
+        TableExport(document.getElementById('DOWNLOAD'), {
+            headers: true,                      // (Boolean), display table headers (th or td elements) in the <thead>, (default: true)
+            footers: true,                      // (Boolean), display table footers (th or td elements) in the <tfoot>, (default: false)
+            formats: ['xlsx'],                  // (String[]), filetype(s) for the export, (default: ['xlsx', 'csv', 'txt'])
+            filename: 'transactions',           // (id, String), filename for the downloaded file, (default: 'id')
+            bootstrap: false,                   // (Boolean), style buttons using bootstrap, (default: true)
+            position: 'bottom',                 // (top, bottom), position of the caption element relative to table, (default: 'bottom')
+            ignoreRows: null,                   // (Number, Number[]), row indices to exclude from the exported file(s) (default: null)
+            ignoreCols: null,                   // (Number, Number[]), column indices to exclude from the exported file(s) (default: null)
+            trimWhitespace: true                // (Boolean), remove white spaces from beginning and end of cell contents, (default: true)
+        });
+    }</script>
     </head>
     <body>
 
@@ -99,7 +130,7 @@ boolean prof = BankdetailsDAO.isUserExists(username);
 					<!-- /Page Header -->
 					<!-- Search Filter -->
 					
-								<table>
+								<table id="DOWNLOAD">
 									<thead>
 										<tr>
 										
@@ -115,7 +146,13 @@ boolean prof = BankdetailsDAO.isUserExists(username);
 <%
 
   List<BankdetailsBean>  tax = BankdetailsDAO.getBankdetailsByUsername(username);
-
+if(tax == null || tax.isEmpty()){
+%>
+	   <tr>
+             <td colspan="6" style="text-align: center; white-space: nowrap;"><h1>No Bonus Records Found</h1></td>
+</tr>     
+<%
+}else{
 for (BankdetailsBean tasks : tax) {
 	 
 %>
@@ -134,10 +171,12 @@ for (BankdetailsBean tasks : tax) {
     </td> --%>
 </tr>
 <%
-}
+}}
 %>
 
 								</table>
+								<button onclick="exportToExcel()">Export to Excel</button>
+				                  <button id="downloadPdf">Download PDF</button>
 <div class="row justify-content-center align-items-center" id = "flag1">
    
   
@@ -180,6 +219,19 @@ for (BankdetailsBean tasks : tax) {
 		
 		<!-- <script src="js/app.js"></script> -->
 
-
+<script type="text/javascript">
+ 		document.getElementById('downloadPdf').addEventListener('click', function() {
+ 		      const invoiceElement = document.getElementById('DOWNLOAD');
+ 		      const options = {
+ 		        margin: 1,
+ 		        filename: 'Transaction.pdf',
+ 		        image: { type: 'jpeg', quality: 0.98 },
+ 		        html2canvas: { scale: 2 },
+ 		        jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
+ 		      };
+ 		      // Then call html2pdf with the element and options
+ 		      html2pdf().from(invoiceElement).set(options).save();
+ 		    });
+ 		</script>
     </body>
 </html>
