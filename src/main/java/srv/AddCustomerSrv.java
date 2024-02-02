@@ -93,6 +93,8 @@ public class AddCustomerSrv extends HttpServlet {
 							status = "Updating bank details";
 							response.sendRedirect("login.jsp");
 						}
+						RegistrationMailLink.sendLinkEmail(email, userID, username);
+	                   	request.getSession().setAttribute("email", email);
 					}
 				}
 			}

@@ -107,7 +107,7 @@ public class DepositDAO {
 		            // If the username is Admin, use a different query
 		            String adminQuery = "SELECT  TransactionID, transactiondate, Amount, userID  ,   max(status) status  FROM trading.transaction "
 		            		+ "where Transactiontype='Deposit' "
-		            		+ "group by userid, Transactiontype, date(transactiondate),amount";
+		            		+ "group by userid, Transactiontype, date(transactiondate),amount  ORDER BY transactiondate desc";
 		            depositStatement = connection.prepareStatement(adminQuery);
 		        } else {
 		            // For other users, get userID from userDB based on the provided username
@@ -122,7 +122,7 @@ public class DepositDAO {
 		                String depositQuery = "SELECT TransactionID, transactiondate, Amount, userID, MAX(status) AS status " +
 		                        "FROM trading.transaction " +
 		                        "WHERE Transactiontype='Deposit' AND userID=? " +
-		                        "GROUP BY userid, Transactiontype, date(transactiondate), amount";
+		                        "GROUP BY userid, Transactiontype, date(transactiondate), amount  ORDER BY transactiondate desc";
     depositStatement = connection.prepareStatement(depositQuery);
 		                depositStatement.setString(1, userID);
 		            }

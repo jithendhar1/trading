@@ -1,24 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.sql.Connection, java.sql.DriverManager, java.sql.Statement, java.sql.ResultSet" %>
+<%@ page import="java.sql.Connection, java.sql.PreparedStatement, java.sql.ResultSet" %>
 <%@ page import="javax.servlet.ServletException, javax.servlet.http.HttpServlet, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse" %>
 <%@ page import="java.io.IOException" %>
-<%@ page import="java.sql.Connection, java.sql.PreparedStatement, java.sql.ResultSet, java.sql.SQLException" %>
+<%@ page import="java.sql.SQLException" %>
 <%@ page import="utility.DBUtil" %>
 <%@ page import="java.util.List" %>
 
 <%
-		HttpSession sdsession = request.getSession(true);
+    HttpSession sdsession = request.getSession(true);
     // Retrieve the username attribute from the session
     String username = (String) sdsession.getAttribute("userID");
-	  String roleIDString = (String) sdsession.getAttribute("RoleID");
+    String roleIDString = (String) sdsession.getAttribute("RoleID");
     // Check if the user is logged in or redirect to the login page
     if (roleIDString == null) {
         response.sendRedirect("login.jsp"); // Change "login.jsp" to your actual login page
     } else {
-    	   int roleid = Integer.parseInt(roleIDString);
-    	    String displayAdminDashboard = (roleid == 1) ? "block" : "none"; 
+        int roleid = Integer.parseInt(roleIDString);
+        String displayAdminDashboard = (roleid == 1) ? "block" : "none";
 %> 
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -49,34 +48,33 @@
     <link rel="stylesheet" href="css/style.css">
     <!-- table styles CSS -->
     <link rel="stylesheet" href="css/tstyles.css">
-<style>
-    /* Set a fixed height for the sidebar and enable scrollbar */
-    #sidebar {
-        height: 1000 px; /* Set a fixed height */
-        overflow-y: auto; /* Enable vertical scrollbar */
-    }
-     .admin-dashboard-link {
+
+    <style>
+        /* Set a fixed height for the sidebar and enable scrollbar */
+        #sidebar {
+            height: 1000px; /* Set a fixed height */
+            overflow-y: auto; /* Enable vertical scrollbar */
+        }
+
+        .admin-dashboard-link {
             display: <%= displayAdminDashboard %>; /* Set display property based on role ID */
-        } 
-</style>
-<script>
-    function toggleSubMenu(element) {
-        var submenu = element.nextElementSibling;
-        submenu.style.display = (submenu.style.display === 'block') ? 'none' : 'block';
-    }
-</script>
-    
+        }
+    </style>
+
+    <script>
+        function toggleSubMenu(element) {
+            var submenu = element.nextElementSibling;
+            submenu.style.display = (submenu.style.display === 'block') ? 'none' : 'block';
+        }
+    </script>
 </head>
 
 <body>
     <div class="sidebar" id="sidebar">
-    <div class="sidebar-inner slimscroll">
-         <div id="sidebar-menu" class="sidebar-menu">
-           
-                 
-                 <ul>
-                 
-                         <li class="submenu">
+        <div class="sidebar-inner slimscroll">
+            <div id="sidebar-menu" class="sidebar-menu">
+                <ul>
+                    <li class="submenu">
                         <a href="#"><i class="la la-dashboard"></i>
                             <span> Dashboard</span>
                             <span class="menu-arrow"></span>
@@ -87,84 +85,43 @@
                             <!-- <li><a href="employee_dashboard.jsp">User Dashboard</a></li> -->
                         </ul>
                     </li>
-                        <li class="menu-title">
-                            <span>Main</span>
-                        </li>
-                        
-                        
-                        <%
-                            try {
-                            	
-                          Connection con = DBUtil.provideConnection();
-                        	    PreparedStatement ps = null;
-                                String sql = "SELECT roles.RoleName, rolepermissions.ModuleName, rolepermissions.FormName, rolepermissions.DisplayName FROM roles "
-                                        + "INNER JOIN rolepermissions ON roles.RoleID = rolepermissions.RoleID "
-                                        + "WHERE roles.RoleID >= ?   ORDER BY roles.RoleID, rolepermissions.ModuleName";
-                                
-                                 PreparedStatement statement = con.prepareStatement(sql);
-                                 statement.setInt(1, roleid);
-                                 //ResultSet resultSet = statement.executeQuery(sql);
-                                  ResultSet resultSet = statement.executeQuery(); // Corrected line
-                                 String currentModule = null;
+                    <li class="menu-title">
+                        <span>Main</span>
+                    </li>
 
-                                while (resultSet.next()) {
-                                    String DisplayName = resultSet.getString("DisplayName");
-                                    String moduleName = resultSet.getString("ModuleName");
-                                    String formName = resultSet.getString("FormName");
-                                    String link = formName ;
+                    <%
+                        try {
+                            Connection con = DBUtil.provideConnection();
+                            PreparedStatement ps = null;
+                            String sql = "SELECT roles.RoleName, rolepermissions.ModuleName, rolepermissions.FormName, rolepermissions.DisplayName FROM roles "
+                                    + "INNER JOIN rolepermissions ON roles.RoleID = rolepermissions.RoleID "
+                                    + "WHERE roles.RoleID >= ?   ORDER BY roles.RoleID, rolepermissions.ModuleName";
 
-                                    // Check if the module has changed
-                                    if (!moduleName.equals(currentModule)) {
-                                        if (currentModule != null) {
-                                            // Close the previous module's <ul>
-                        %>
-                                        </ul>
-                                    </li>
-                                  
-                        <%
-                                        }
-                        %>
-                                    <li class="submenu">
-                                        <a href="#" class="noti-dot onclick="toggleSubMenu(this); return false;">
-                                            <!-- <i class="la la-user"></i> -->
-                                            <span><%= moduleName %></span>
-                                            <!-- <span class="menu-arrow"></span> -->
-                                        </a>
-                                        <ul style="display: auto;">
-                        <%
-                                    }
-                        %>
-                                        <li><a href="<%= link %>"><%= DisplayName %></a></li>
-                        <%
-                               
-                                    // Update the current module
-                                  currentModule = moduleName;
-                                }
-                               
-                                // Close the last module's <ul>
-                                if (currentModule != null) {
-                        %>
-                                        </ul> 
-                                    </li>
-                                    
-                        <%
-                                }
+                            PreparedStatement statement = con.prepareStatement(sql);
+                            statement.setInt(1, roleid);
+                            ResultSet resultSet = statement.executeQuery(); // Corrected line
+                            String currentModule = null;
 
-                                resultSet.close();
-                                statement.close();
-                                con.close();
-                            } catch (Exception e) {
-                                e.printStackTrace();
+                            while (resultSet.next()) {
+                                String DisplayName = resultSet.getString("DisplayName");
+                                String formName = resultSet.getString("FormName");
+                                String link = formName;
+                    %>
+                                <li><a href="<%= link %>"><%= DisplayName %></a></li>
+                    <%
                             }
-                        %>
-                       
-                        </li>
-                        </ul> 
-                 
-                </div> 
+
+                            resultSet.close();
+                            statement.close();
+                            con.close();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    %>
+                </ul>
             </div>
         </div>
-   
+    </div>
 
     <!-- jQuery -->
     <script src="js/jquery-3.2.1.min.js"></script>
@@ -185,18 +142,19 @@
 
     <!-- Custom JS -->
     <script src="js/app.js"></script>
-   
+
     <script>
-    // JavaScript for expand/collapse functionality
-    var submenuItems = document.querySelectorAll(".submenu");
-    submenuItems.forEach(function (item) {
-        item.addEventListener("click", function () {
-            this.classList.toggle("open");
+        // JavaScript for expand/collapse functionality
+        var submenuItems = document.querySelectorAll(".submenu");
+        submenuItems.forEach(function (item) {
+            item.addEventListener("click", function () {
+                this.classList.toggle("open");
+            });
         });
-    });
-</script>
+    </script>
 </body>
 
 </html>
-<% }
+<%
+    }
 %>
