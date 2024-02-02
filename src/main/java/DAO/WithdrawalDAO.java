@@ -110,10 +110,11 @@ public class WithdrawalDAO {
 		        // Step 1: Get userID from userDB based on the provided username
 		        if ("Admin".equals(username)) {
 		            // If the username is Admin, use a different query
-		        	String adminQuery = "SELECT TransactionID, transactiondate, Amount, userID, MAX(status) AS status " +
-		                    "FROM trading.transaction " +
-		                    "WHERE Transactiontype='Withdrawal' " +
-		                    "GROUP BY userid, Transactiontype, date(transactiondate), amount";
+		        	String adminQuery = "SELECT TransactionID, transactiondate, Amount, userID, MAX(status) AS status"
+		        			+ "FROM transaction"
+		        			+ "WHERE Transactiontype='Withdrawal'"
+		        			+ "GROUP BY userid, Transactiontype, date(transactiondate), amount"
+		        			+ "ORDER BY transactiondate DESC, amount";
 		depositStatement = connection.prepareStatement(adminQuery);
 
 		        } else {
@@ -127,10 +128,11 @@ public class WithdrawalDAO {
 		                String userID = userResultSet.getString("userID");
 
 		                // Get all deposits based on the obtained userID
-		                String depositQuery = "SELECT TransactionID, transactiondate, Amount, userID, MAX(status) AS status " 
-		                		+" FROM trading.transaction "
-		                		+" WHERE Transactiontype='Withdrawal' AND userid=? "
-		                		+ " GROUP BY userid, Transactiontype, date(transactiondate), amount";
+		                String depositQuery = "SELECT TransactionID, transactiondate, Amount, userID, MAX(status) AS status"
+		                		+ "FROM transaction"
+		                		+ "WHERE Transactiontype='Withdrawal' AND userid=?"
+		                		+ "GROUP BY userid, Transactiontype, date(transactiondate), amount"
+		                		+ "ORDER BY transactiondate DESC, amount";
 		                depositStatement = connection.prepareStatement(depositQuery);
 		                depositStatement.setString(1, userID);
 		            }

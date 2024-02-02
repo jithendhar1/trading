@@ -25,7 +25,7 @@
             <div class="container">
                 <!-- Account Logo -->
                 <div class="account-logo">
-                    <a href="index.jsp"><img src="assets/logo2.png" alt="Company Logo"></a>
+                    <a href="index.jsp"><img style="width:100px;" src="assets/WhatsApp Image 2024-01-29 at 19.01.35_802bac3a.jpg" alt="Company Logo"></a>
                 </div>
                 <!-- /Account Logo -->
                 <div class="account-box">
