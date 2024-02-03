@@ -16,7 +16,9 @@
     <!-- Fontawesome CSS -->
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <!-- Main CSS -->
-    <link rel="stylesheet" href="css/style.css">       
+    <link rel="stylesheet" href="css/style.css">  
+    
+      
 </head>
 <body class="account-page">
     <!-- Main Wrapper -->
@@ -32,7 +34,7 @@
                     <div class="account-wrapper">
                         <h3 class="account-title"> Login</h3>
                         <!-- Account Form -->
-                        <form method="post" action="./EmpLoginSrv">
+                        <form method="post" action="./EmpLoginSrv" >
                             <div class="form-group">
                                 <label>Email</label>
                                 <input class="form-control" id="username"  name="username" required type="text">
@@ -75,7 +77,7 @@
 								<div class="form-group text-center">
 								    <div class="row justify-content-center">
 								        <div class="col-md-6"> <!-- Adjust the column size as needed -->
-								            <button class="btn btn-primary account-btn" name="login" type="submit" style="width: 150px; height: 50px;margin-left: 10px;">Login</button>
+								            <button class="btn btn-primary account-btn"  type="submit" style="width: 150px; height: 50px;margin-left: 10px;">Login</button>
 								        </div>
 								        <div class="col-md-6"> <!-- Adjust the column size as needed -->
 								            <a href="registration.jsp" class="btn btn-secondary account-btn" style="width: 150px; height: 50px; margin-left: 10px;">Register</a>
@@ -125,3 +127,38 @@
   <script src="js/app.js"></script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

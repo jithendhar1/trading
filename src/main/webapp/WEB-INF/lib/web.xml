@@ -8,49 +8,46 @@
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
     <!-- Sample listener for JAF initialization (if needed) -->
-<listener>
-    <listener-class>com.example.YourJAFInitializer</listener-class>
-</listener>
+    <listener>
+        <listener-class>com.example.YourJAFInitializer</listener-class>
+    </listener>
 
-<!-- If any context parameters are needed for JAF -->
-<context-param>
-    <param-name>yourJAFParam</param-name>
-    <param-value>yourValue</param-value>
-</context-param>
+    <!-- If any context parameters are needed for JAF -->
+    <context-param>
+        <param-name>yourJAFParam</param-name>
+        <param-value>yourValue</param-value>
+    </context-param>
+
     <!-- Define Servlets and Servlet Mappings -->
     <servlet>
         <servlet-name>AddEmployeeSrv</servlet-name>
-        <servlet-class>com.weblabs.srv.AddEmployeeSrv</servlet-class>
-    </servlet>   
-     <servlet-mapping>
+        <servlet-class>srv.AddEmployeeSrv</servlet-class>
+    </servlet>
+    <servlet-mapping>
         <servlet-name>AddEmployeeSrv</servlet-name>
         <url-pattern>/AddEmployeeSrv</url-pattern>
-    </servlet-mapping> 
-      <servlet>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>EmpLoginSrv</servlet-name>
+        <servlet-class>srv.EmpLoginSrv</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EmpLoginSrv</servlet-name>
+        <url-pattern>/EmpLoginSrv</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>SetSessionAttributeServlet</servlet-name>
-        <servlet-class>com.weblabs.srv.SetSessionAttributeServlet</servlet-class>
-    </servlet>   
-     <servlet-mapping>
+        <servlet-class>srv.SetSessionAttributeServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
         <servlet-name>SetSessionAttributeServlet</servlet-name>
         <url-pattern>/SetSessionAttributeServlet</url-pattern>
     </servlet-mapping>
-	<servlet>
-    <servlet-name>UseridOpenAmtservlet</servlet-name>
-    <servlet-class>your.package.path.UseridOpenAmtservlet</servlet-class>
-</servlet>
-<servlet-mapping>
-    <servlet-name>UseridOpenAmtservlet</servlet-name>
-    <url-pattern>/UseridOpenAmtservlet</url-pattern>
-</servlet-mapping>
-	
 
-
-<context-param>
-    <param-name>gson-version</param-name>
-    <param-value>2.8.8</param-value>
-</context-param>
-
-
+       <context-param>
+        <param-name>gson-version</param-name>
+        <param-value>2.8.8</param-value>
+    </context-param>
 </web-app>
-
-
