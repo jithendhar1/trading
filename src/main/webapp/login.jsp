@@ -18,14 +18,19 @@
     <!-- Main CSS -->
     <link rel="stylesheet" href="css/style.css">       
 </head>
-<body class="account-page">
+
+
+
+<body>
+ <jsp:include page="index.jsp" />
     <!-- Main Wrapper -->
     <div class="main-wrapper">
+    
         <div class="account-content"> 
             <div class="container">
                 <!-- Account Logo -->
                 <div class="account-logo">
-                    <a href="index.jsp"><img style="width:100px;" src="assets/WhatsApp Image 2024-01-29 at 19.01.35_802bac3a.jpg" alt="Company Logo"></a>
+                    <a><img style="width:100px;" src="assets/WhatsApp Image 2024-01-29 at 19.01.35_802bac3a.jpg" alt="Company Logo"></a>
                 </div>
                 <!-- /Account Logo -->
                 <div class="account-box">

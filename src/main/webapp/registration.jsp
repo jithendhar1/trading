@@ -21,8 +21,8 @@ boolean isReferredUser = (ReferredUserID != null && !ReferredUserID.isEmpty());
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <meta name="description" content="Smarthr - Bootstrap Admin Template">
-    <meta name="keywords" content="admin, estimates, bootstrap, business, corporate, creative, management, minimal, modern, accounts, invoice, html5, responsive, CRM, Projects">
-    <meta name="author" content="Dreamguys - Bootstrap Admin Template">
+    <meta name="keywords" content="">
+    <meta name="author" content="Weblabs">
     <meta name="robots" content="noindex, nofollow">
     <title>Registration</title>
 
@@ -47,43 +47,75 @@ boolean isReferredUser = (ReferredUserID != null && !ReferredUserID.isEmpty());
 
     <!-- Custom CSS -->
     <style>
-        body {
-            display: flex;
-            align-i\tems: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-        }
+       
+       .form-container {
+    width: 90%;
+    max-width: 800px; /* You can adjust the max-width as needed */
+    margin: 0 auto; /* Center the form horizontally */
+    height: 76vh;
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: #fff;
+    padding: 18px;
 
-        .form-container {
-            max-width: 600px; /* Set a maximum width if necessary */
-            height: 80vh; /* Adjust the height as needed */
-            border: 2px solid black;
-            border-radius: 10px;
-            background-color: #fff;
-            padding: 20px; /* Adjust the padding as needed */
-        }
+       }
+.custom-logo {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+.custom-logo a {
+    display: block;
+}
+
+.custom-logo img {
+    width: 100px;
+}
+
+.account-wrapper {
+   
+    align-items: center;
+    justify-content: center;
+    height: 66vh;
+     padding:5px;
+}
+
+.account-box {
+  width: 38vw;
+  height:86vh;
+}
+.btn-success {
+    background-color: #ff5e74;
+    }
+
     </style>
 </head>
-<body >
-<div class="main-wrapper">
-        <div class="account-content"> 
+<body>
+
+ <jsp:include page="index.jsp" />
+ 
+     <!-- Main Wrapper -->
+    <div class="main-wrapper">
+    
+   <div class="account-content"> 
             <div class="container">
-<div class="account-logo">
-  <a><img src="assets/WhatsApp Image 2024-01-29 at 19.01.35_802bac3a.jpg" alt="Company Logo"></a>
-</div> 
+            
+             <div  class="custom-logo">
+                    <a><img style="width:75px;" src="assets/WhatsApp Image 2024-01-29 at 19.01.35_802bac3a.jpg" alt="Company Logo"></a>
+                </div>
 
-
-<div  style="width: 1000px;margin-left:320px;" class="row">
-    <form action="./AddUser" method="post" class="form-container col-md-6">
-        <div style="font-weight: bold;" class="text-center">
-            <h2>Registration Form</h2>
-        </div>
-
-        <!-- Your form fields go here -->
-
-        <div class="row">
-        <div class="col-md-6">
+                <div class="account-box">
+                    <div class="account-wrapper">
+                        <h3 class="account-title"> Registration</h3>
+   
+     
+			    <form action="./AddUser" method="post" class="form-container col-md-6">
+			   
+			        <!-- Your form fields go here -->
+			
+			        <div class="row">
+			        <div class="col-md-6">
                 <div class="form-group">
                     <label>User ID<span class="text-danger">*</span></label>
                     <%
@@ -170,7 +202,7 @@ boolean isReferredUser = (ReferredUserID != null && !ReferredUserID.isEmpty());
 
         </div>
         <div class="col-md-6">
-            <button style="margin-left: 160px;" type="submit" class="btn btn-success">Register</button>
+            <button style="margin-left: 185px;" type="submit" class="btn btn-success">Register</button>
         </div>
     </form>
 </div>
@@ -200,6 +232,9 @@ boolean isReferredUser = (ReferredUserID != null && !ReferredUserID.isEmpty());
 <script src="js/jquery.slimscroll.min.js"></script>
 <script src="js/select2.min.js"></script>
 <script src="js/app.js"></script>
-</div></div></div>
+</div>
+</div>
+</div>
+</div>
 </body>
 </html>
