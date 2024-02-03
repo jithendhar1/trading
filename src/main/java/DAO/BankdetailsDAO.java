@@ -202,7 +202,7 @@ public class BankdetailsDAO {
 		    try {
 		        // Step 1: Retrieve the user's open amount from the CustomerAccdetails table
 		        connection = DBUtil.provideConnection();
-		        String query = "SELECT Amount FROM CustomerAccdetails WHERE userID = ?";
+		        String query = "SELECT Amount FROM customeraccdetails WHERE userID = ?";
 		        statement = connection.prepareStatement(query);
 		        statement.setString(1, userID);
 		        resultSet = statement.executeQuery();

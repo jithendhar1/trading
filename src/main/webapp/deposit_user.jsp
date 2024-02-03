@@ -225,6 +225,7 @@ if (uid != null) {
 					}}
 					%>
 				</table>
+				<br>
                 <button onclick="exportToExcel()">Export to Excel</button>
 				<button id="downloadPdf">Download PDF</button>
 			</div>

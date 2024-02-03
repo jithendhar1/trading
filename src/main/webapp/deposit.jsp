@@ -5,7 +5,7 @@
 <%@page import="DAO.DepositDAO"%>
 <%
     // Getting the username from the session
-    String username = (String)session.getAttribute("customername");
+    String username = (String)session.getAttribute("username");
 %>
 <!DOCTYPE html>
 <html lang="en">
