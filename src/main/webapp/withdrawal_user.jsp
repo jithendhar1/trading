@@ -177,6 +177,7 @@ for (TransactionBean tasks : tax) {
 %>
 
 								</table>
+								<br>
 			    <button onclick="exportToExcel()">Export to Excel</button>
 				<button id="downloadPdf">Download PDF</button>
 <div class="row justify-content-center align-items-center" id = "flag1">

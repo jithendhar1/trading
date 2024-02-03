@@ -71,9 +71,8 @@ public class DepositDAO {
 		        ResultSet rs = null;
 			 try {
 				 connection = DBUtil.provideConnection();
-			   String query = "SELECT  count(*) as count   FROM "
-			   		+ "(SELECT  TransactionID, transactiondate, Amount, userID  ,   max(status) status  FROM trading.transaction "
-			   		+ "where Transactiontype='Deposit' group by userid,  date(transactiondate),amount) test";
+			   String query = "SELECT COUNT(*) AS count FROM (SELECT MAX(TransactionID) AS TransactionID, MAX(transactiondate) AS transactiondate, MAX(Amount) AS Amount, userID, MAX(status) AS status FROM trading.transaction WHERE Transactiontype = 'Deposit' GROUP BY userid, DATE(transactiondate), amount) AS test;\r\n"
+			   		+ "";
 			 ps = connection.prepareStatement(query);
 			 rs = ps.executeQuery();
 			 while (rs.next()) {
